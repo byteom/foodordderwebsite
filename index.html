@@ -6,15 +6,24 @@
     <title>FoodExpress - Order Delicious Food Online</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
 </head>
 <body>
     <header>
         <div class="container">
             <h1>FoodExpress</h1>
+            <div class="location-selector">
+                <i class="fas fa-map-marker-alt"></i>
+                <span id="current-location">Loading location...</span>
+                <button id="change-location">Change</button>
+            </div>
             <nav>
                 <ul>
                     <li><a href="#home">Home</a></li>
                     <li><a href="#menu">Menu</a></li>
+                    <li><a href="#for-you">For You</a></li>
+                    <li><a href="#previous-orders">Orders</a></li>
+                    <li><a href="#profile"><i class="fas fa-user"></i></a></li>
                     <li><a href="#cart"><i class="fas fa-shopping-cart"></i> <span id="cart-count">0</span></a></li>
                 </ul>
             </nav>
@@ -26,12 +35,22 @@
             <div class="hero-content">
                 <h2>Delicious Food Delivered To Your Doorstep</h2>
                 <p>Order from the best restaurants in town with just a few clicks.</p>
-                <a href="#menu" class="btn">Order Now</a>
+                <div class="hero-buttons">
+                    <a href="#menu" class="btn">Order Now</a>
+                    <a href="#special-offers" class="btn btn-outline">Special Offers</a>
+                </div>
             </div>
         </section>
 
-        <section id="menu">
-            <h2>Our Menu</h2>
+        <section id="special-offers" class="section-with-header">
+            <h2><i class="fas fa-tag"></i> Special Offers</h2>
+            <div class="offers-container" id="special-offers-container">
+                <!-- Offers will be loaded here by JavaScript -->
+            </div>
+        </section>
+
+        <section id="menu" class="section-with-header">
+            <h2><i class="fas fa-utensils"></i> Our Menu</h2>
             <div class="menu-filters">
                 <button class="filter-btn active" data-category="all">All</button>
                 <button class="filter-btn" data-category="pizza">Pizza</button>
@@ -39,13 +58,39 @@
                 <button class="filter-btn" data-category="pasta">Pasta</button>
                 <button class="filter-btn" data-category="salad">Salads</button>
                 <button class="filter-btn" data-category="drink">Drinks</button>
+                <button class="filter-btn" data-category="dessert">Desserts</button>
             </div>
             <div class="menu-items" id="menu-items">
                 <!-- Menu items will be loaded here by JavaScript -->
             </div>
         </section>
+
+        <section id="for-you" class="section-with-header">
+            <h2><i class="fas fa-heart"></i> For You</h2>
+            <p class="section-description">Recommended based on your preferences and order history</p>
+            <div class="menu-items" id="for-you-items">
+                <!-- Recommended items will be loaded here by JavaScript -->
+            </div>
+        </section>
+
+        <section id="previous-orders" class="section-with-header">
+            <h2><i class="fas fa-history"></i> Your Previous Orders</h2>
+            <div class="orders-container" id="previous-orders-container">
+                <!-- Previous orders will be loaded here by JavaScript -->
+            </div>
+        </section>
+
+        <section id="location" class="section-with-header">
+            <h2><i class="fas fa-map-marked-alt"></i> Delivery Area</h2>
+            <div id="map" style="height: 400px; border-radius: 10px;"></div>
+            <div class="delivery-info">
+                <p><i class="fas fa-info-circle"></i> We deliver within a 5-mile radius from our restaurant.</p>
+                <p><i class="fas fa-clock"></i> Delivery time: 30-45 minutes</p>
+            </div>
+        </section>
     </main>
 
+    <!-- Cart Modal -->
     <div id="cart-modal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
@@ -70,26 +115,118 @@
                     <label for="phone">Phone Number</label>
                     <input type="tel" id="phone" required>
                 </div>
-                <button type="submit" class="btn">Place Order</button>
+                <div class="form-group">
+                    <label for="instructions">Delivery Instructions (optional)</label>
+                    <textarea id="instructions" placeholder="e.g., Leave at front door"></textarea>
+                </div>
+                <button type="submit" class="btn">Place Order ($<span id="order-total">0.00</span>)</button>
             </form>
         </div>
     </div>
 
+    <!-- Profile Modal -->
+    <div id="profile-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Your Profile</h2>
+            <div class="profile-info">
+                <div class="profile-avatar">
+                    <i class="fas fa-user-circle"></i>
+                    <button id="change-avatar">Change</button>
+                </div>
+                <div class="profile-details">
+                    <h3 id="profile-name">Guest User</h3>
+                    <p><i class="fas fa-envelope"></i> <span id="profile-email">guest@example.com</span></p>
+                    <p><i class="fas fa-phone"></i> <span id="profile-phone">Not provided</span></p>
+                </div>
+            </div>
+            <div class="profile-stats">
+                <div class="stat-item">
+                    <div class="stat-value" id="total-orders">0</div>
+                    <div class="stat-label">Total Orders</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="favorite-items">0</div>
+                    <div class="stat-label">Favorites</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="member-since">Today</div>
+                    <div class="stat-label">Member Since</div>
+                </div>
+            </div>
+            <h3>Your Favorites</h3>
+            <div class="favorites-container" id="favorites-container">
+                <!-- Favorite items will be loaded here -->
+            </div>
+            <button id="logout-btn" class="btn btn-outline">Sign Out</button>
+        </div>
+    </div>
+
+    <!-- Location Modal -->
+    <div id="location-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Change Delivery Location</h2>
+            <div id="location-map" style="height: 300px; margin-bottom: 20px;"></div>
+            <div class="form-group">
+                <label for="delivery-address">Enter your address</label>
+                <input type="text" id="delivery-address" placeholder="Street, City, ZIP Code">
+            </div>
+            <button id="confirm-location" class="btn">Confirm Location</button>
+        </div>
+    </div>
+
+    <!-- Order Confirmation -->
     <div id="order-confirmation" class="modal">
         <div class="modal-content confirmation">
             <h2>Order Confirmed!</h2>
+            <div class="confirmation-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
             <p>Thank you for your order. It will be delivered shortly.</p>
             <p>Order ID: <span id="order-id"></span></p>
+            <p>Estimated delivery: <span id="delivery-time"></span></p>
             <button id="close-confirmation" class="btn">OK</button>
         </div>
     </div>
 
     <footer>
         <div class="container">
-            <p>&copy; 2023 FoodExpress. All rights reserved.</p>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>FoodExpress</h3>
+                    <p>Delivering delicious meals since 2023</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#menu">Menu</a></li>
+                        <li><a href="#special-offers">Offers</a></li>
+                        <li><a href="#previous-orders">Your Orders</a></li>
+                        <li><a href="#profile">Account</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Us</h3>
+                    <ul>
+                        <li><i class="fas fa-phone"></i> (123) 456-7890</li>
+                        <li><i class="fas fa-envelope"></i> support@foodexpress.com</li>
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Food St, City</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 FoodExpress. All rights reserved.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
         </div>
     </footer>
 
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
