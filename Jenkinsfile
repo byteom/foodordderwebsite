@@ -2,64 +2,75 @@ pipeline {
     agent any
 
     environment {
-        // Use your actual Docker Hub username (replace 'byteom')
-        DOCKER_HUB = credentials('docker-hub-credentials')
-        IMAGE_NAME = 'byteom/food-order-website'  // MUST match your Docker Hub username
-        TAG = "${env.BUILD_ID}"
+        DOCKER_HUB_CREDENTIALS = 'docker-hub-credentials'
+        IMAGE_NAME = 'byteom/food-order-website'
+        GIT_REPO_URL = 'https://github.com/byteom/foodordderwebsite.git'
+        BRANCH_NAME = 'main'
     }
 
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/byteom/foodordderwebsite.git'
+                script {
+                    echo "Checking out repository from GitHub..."
+                    git url: GIT_REPO_URL, branch: BRANCH_NAME
+                }
             }
         }
 
         stage('Build Docker Image') {
             steps {
                 script {
-                    // Build with proper tagging
-                    sh """
-                        docker build -t ${IMAGE_NAME}:${TAG} .
-                        docker tag ${IMAGE_NAME}:${TAG} ${IMAGE_NAME}:latest
-                    """
+                    echo "Building Docker image..."
+                    sh '''
+                        docker build -t $IMAGE_NAME .
+                    '''
                 }
             }
         }
 
-        stage('Run Tests') {
+        stage('Login to Docker Hub') {
             steps {
-                echo 'Running tests...'
-                // Add your actual test commands here
+                script {
+                    echo "Logging in to Docker Hub..."
+                    withCredentials([usernamePassword(credentialsId: DOCKER_HUB_CREDENTIALS, passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
+                        sh '''
+                            docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+                        '''
+                    }
+                }
             }
         }
 
         stage('Push to Docker Hub') {
             steps {
                 script {
-                    docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
-                        // Push both tagged versions
-                        docker.image("${IMAGE_NAME}:${TAG}").push()
-                        docker.image("${IMAGE_NAME}:latest").push()
-                    }
+                    echo "Pushing Docker image to Docker Hub..."
+                    sh '''
+                        docker push $IMAGE_NAME
+                    '''
                 }
             }
         }
 
-        stage('Deploy to Staging') {
+        stage('Deploy with Docker Compose') {
             steps {
-                echo 'Deploying to staging...'
-                // Add your deployment commands here
+                script {
+                    echo "Deploying application with Docker Compose..."
+                    sh '''
+                        docker-compose -f docker-compose.yml up -d
+                    '''
+                }
             }
         }
     }
 
     post {
-        always {
-            cleanWs()
+        success {
+            echo '✅ Build and Push to Docker Hub completed successfully! Deployment successful.'
         }
         failure {
-            echo 'Pipeline failed!'
+            echo '❌ Build failed. Please check the logs above.'
         }
     }
 }
