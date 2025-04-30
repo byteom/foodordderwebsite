@@ -1,11 +1,8 @@
-# Stage 1: Build
+# Stage 1: Build (simplified for static site)
 FROM node:16 as build-stage
 
 WORKDIR /app
-COPY package*.json ./
-RUN npm install
-COPY . .
-# No build step needed as it's plain HTML/CSS/JS
+COPY . .   
 
 # Stage 2: Production
 FROM nginx:alpine
