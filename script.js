@@ -144,6 +144,78 @@ document.addEventListener('DOMContentLoaded', function() {
             prepTime: '10 min',
             calories: 320,
             popular: true
+        },
+        {
+            id: 13,
+            name: 'Veggie Supreme Pizza',
+            description: 'Pizza topped with bell peppers, mushrooms, onions, and olives',
+            price: 16.99,
+            category: 'pizza',
+            image: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
+            rating: 4.4,
+            prepTime: '20-25 min',
+            calories: 850,
+            popular: false
+        },
+        {
+            id: 14,
+            name: 'Vegan Burger',
+            description: 'Plant-based burger with lettuce, tomato, and vegan cheese',
+            price: 12.99,
+            category: 'burger',
+            image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
+            rating: 4.1,
+            prepTime: '15-20 min',
+            calories: 380,
+            popular: false
+        },
+        {
+            id: 15,
+            name: 'Gluten-Free Pasta',
+            description: 'Pasta made with rice flour, served with tomato sauce',
+            price: 14.99,
+            category: 'pasta',
+            image: 'https://images.unsplash.com/photo-1555949258-eb67b1ef0ceb?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
+            rating: 4.0,
+            prepTime: '18-22 min',
+            calories: 420,
+            popular: false
+        },
+        {
+            id: 16,
+            name: 'Low-Calorie Chicken Salad',
+            description: 'Grilled chicken breast with mixed greens and light dressing',
+            price: 11.99,
+            category: 'salad',
+            image: 'https://images.unsplash.com/photo-1546793665-c74683f339c1?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
+            rating: 4.3,
+            prepTime: '12-15 min',
+            calories: 280,
+            popular: true
+        },
+        {
+            id: 17,
+            name: 'Fresh Fruit Smoothie',
+            description: 'Blend of strawberries, bananas, and yogurt',
+            price: 5.99,
+            category: 'drink',
+            image: 'https://images.unsplash.com/photo-1508253730651-e5ace80a7025?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
+            rating: 4.5,
+            prepTime: '8 min',
+            calories: 180,
+            popular: true
+        },
+        {
+            id: 18,
+            name: 'Cheesecake',
+            description: 'New York style cheesecake with berry compote',
+            price: 8.99,
+            category: 'dessert',
+            image: 'https://images.unsplash.com/photo-1535920527002-b35e9672ebf1?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
+            rating: 4.6,
+            prepTime: '5 min',
+            calories: 520,
+            popular: false
         }
     ];
 
@@ -189,6 +261,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const orderTotal = document.getElementById('order-total');
     const closeModal = document.querySelector('.close');
     const cartLink = document.querySelector('a[href="#cart"]');
+    const profileLink = document.querySelector('a[href="#profile"]');
     const filterButtons = document.querySelectorAll('.filter-btn');
     const deliveryForm = document.getElementById('delivery-form');
     const orderConfirmation = document.getElementById('order-confirmation');
@@ -197,7 +270,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const deliveryTimeSpan = document.getElementById('delivery-time');
     const previousOrdersContainer = document.getElementById('previous-orders-container');
     const specialOffersContainer = document.getElementById('special-offers-container');
-    const profileLink = document.querySelector('a[href="#profile"]');
     const profileModal = document.getElementById('profile-modal');
     const profileClose = profileModal.querySelector('.close');
     const logoutBtn = document.getElementById('logout-btn');
@@ -207,6 +279,59 @@ document.addEventListener('DOMContentLoaded', function() {
     const locationClose = locationModal.querySelector('.close');
     const confirmLocationBtn = document.getElementById('confirm-location');
     const deliveryAddressInput = document.getElementById('delivery-address');
+
+    // Search and Filter Elements
+    const menuSearch = document.getElementById('menu-search');
+    const clearSearchBtn = document.getElementById('clear-search');
+    const searchSuggestions = document.getElementById('search-suggestions');
+    const priceRangeFilter = document.getElementById('price-range');
+    const prepTimeFilter = document.getElementById('prep-time');
+    const dietaryFilter = document.getElementById('dietary-filter');
+    const sortByFilter = document.getElementById('sort-by');
+    const clearFiltersBtn = document.getElementById('clear-filters');
+    const recentSearches = document.getElementById('recent-searches');
+    const recentSearchTags = document.getElementById('recent-search-tags');
+    const resultsCount = document.getElementById('results-count');
+    const activeFilters = document.getElementById('active-filters');
+    
+    // Search and Filter State
+    let currentSearchTerm = '';
+    let currentFilters = {
+        category: 'all',
+        priceRange: '',
+        prepTime: '',
+        dietary: '',
+        sortBy: 'name'
+    };
+    let recentSearchHistory = JSON.parse(localStorage.getItem('recentSearches')) || [];
+    let searchTimeout;
+    let selectedSuggestionIndex = -1;
+
+    // Form validation elements
+    const formInputs = {
+        name: document.getElementById('name'),
+        email: document.getElementById('email'),
+        phone: document.getElementById('phone'),
+        address: document.getElementById('address'),
+        instructions: document.getElementById('instructions')
+    };
+
+    const formErrors = {
+        name: document.getElementById('name-error'),
+        email: document.getElementById('email-error'),
+        phone: document.getElementById('phone-error'),
+        address: document.getElementById('address-error'),
+        instructions: document.getElementById('instructions-error')
+    };
+
+    const submitOrderBtn = document.getElementById('submit-order-btn');
+
+    // Navigation links for smooth scrolling
+    const navLinks = document.querySelectorAll('nav a[href^="#"]:not([href="#cart"]):not([href="#profile"])');
+
+    // Dark mode toggle
+    const darkModeToggle = document.getElementById('dark-mode-toggle');
+    const darkModeIcon = darkModeToggle.querySelector('i');
 
     // Initialize cart, user data, and location from local storage
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -223,6 +348,9 @@ document.addEventListener('DOMContentLoaded', function() {
         coordinates: [31.3260, 75.5762] // Coordinates for Jalandhar, Punjab, India
     };
     
+    // Initialize dark mode from local storage
+    let isDarkMode = localStorage.getItem('darkMode') === 'true';
+    
     // Initialize maps
     let map, locationMap;
 
@@ -234,6 +362,9 @@ document.addEventListener('DOMContentLoaded', function() {
             ? menuItems 
             : menuItems.filter(item => item.category === category);
         
+        console.log(`Displaying ${filteredItems.length} items for category: ${category}`);
+        console.log('Items:', filteredItems.map(item => ({ name: item.name, category: item.category })));
+        
         filteredItems.forEach(item => {
             const isFavorite = user.favorites.includes(item.id);
             const menuItemElement = document.createElement('div');
@@ -242,7 +373,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <button class="favorite-btn ${isFavorite ? 'active' : ''}" data-id="${item.id}">
                     <i class="fas fa-heart"></i>
                 </button>
-                <img src="${item.image}" alt="${item.name}" class="menu-item-img">
+                <img src="${item.image}" alt="${item.name}" class="menu-item-img" onerror="this.src='https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80'">
                 <div class="menu-item-content">
                     <h3 class="menu-item-title">${item.name}</h3>
                     <div class="rating">
@@ -311,7 +442,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <button class="favorite-btn ${isFavorite ? 'active' : ''}" data-id="${item.id}">
                     <i class="fas fa-heart"></i>
                 </button>
-                <img src="${item.image}" alt="${item.name}" class="menu-item-img">
+                <img src="${item.image}" alt="${item.name}" class="menu-item-img" onerror="this.src='https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80'">
                 <div class="menu-item-content">
                     <h3 class="menu-item-title">${item.name}</h3>
                     <div class="rating">
@@ -345,7 +476,7 @@ document.addEventListener('DOMContentLoaded', function() {
             offerElement.classList.add('offer-card');
             offerElement.innerHTML = `
                 <div class="offer-badge">Special Offer</div>
-                <img src="${offer.image}" alt="${offer.title}" class="offer-image">
+                <img src="${offer.image}" alt="${offer.title}" class="offer-image" onerror="this.src='https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80'">
                 <div class="offer-content">
                     <h3 class="offer-title">${offer.title}</h3>
                     <p class="offer-description">${offer.description}</p>
@@ -585,7 +716,7 @@ document.addEventListener('DOMContentLoaded', function() {
             cartItemElement.classList.add('cart-item');
             cartItemElement.innerHTML = `
                 <div class="cart-item-info">
-                    <img src="${item.image}" alt="${item.name}" class="cart-item-img">
+                    <img src="${item.image}" alt="${item.name}" class="cart-item-img" onerror="this.src='https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80'">
                     <div class="cart-item-details">
                         <div class="cart-item-name">${item.name}</div>
                         <div class="cart-item-desc">${item.description}</div>
@@ -667,6 +798,32 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 3000);
     }
 
+    // Dark mode toggle function
+    function toggleDarkMode() {
+        isDarkMode = !isDarkMode;
+        
+        if (isDarkMode) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            darkModeIcon.className = 'fas fa-sun';
+            localStorage.setItem('darkMode', 'true');
+        } else {
+            document.documentElement.setAttribute('data-theme', 'light');
+            darkModeIcon.className = 'fas fa-moon';
+            localStorage.setItem('darkMode', 'false');
+        }
+    }
+
+    // Initialize dark mode on page load
+    function initDarkMode() {
+        if (isDarkMode) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            darkModeIcon.className = 'fas fa-sun';
+        } else {
+            document.documentElement.setAttribute('data-theme', 'light');
+            darkModeIcon.className = 'fas fa-moon';
+        }
+    }
+
     // Filter menu items
     filterButtons.forEach(button => {
         button.addEventListener('click', () => {
@@ -702,6 +859,51 @@ document.addEventListener('DOMContentLoaded', function() {
         profileModal.style.display = 'none';
     });
 
+    // Click outside to close profile modal
+    window.addEventListener('click', (e) => {
+        if (e.target === profileModal) {
+            profileModal.style.display = 'none';
+        }
+    });
+
+    // Escape key to close profile modal
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && profileModal.style.display === 'block') {
+            profileModal.style.display = 'none';
+        }
+    });
+
+    // Change avatar functionality
+    const changeAvatarBtn = document.getElementById('change-avatar');
+    changeAvatarBtn.addEventListener('click', () => {
+        // Create a file input for image upload
+        const fileInput = document.createElement('input');
+        fileInput.type = 'file';
+        fileInput.accept = 'image/*';
+        fileInput.style.display = 'none';
+        
+        fileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    // Update the avatar with the selected image
+                    const avatarContainer = document.querySelector('.avatar-container');
+                    avatarContainer.innerHTML = `<img src="${e.target.result}" alt="Profile Avatar" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">`;
+                    
+                    // Save to user data
+                    user.avatar = e.target.result;
+                    localStorage.setItem('user', JSON.stringify(user));
+                    
+                    showNotification('Profile photo updated successfully!');
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+        
+        fileInput.click();
+    });
+
     // Logout
     logoutBtn.addEventListener('click', () => {
         user = {
@@ -726,14 +928,28 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('profile-email').textContent = user.email;
         document.getElementById('profile-phone').textContent = user.phone || 'Not provided';
         
+        // Update avatar display
+        const avatarContainer = document.querySelector('.avatar-container');
+        if (user.avatar) {
+            avatarContainer.innerHTML = `<img src="${user.avatar}" alt="Profile Avatar" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">`;
+        } else {
+            avatarContainer.innerHTML = '<i class="fas fa-user-circle"></i>';
+        }
+        
         const orders = JSON.parse(localStorage.getItem('orders')) || [];
         const userOrders = orders.filter(order => order.customer && order.customer.name === user.name);
         document.getElementById('total-orders').textContent = userOrders.length;
         
         document.getElementById('favorite-items').textContent = user.favorites.length;
         
+        // Fix date formatting
         const memberSince = new Date(user.memberSince);
-        document.getElementById('member-since').textContent = memberSince.toLocaleDateString();
+        const options = { 
+            year: 'numeric', 
+            month: 'short', 
+            day: 'numeric' 
+        };
+        document.getElementById('member-since').textContent = memberSince.toLocaleDateString('en-US', options);
     }
 
     // Display favorite items
@@ -752,7 +968,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const favoriteElement = document.createElement('div');
                 favoriteElement.classList.add('favorite-item');
                 favoriteElement.innerHTML = `
-                    <img src="${item.image}" alt="${item.name}">
+                    <img src="${item.image}" alt="${item.name}" onerror="this.src='https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80'">
                     <div class="favorite-item-name">${item.name}</div>
                 `;
                 favoritesContainer.appendChild(favoriteElement);
@@ -843,56 +1059,86 @@ document.addEventListener('DOMContentLoaded', function() {
         e.preventDefault();
         
         if (cart.length === 0) {
-            alert('Your cart is empty. Please add items before placing an order.');
+            showNotification('Your cart is empty. Please add items before placing an order.');
             return;
         }
+
+        // Validate form before submission
+        if (!validateForm()) {
+            showValidationSummary();
+            return;
+        }
+
+        // Show loading state
+        submitOrderBtn.disabled = true;
+        submitOrderBtn.classList.add('loading');
+        submitOrderBtn.innerHTML = '<span>Processing Order...</span>';
         
-        const name = document.getElementById('name').value;
-        const address = document.getElementById('address').value;
-        const phone = document.getElementById('phone').value;
-        const instructions = document.getElementById('instructions').value;
+        // Get form data
+        const name = formInputs.name.value.trim();
+        const email = formInputs.email.value.trim();
+        const phone = formInputs.phone.value.trim();
+        const address = formInputs.address.value.trim();
+        const instructions = formInputs.instructions.value.trim();
         
         // Update user info if changed
         if (name && name !== user.name) {
             user.name = name;
+            if (email) user.email = email;
             if (phone) user.phone = phone;
             localStorage.setItem('user', JSON.stringify(user));
             updateProfileStats();
         }
         
-        // Save order to local storage
-        const order = {
-            id: Date.now(),
-            date: new Date().toISOString(),
-            items: [...cart],
-            total: parseFloat(cartTotal.textContent),
-            customer: { name, address, phone, instructions },
-            status: 'pending',
-            location: deliveryLocation
-        };
-        
-        let orders = JSON.parse(localStorage.getItem('orders')) || [];
-        orders.push(order);
-        localStorage.setItem('orders', JSON.stringify(orders));
-        
-        // Clear cart
-        cart = [];
-        updateCart();
-        deliveryForm.reset();
-        
-        // Show confirmation
-        orderIdSpan.textContent = order.id;
-        
-        // Calculate estimated delivery time (30-45 minutes from now)
-        const now = new Date();
-        const deliveryTime = new Date(now.getTime() + (30 + Math.random() * 15) * 60000);
-        deliveryTimeSpan.textContent = deliveryTime.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-        
-        cartModal.style.display = 'none';
-        orderConfirmation.style.display = 'block';
-        
-        // Update previous orders display
-        displayPreviousOrders();
+        // Simulate order processing delay
+        setTimeout(() => {
+            // Save order to local storage
+            const order = {
+                id: Date.now(),
+                date: new Date().toISOString(),
+                items: [...cart],
+                total: parseFloat(cartTotal.textContent),
+                customer: { name, email, phone, address, instructions },
+                status: 'pending',
+                location: deliveryLocation
+            };
+            
+            let orders = JSON.parse(localStorage.getItem('orders')) || [];
+            orders.push(order);
+            localStorage.setItem('orders', JSON.stringify(orders));
+            
+            // Clear cart
+            cart = [];
+            updateCart();
+            deliveryForm.reset();
+            
+            // Reset form validation states
+            Object.keys(formInputs).forEach(fieldName => {
+                formInputs[fieldName].classList.remove('valid', 'invalid');
+                formErrors[fieldName].classList.remove('show');
+            });
+            
+            // Show confirmation
+            orderIdSpan.textContent = order.id;
+            
+            // Calculate estimated delivery time (30-45 minutes from now)
+            const now = new Date();
+            const deliveryTime = new Date(now.getTime() + (30 + Math.random() * 15) * 60000);
+            deliveryTimeSpan.textContent = deliveryTime.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+            
+            // Reset button state
+            submitOrderBtn.disabled = false;
+            submitOrderBtn.classList.remove('loading');
+            submitOrderBtn.innerHTML = '<i class="fas fa-check"></i><span>Place Order ($<span id="order-total">0.00</span>)</span>';
+            
+            cartModal.style.display = 'none';
+            orderConfirmation.style.display = 'block';
+            
+            // Update previous orders display
+            displayPreviousOrders();
+            
+            showNotification('Order placed successfully!');
+        }, 2000); // 2 second delay to simulate processing
     });
 
     // Close confirmation modal
@@ -905,15 +1151,55 @@ document.addEventListener('DOMContentLoaded', function() {
         if (e.target === cartModal) {
             cartModal.style.display = 'none';
         }
-        if (e.target === profileModal) {
-            profileModal.style.display = 'none';
-        }
         if (e.target === locationModal) {
             locationModal.style.display = 'none';
         }
         if (e.target === orderConfirmation) {
             orderConfirmation.style.display = 'none';
         }
+    });
+
+    // Smooth scrolling for navigation links
+    navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const targetId = link.getAttribute('href').substring(1);
+            const targetSection = document.getElementById(targetId);
+            
+            if (targetSection) {
+                // Remove active class from all nav links
+                navLinks.forEach(navLink => navLink.classList.remove('active'));
+                // Add active class to clicked link
+                link.classList.add('active');
+                
+                // Smooth scroll to target section
+                targetSection.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+
+    // Update active nav link based on scroll position
+    window.addEventListener('scroll', () => {
+        const sections = document.querySelectorAll('section[id]');
+        const scrollPos = window.scrollY + 100; // Offset for header height
+        
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.offsetHeight;
+            const sectionId = section.getAttribute('id');
+            
+            if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${sectionId}`) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+        });
     });
 
     // Initialize the page
@@ -924,6 +1210,134 @@ document.addEventListener('DOMContentLoaded', function() {
     updateCart();
     initLocation();
     updateProfileStats();
+    setupFormValidation();
+    displayRecentSearches();
+
+    // Set Home link as active by default
+    const homeLink = document.querySelector('nav a[href="#home"]');
+    if (homeLink) {
+        homeLink.classList.add('active');
+    }
+
+    // Search and Filter Event Listeners
+    menuSearch.addEventListener('input', (e) => {
+        currentSearchTerm = e.target.value;
+        
+        if (currentSearchTerm.trim()) {
+            clearSearchBtn.style.display = 'block';
+            
+            // Clear previous timeout
+            if (searchTimeout) {
+                clearTimeout(searchTimeout);
+            }
+            
+            // Debounce search suggestions
+            searchTimeout = setTimeout(() => {
+                generateSearchSuggestions(currentSearchTerm);
+            }, 300);
+        } else {
+            clearSearchBtn.style.display = 'none';
+            searchSuggestions.style.display = 'none';
+        }
+        
+        performSearch();
+    });
+    
+    menuSearch.addEventListener('keydown', (e) => {
+        const suggestions = searchSuggestions.querySelectorAll('.search-suggestion-item');
+        
+        if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            selectedSuggestionIndex = Math.min(selectedSuggestionIndex + 1, suggestions.length - 1);
+            updateSelectedSuggestion(suggestions);
+        } else if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            selectedSuggestionIndex = Math.max(selectedSuggestionIndex - 1, -1);
+            updateSelectedSuggestion(suggestions);
+        } else if (e.key === 'Enter') {
+            e.preventDefault();
+            if (selectedSuggestionIndex >= 0 && suggestions[selectedSuggestionIndex]) {
+                const suggestion = suggestions[selectedSuggestionIndex];
+                const text = suggestion.querySelector('span').textContent;
+                menuSearch.value = text;
+                currentSearchTerm = text;
+                addToRecentSearches(text);
+                searchSuggestions.style.display = 'none';
+                performSearch();
+            } else {
+                performSearch();
+            }
+        } else if (e.key === 'Escape') {
+            searchSuggestions.style.display = 'none';
+            selectedSuggestionIndex = -1;
+        }
+    });
+    
+    clearSearchBtn.addEventListener('click', () => {
+        menuSearch.value = '';
+        currentSearchTerm = '';
+        clearSearchBtn.style.display = 'none';
+        searchSuggestions.style.display = 'none';
+        performSearch();
+    });
+    
+    // Filter event listeners
+    priceRangeFilter.addEventListener('change', (e) => {
+        currentFilters.priceRange = e.target.value;
+        performSearch();
+    });
+    
+    prepTimeFilter.addEventListener('change', (e) => {
+        currentFilters.prepTime = e.target.value;
+        performSearch();
+    });
+    
+    dietaryFilter.addEventListener('change', (e) => {
+        currentFilters.dietary = e.target.value;
+        performSearch();
+    });
+    
+    sortByFilter.addEventListener('change', (e) => {
+        currentFilters.sortBy = e.target.value;
+        performSearch();
+    });
+    
+    clearFiltersBtn.addEventListener('click', clearAllFilters);
+    
+    // Category filter buttons
+    filterButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+            // Remove active class from all buttons
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            
+            // Add active class to clicked button
+            e.target.classList.add('active');
+            
+            // Update category filter
+            const category = e.target.getAttribute('data-category');
+            currentFilters.category = category;
+            
+            performSearch();
+        });
+    });
+    
+    // Click outside to close search suggestions
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.search-section')) {
+            searchSuggestions.style.display = 'none';
+            selectedSuggestionIndex = -1;
+        }
+    });
+    
+    function updateSelectedSuggestion(suggestions) {
+        suggestions.forEach((suggestion, index) => {
+            if (index === selectedSuggestionIndex) {
+                suggestion.classList.add('selected');
+            } else {
+                suggestion.classList.remove('selected');
+            }
+        });
+    }
 
     // Add notification styles dynamically
     const style = document.createElement('style');
@@ -946,4 +1360,562 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     `;
     document.head.appendChild(style);
+
+    // Initialize dark mode on page load
+    initDarkMode();
+
+    // Dark mode toggle event listener
+    darkModeToggle.addEventListener('click', toggleDarkMode);
+
+    // Form Validation Functions
+    const validationRules = {
+        name: {
+            required: true,
+            minLength: 2,
+            maxLength: 50,
+            pattern: /^[A-Za-z\s]+$/,
+            message: 'Name must be 2-50 characters and contain only letters and spaces'
+        },
+        email: {
+            required: true,
+            pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+            message: 'Please enter a valid email address'
+        },
+        phone: {
+            required: true,
+            pattern: /^[\+]?[0-9\s\-\(\)]{10,15}$/,
+            message: 'Please enter a valid phone number (10-15 digits)'
+        },
+        address: {
+            required: true,
+            minLength: 10,
+            maxLength: 200,
+            message: 'Address must be 10-200 characters long'
+        },
+        instructions: {
+            required: false,
+            maxLength: 100,
+            message: 'Instructions must be less than 100 characters'
+        }
+    };
+
+    // Validate individual field
+    function validateField(fieldName, value) {
+        const rules = validationRules[fieldName];
+        const input = formInputs[fieldName];
+        const errorElement = formErrors[fieldName];
+
+        // Clear previous validation states
+        input.classList.remove('valid', 'invalid');
+        errorElement.classList.remove('show');
+        errorElement.textContent = '';
+
+        // Check if field is empty and required
+        if (rules.required && (!value || value.trim() === '')) {
+            input.classList.add('invalid');
+            errorElement.textContent = `${fieldName.charAt(0).toUpperCase() + fieldName.slice(1)} is required`;
+            errorElement.classList.add('show');
+            return false;
+        }
+
+        // Skip validation for empty optional fields
+        if (!rules.required && (!value || value.trim() === '')) {
+            return true;
+        }
+
+        // Check minimum length
+        if (rules.minLength && value.length < rules.minLength) {
+            input.classList.add('invalid');
+            errorElement.textContent = rules.message;
+            errorElement.classList.add('show');
+            return false;
+        }
+
+        // Check maximum length
+        if (rules.maxLength && value.length > rules.maxLength) {
+            input.classList.add('invalid');
+            errorElement.textContent = rules.message;
+            errorElement.classList.add('show');
+            return false;
+        }
+
+        // Check pattern
+        if (rules.pattern && !rules.pattern.test(value)) {
+            input.classList.add('invalid');
+            errorElement.textContent = rules.message;
+            errorElement.classList.add('show');
+            return false;
+        }
+
+        // Field is valid
+        input.classList.add('valid');
+        return true;
+    }
+
+    // Validate entire form
+    function validateForm() {
+        let isValid = true;
+        
+        Object.keys(formInputs).forEach(fieldName => {
+            const value = formInputs[fieldName].value.trim();
+            if (!validateField(fieldName, value)) {
+                isValid = false;
+            }
+        });
+
+        return isValid;
+    }
+
+    // Show form validation summary
+    function showValidationSummary() {
+        const invalidFields = Object.keys(formInputs).filter(fieldName => {
+            return !validateField(fieldName, formInputs[fieldName].value.trim());
+        });
+
+        if (invalidFields.length > 0) {
+            showNotification(`Please fix ${invalidFields.length} error(s) in the form`);
+            // Focus on first invalid field
+            const firstInvalidField = formInputs[invalidFields[0]];
+            firstInvalidField.focus();
+            return false;
+        }
+
+        return true;
+    }
+
+    // Setup form validation
+    function setupFormValidation() {
+        Object.keys(formInputs).forEach(fieldName => {
+            const input = formInputs[fieldName];
+            
+            // Add event listeners for real-time validation
+            input.addEventListener('blur', () => {
+                validateField(fieldName, input.value.trim());
+            });
+
+            input.addEventListener('input', () => {
+                // Clear validation state on input
+                input.classList.remove('valid', 'invalid');
+                formErrors[fieldName].classList.remove('show');
+            });
+
+            // Special handling for phone number formatting
+            if (fieldName === 'phone') {
+                input.addEventListener('input', (e) => {
+                    let value = e.target.value.replace(/\D/g, ''); // Remove non-digits
+                    
+                    // Format phone number as user types
+                    if (value.length > 0) {
+                        if (value.length <= 3) {
+                            value = `(${value}`;
+                        } else if (value.length <= 6) {
+                            value = `(${value.slice(0, 3)}) ${value.slice(3)}`;
+                        } else {
+                            value = `(${value.slice(0, 3)}) ${value.slice(3, 6)}-${value.slice(6, 10)}`;
+                        }
+                    }
+                    
+                    e.target.value = value;
+                });
+            }
+        });
+    }
+
+    // Search and Filter Functions
+    function performSearch() {
+        const searchTerm = currentSearchTerm.toLowerCase().trim();
+        const filters = currentFilters;
+        
+        // Show loading state
+        menuContainer.innerHTML = '<div class="search-loading"><i class="fas fa-spinner"></i><p>Searching...</p></div>';
+        
+        // Simulate search delay for better UX
+        setTimeout(() => {
+            let filteredItems = [...menuItems];
+            
+            // Apply search filter
+            if (searchTerm) {
+                filteredItems = filteredItems.filter(item => 
+                    item.name.toLowerCase().includes(searchTerm) ||
+                    item.description.toLowerCase().includes(searchTerm) ||
+                    item.category.toLowerCase().includes(searchTerm)
+                );
+            }
+            
+            // Apply category filter
+            if (filters.category && filters.category !== 'all') {
+                filteredItems = filteredItems.filter(item => item.category === filters.category);
+            }
+            
+            // Apply price range filter
+            if (filters.priceRange) {
+                const [min, max] = filters.priceRange.split('-').map(Number);
+                filteredItems = filteredItems.filter(item => {
+                    if (max) {
+                        return item.price >= min && item.price < max;
+                    } else {
+                        return item.price >= min;
+                    }
+                });
+            }
+            
+            // Apply prep time filter
+            if (filters.prepTime) {
+                const [min, max] = filters.prepTime.split('-').map(Number);
+                filteredItems = filteredItems.filter(item => {
+                    const prepTime = parseInt(item.prepTime.match(/\d+/)[0]);
+                    if (max) {
+                        return prepTime >= min && prepTime <= max;
+                    } else {
+                        return prepTime >= min;
+                    }
+                });
+            }
+            
+            // Apply dietary filter
+            if (filters.dietary) {
+                filteredItems = filteredItems.filter(item => {
+                    switch (filters.dietary) {
+                        case 'vegetarian':
+                            return item.name.toLowerCase().includes('veggie') || 
+                                   item.name.toLowerCase().includes('salad') ||
+                                   item.category === 'salad';
+                        case 'vegan':
+                            return item.name.toLowerCase().includes('vegan') ||
+                                   item.name.toLowerCase().includes('plant-based');
+                        case 'gluten-free':
+                            return item.name.toLowerCase().includes('gluten-free') ||
+                                   item.category === 'salad';
+                        case 'low-calorie':
+                            return item.calories < 500;
+                        default:
+                            return true;
+                    }
+                });
+            }
+            
+            // Apply sorting
+            filteredItems.sort((a, b) => {
+                switch (filters.sortBy) {
+                    case 'price-low':
+                        return a.price - b.price;
+                    case 'price-high':
+                        return b.price - a.price;
+                    case 'rating':
+                        return b.rating - a.rating;
+                    case 'popular':
+                        return (b.popular ? 1 : 0) - (a.popular ? 1 : 0);
+                    case 'name':
+                    default:
+                        return a.name.localeCompare(b.name);
+                }
+            });
+            
+            // Display results
+            displaySearchResults(filteredItems);
+        }, 300);
+    }
+    
+    function displaySearchResults(items) {
+        menuContainer.innerHTML = '';
+        
+        if (items.length === 0) {
+            menuContainer.innerHTML = `
+                <div class="no-results">
+                    <i class="fas fa-search"></i>
+                    <h3>No items found</h3>
+                    <p>Try adjusting your search terms or filters</p>
+                    <div class="suggestions">
+                        <button class="suggestion-btn" onclick="clearAllFilters()">Clear Filters</button>
+                        <button class="suggestion-btn" onclick="showAllItems()">Show All Items</button>
+                    </div>
+                </div>
+            `;
+        } else {
+            items.forEach(item => {
+                const isFavorite = user.favorites.includes(item.id);
+                const menuItemElement = document.createElement('div');
+                menuItemElement.classList.add('menu-item');
+                menuItemElement.innerHTML = `
+                    <button class="favorite-btn ${isFavorite ? 'active' : ''}" data-id="${item.id}">
+                        <i class="fas fa-heart"></i>
+                    </button>
+                    <img src="${item.image}" alt="${item.name}" class="menu-item-img" onerror="this.src='https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80'">
+                    <div class="menu-item-content">
+                        <h3 class="menu-item-title">${item.name}</h3>
+                        <div class="rating">
+                            ${generateStarRating(item.rating)}
+                            <span>(${item.rating})</span>
+                        </div>
+                        <p class="menu-item-desc">${item.description}</p>
+                        <span class="menu-item-price">$${item.price.toFixed(2)}</span>
+                        <button class="add-to-cart" data-id="${item.id}">Add to Cart</button>
+                    </div>
+                `;
+                menuContainer.appendChild(menuItemElement);
+            });
+        }
+        
+        // Add event listeners
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', addToCart);
+        });
+
+        document.querySelectorAll('.favorite-btn').forEach(button => {
+            button.addEventListener('click', toggleFavorite);
+        });
+        
+        // Update results count
+        updateResultsCount(items.length);
+        updateActiveFilters();
+    }
+    
+    function updateResultsCount(count) {
+        const totalItems = menuItems.length;
+        if (currentSearchTerm || hasActiveFilters()) {
+            resultsCount.textContent = `Showing ${count} of ${totalItems} items`;
+        } else {
+            resultsCount.textContent = `Showing all ${totalItems} items`;
+        }
+    }
+    
+    function hasActiveFilters() {
+        return currentFilters.priceRange || 
+               currentFilters.prepTime || 
+               currentFilters.dietary || 
+               currentFilters.sortBy !== 'name';
+    }
+    
+    function updateActiveFilters() {
+        const activeFiltersContainer = document.getElementById('active-filters');
+        activeFiltersContainer.innerHTML = '';
+        
+        const filters = [];
+        
+        if (currentFilters.priceRange) {
+            const priceText = priceRangeFilter.options[priceRangeFilter.selectedIndex].text;
+            filters.push(createFilterTag('price', priceText));
+        }
+        
+        if (currentFilters.prepTime) {
+            const prepText = prepTimeFilter.options[prepTimeFilter.selectedIndex].text;
+            filters.push(createFilterTag('prep', prepText));
+        }
+        
+        if (currentFilters.dietary) {
+            const dietaryText = dietaryFilter.options[dietaryFilter.selectedIndex].text;
+            filters.push(createFilterTag('dietary', dietaryText));
+        }
+        
+        if (currentFilters.sortBy !== 'name') {
+            const sortText = sortByFilter.options[sortByFilter.selectedIndex].text;
+            filters.push(createFilterTag('sort', sortText));
+        }
+        
+        filters.forEach(filter => activeFiltersContainer.appendChild(filter));
+    }
+    
+    function createFilterTag(type, text) {
+        const tag = document.createElement('span');
+        tag.className = 'active-filter-tag';
+        tag.innerHTML = `
+            ${text}
+            <button class="remove-filter" onclick="removeFilter('${type}')">
+                <i class="fas fa-times"></i>
+            </button>
+        `;
+        return tag;
+    }
+    
+    function removeFilter(type) {
+        switch (type) {
+            case 'price':
+                priceRangeFilter.value = '';
+                currentFilters.priceRange = '';
+                break;
+            case 'prep':
+                prepTimeFilter.value = '';
+                currentFilters.prepTime = '';
+                break;
+            case 'dietary':
+                dietaryFilter.value = '';
+                currentFilters.dietary = '';
+                break;
+            case 'sort':
+                sortByFilter.value = 'name';
+                currentFilters.sortBy = 'name';
+                break;
+        }
+        performSearch();
+    }
+    
+    function generateSearchSuggestions(searchTerm) {
+        if (!searchTerm.trim()) {
+            searchSuggestions.style.display = 'none';
+            return;
+        }
+        
+        const suggestions = [];
+        const term = searchTerm.toLowerCase();
+        
+        // Search in menu items
+        menuItems.forEach(item => {
+            if (item.name.toLowerCase().includes(term) ||
+                item.description.toLowerCase().includes(term) ||
+                item.category.toLowerCase().includes(term)) {
+                suggestions.push({
+                    text: item.name,
+                    type: 'item',
+                    icon: 'fas fa-utensils'
+                });
+            }
+        });
+        
+        // Add category suggestions
+        const categories = ['pizza', 'burger', 'pasta', 'salad', 'appetizer', 'drink', 'dessert'];
+        categories.forEach(category => {
+            if (category.includes(term)) {
+                suggestions.push({
+                    text: category.charAt(0).toUpperCase() + category.slice(1),
+                    type: 'category',
+                    icon: 'fas fa-tag'
+                });
+            }
+        });
+        
+        // Add recent search suggestions
+        recentSearchHistory.forEach(search => {
+            if (search.toLowerCase().includes(term) && !suggestions.find(s => s.text === search)) {
+                suggestions.push({
+                    text: search,
+                    type: 'recent',
+                    icon: 'fas fa-history'
+                });
+            }
+        });
+        
+        // Limit suggestions
+        const limitedSuggestions = suggestions.slice(0, 8);
+        
+        if (limitedSuggestions.length > 0) {
+            displaySearchSuggestions(limitedSuggestions);
+        } else {
+            searchSuggestions.style.display = 'none';
+        }
+    }
+    
+    function displaySearchSuggestions(suggestions) {
+        searchSuggestions.innerHTML = '';
+        
+        suggestions.forEach((suggestion, index) => {
+            const item = document.createElement('div');
+            item.className = 'search-suggestion-item';
+            item.innerHTML = `
+                <i class="${suggestion.icon} search-suggestion-icon"></i>
+                <span>${suggestion.text}</span>
+            `;
+            
+            item.addEventListener('click', () => {
+                menuSearch.value = suggestion.text;
+                currentSearchTerm = suggestion.text;
+                addToRecentSearches(suggestion.text);
+                searchSuggestions.style.display = 'none';
+                performSearch();
+            });
+            
+            searchSuggestions.appendChild(item);
+        });
+        
+        searchSuggestions.style.display = 'block';
+    }
+    
+    function addToRecentSearches(searchTerm) {
+        if (!searchTerm.trim()) return;
+        
+        // Remove if already exists
+        recentSearchHistory = recentSearchHistory.filter(term => term !== searchTerm);
+        
+        // Add to beginning
+        recentSearchHistory.unshift(searchTerm);
+        
+        // Keep only last 10 searches
+        recentSearchHistory = recentSearchHistory.slice(0, 10);
+        
+        // Save to localStorage
+        localStorage.setItem('recentSearches', JSON.stringify(recentSearchHistory));
+        
+        // Update display
+        displayRecentSearches();
+    }
+    
+    function displayRecentSearches() {
+        if (recentSearchHistory.length === 0) {
+            recentSearches.style.display = 'none';
+            return;
+        }
+        
+        recentSearchTags.innerHTML = '';
+        
+        recentSearchHistory.forEach(search => {
+            const tag = document.createElement('span');
+            tag.className = 'recent-search-tag';
+            tag.innerHTML = `
+                ${search}
+                <button class="remove-tag" onclick="removeRecentSearch('${search}')">
+                    <i class="fas fa-times"></i>
+                </button>
+            `;
+            
+            tag.addEventListener('click', (e) => {
+                if (!e.target.closest('.remove-tag')) {
+                    menuSearch.value = search;
+                    currentSearchTerm = search;
+                    performSearch();
+                }
+            });
+            
+            recentSearchTags.appendChild(tag);
+        });
+        
+        recentSearches.style.display = 'block';
+    }
+    
+    function removeRecentSearch(search) {
+        recentSearchHistory = recentSearchHistory.filter(term => term !== search);
+        localStorage.setItem('recentSearches', JSON.stringify(recentSearchHistory));
+        displayRecentSearches();
+    }
+    
+    function clearAllFilters() {
+        currentSearchTerm = '';
+        currentFilters = {
+            category: 'all',
+            priceRange: '',
+            prepTime: '',
+            dietary: '',
+            sortBy: 'name'
+        };
+        
+        // Reset form elements
+        menuSearch.value = '';
+        priceRangeFilter.value = '';
+        prepTimeFilter.value = '';
+        dietaryFilter.value = '';
+        sortByFilter.value = 'name';
+        
+        // Reset category buttons
+        filterButtons.forEach(btn => btn.classList.remove('active'));
+        document.querySelector('[data-category="all"]').classList.add('active');
+        
+        // Clear search suggestions
+        searchSuggestions.style.display = 'none';
+        clearSearchBtn.style.display = 'none';
+        
+        // Perform search to show all items
+        performSearch();
+    }
+    
+    function showAllItems() {
+        clearAllFilters();
+    }
 });
