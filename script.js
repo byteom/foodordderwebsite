@@ -410,9 +410,27 @@ document.addEventListener('DOMContentLoaded', function() {
             
             showNotification('Weekend Special added to cart!');
         } else if (offerId === 3) {
-            // Dessert Combo
-            showNotification('Add any 2 desserts to your cart to get 20% off!');
+    // Dessert Combo Logic
+    const dessertsInCart = cart.filter(item => item.category === 'dessert');
+
+    if (dessertsInCart.length < 2) {
+        showNotification('Add any 2 desserts to your cart to get 20% off!');
+        return;
+    }
+
+    // Apply discount only if not already applied
+    dessertsInCart.forEach(item => {
+        if (!item.discountApplied) {
+            item.price = parseFloat((item.price * 0.8).toFixed(2));
+            item.discountApplied = true; // flag to avoid double discount
         }
+    });
+
+    updateCart();
+    showNotification('20% discount applied to desserts!');
+}
+
+
     }
 
     // Helper function to add offer items to cart
