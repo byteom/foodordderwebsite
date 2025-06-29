@@ -409,6 +409,14 @@ document.addEventListener('DOMContentLoaded', function() {
         return wrapper;
     }
 
+    // Utility function to safely set text and HTML
+    function setElementText(el, text) {
+        el.textContent = text;
+    }
+    function setElementHTML(el, html) {
+        el.innerHTML = html;
+    }
+
     // Display menu items
     function displayMenuItems(category = 'all') {
         showSectionSkeleton('menu');
@@ -422,37 +430,64 @@ document.addEventListener('DOMContentLoaded', function() {
                 const ingredients = item.ingredients ? item.ingredients.join(', ') : 'See description';
                 const menuItemElement = document.createElement('div');
                 menuItemElement.classList.add('menu-item');
-                menuItemElement.innerHTML = `
-                    <div class="menu-item-inner">
-                        <div class="menu-item-front">
-                            <button class="favorite-btn ${isFavorite ? 'active' : ''}" data-id="${item.id}">
-                                <i class="fas fa-heart"></i>
-                            </button>
-                            <div class="img-wrapper"></div>
-                            <div class="menu-item-content">
-                                <h3 class="menu-item-title">${item.name}</h3>
-                                <div class="rating">
-                                    ${generateStarRating(item.rating)}
-                                    <span>(${item.rating})</span>
-                                </div>
-                                <span class="menu-item-price">${inrFormat.format(item.price)}</span>
-                            </div>
-                        </div>
-                        <div class="menu-item-back">
-                            <h3>${item.name}</h3>
-                            <div class="desc">${item.description}</div>
-                            <div class="info-row"><i class="fas fa-clock"></i> ${item.prepTime} <i class="fas fa-fire"></i> ${item.calories} kcal</div>
-                            <div class="ingredients"><strong>Ingredients:</strong> ${ingredients}</div>
-                            <div class="back-actions">
-                                <button class="add-to-cart" data-id="${item.id}">Add to Cart</button>
-                                <button class="favorite-btn ${isFavorite ? 'active' : ''}" data-id="${item.id}"><i class="fas fa-heart"></i></button>
-                            </div>
-                        </div>
-                    </div>
-                `;
-                // Insert image with fallback
-                const imgWrapper = createImageWithFallback(item.image, item.name);
-                menuItemElement.querySelector('.img-wrapper').replaceWith(imgWrapper);
+                // Build structure with createElement
+                const inner = document.createElement('div');
+                inner.className = 'menu-item-inner';
+                // Front
+                const front = document.createElement('div');
+                front.className = 'menu-item-front';
+                const favBtn = document.createElement('button');
+                favBtn.className = 'favorite-btn' + (isFavorite ? ' active' : '');
+                favBtn.setAttribute('data-id', item.id);
+                favBtn.innerHTML = '<i class="fas fa-heart"></i>';
+                front.appendChild(favBtn);
+                front.appendChild(createImageWithFallback(item.image, item.name));
+                const content = document.createElement('div');
+                content.className = 'menu-item-content';
+                const title = document.createElement('h3');
+                title.className = 'menu-item-title';
+                setElementText(title, item.name);
+                content.appendChild(title);
+                const ratingDiv = document.createElement('div');
+                ratingDiv.className = 'rating';
+                setElementHTML(ratingDiv, generateStarRating(item.rating) + `<span>(${item.rating})</span>`);
+                content.appendChild(ratingDiv);
+                const price = document.createElement('span');
+                price.className = 'menu-item-price';
+                setElementText(price, inrFormat.format(item.price));
+                content.appendChild(price);
+                front.appendChild(content);
+                // Back
+                const back = document.createElement('div');
+                back.className = 'menu-item-back';
+                const backTitle = document.createElement('h3');
+                setElementText(backTitle, item.name);
+                back.appendChild(backTitle);
+                const desc = document.createElement('div');
+                desc.className = 'desc';
+                setElementText(desc, item.description);
+                back.appendChild(desc);
+                const infoRow = document.createElement('div');
+                infoRow.className = 'info-row';
+                setElementHTML(infoRow, `<i class="fas fa-clock"></i> ${item.prepTime} <i class="fas fa-fire"></i> ${item.calories} kcal`);
+                back.appendChild(infoRow);
+                const ingr = document.createElement('div');
+                ingr.className = 'ingredients';
+                ingr.innerHTML = `<strong>Ingredients:</strong> ${ingredients}`;
+                back.appendChild(ingr);
+                const backActions = document.createElement('div');
+                backActions.className = 'back-actions';
+                const addToCartBtn = document.createElement('button');
+                addToCartBtn.className = 'add-to-cart';
+                addToCartBtn.setAttribute('data-id', item.id);
+                setElementText(addToCartBtn, 'Add to Cart');
+                const favBtnBack = favBtn.cloneNode(true);
+                backActions.appendChild(addToCartBtn);
+                backActions.appendChild(favBtnBack);
+                back.appendChild(backActions);
+                inner.appendChild(front);
+                inner.appendChild(back);
+                menuItemElement.appendChild(inner);
                 // Touch support: tap to flip
                 menuItemElement.addEventListener('touchstart', function(e) {
                     this.classList.toggle('flipped');
