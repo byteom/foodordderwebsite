@@ -354,48 +354,79 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize maps
     let map, locationMap;
 
+    // Advanced UI Elements
+    const themeMenuBtn = document.getElementById('theme-menu-btn');
+    const themeOptions = document.getElementById('theme-options');
+    const themeOptionElements = document.querySelectorAll('.theme-option');
+    const pullRefreshIndicator = document.getElementById('pull-refresh-indicator');
+    
+    // Skeleton loading elements
+    const skeletonOffers = document.getElementById('skeleton-offers');
+    const skeletonMenu = document.getElementById('skeleton-menu');
+    const skeletonRecommended = document.getElementById('skeleton-recommended');
+    const skeletonOrders = document.getElementById('skeleton-orders');
+    
+    // Theme and UI State
+    let currentTheme = localStorage.getItem('theme') || 'default';
+    let isRefreshing = false;
+    let pullStartY = 0;
+    let pullDistance = 0;
+    const PULL_THRESHOLD = 80;
+
     // Display menu items
     function displayMenuItems(category = 'all') {
-        menuContainer.innerHTML = '';
+        // Show skeleton loading for menu section
+        showSectionSkeleton('menu');
         
-        const filteredItems = category === 'all' 
-            ? menuItems 
-            : menuItems.filter(item => item.category === category);
-        
-        console.log(`Displaying ${filteredItems.length} items for category: ${category}`);
-        console.log('Items:', filteredItems.map(item => ({ name: item.name, category: item.category })));
-        
-        filteredItems.forEach(item => {
-            const isFavorite = user.favorites.includes(item.id);
-            const menuItemElement = document.createElement('div');
-            menuItemElement.classList.add('menu-item');
-            menuItemElement.innerHTML = `
-                <button class="favorite-btn ${isFavorite ? 'active' : ''}" data-id="${item.id}">
-                    <i class="fas fa-heart"></i>
-                </button>
-                <img src="${item.image}" alt="${item.name}" class="menu-item-img" onerror="this.src='https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80'">
-                <div class="menu-item-content">
-                    <h3 class="menu-item-title">${item.name}</h3>
-                    <div class="rating">
-                        ${generateStarRating(item.rating)}
-                        <span>(${item.rating})</span>
+        setTimeout(() => {
+            menuContainer.innerHTML = '';
+            
+            const filteredItems = category === 'all' 
+                ? menuItems 
+                : menuItems.filter(item => item.category === category);
+            
+            console.log(`Displaying ${filteredItems.length} items for category: ${category}`);
+            console.log('Items:', filteredItems.map(item => ({ name: item.name, category: item.category })));
+            
+            filteredItems.forEach(item => {
+                const isFavorite = user.favorites.includes(item.id);
+                const menuItemElement = document.createElement('div');
+                menuItemElement.classList.add('menu-item');
+                menuItemElement.innerHTML = `
+                    <button class="favorite-btn ${isFavorite ? 'active' : ''}" data-id="${item.id}">
+                        <i class="fas fa-heart"></i>
+                    </button>
+                    <img src="${item.image}" alt="${item.name}" class="menu-item-img" onerror="this.src='https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80'">
+                    <div class="menu-item-content">
+                        <h3 class="menu-item-title">${item.name}</h3>
+                        <div class="rating">
+                            ${generateStarRating(item.rating)}
+                            <span>(${item.rating})</span>
+                        </div>
+                        <p class="menu-item-desc">${item.description}</p>
+                        <span class="menu-item-price">$${item.price.toFixed(2)}</span>
+                        <button class="add-to-cart" data-id="${item.id}">Add to Cart</button>
                     </div>
-                    <p class="menu-item-desc">${item.description}</p>
-                    <span class="menu-item-price">$${item.price.toFixed(2)}</span>
-                    <button class="add-to-cart" data-id="${item.id}">Add to Cart</button>
-                </div>
-            `;
-            menuContainer.appendChild(menuItemElement);
-        });
+                `;
+                menuContainer.appendChild(menuItemElement);
+            });
 
-        // Add event listeners
-        document.querySelectorAll('.add-to-cart').forEach(button => {
-            button.addEventListener('click', addToCart);
-        });
+            // Add event listeners
+            document.querySelectorAll('.add-to-cart').forEach(button => {
+                button.addEventListener('click', addToCart);
+            });
 
-        document.querySelectorAll('.favorite-btn').forEach(button => {
-            button.addEventListener('click', toggleFavorite);
-        });
+            document.querySelectorAll('.favorite-btn').forEach(button => {
+                button.addEventListener('click', toggleFavorite);
+            });
+            
+            // Add staggered animations
+            const menuItems = document.querySelectorAll('.menu-item');
+            addStaggeredAnimation(menuItems, 50);
+            
+            // Hide skeleton loading
+            hideSectionSkeleton('menu');
+        }, 300);
     }
 
     // Generate star rating HTML
@@ -422,82 +453,102 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Display recommended items
     function displayRecommendedItems() {
-        forYouContainer.innerHTML = '';
+        showSectionSkeleton('recommended');
         
-        // Simple recommendation logic (in a real app, this would be more sophisticated)
-        const recommendedItems = menuItems
-            .filter(item => item.popular || user.favorites.includes(item.id))
-            .sort(() => 0.5 - Math.random())
-            .slice(0, 4);
-        
-        if (recommendedItems.length === 0) {
-            recommendedItems.push(...menuItems.filter(item => item.popular).slice(0, 4));
-        }
-        
-        recommendedItems.forEach(item => {
-            const isFavorite = user.favorites.includes(item.id);
-            const menuItemElement = document.createElement('div');
-            menuItemElement.classList.add('menu-item');
-            menuItemElement.innerHTML = `
-                <button class="favorite-btn ${isFavorite ? 'active' : ''}" data-id="${item.id}">
-                    <i class="fas fa-heart"></i>
-                </button>
-                <img src="${item.image}" alt="${item.name}" class="menu-item-img" onerror="this.src='https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80'">
-                <div class="menu-item-content">
-                    <h3 class="menu-item-title">${item.name}</h3>
-                    <div class="rating">
-                        ${generateStarRating(item.rating)}
-                        <span>(${item.rating})</span>
+        setTimeout(() => {
+            forYouContainer.innerHTML = '';
+            
+            // Simple recommendation logic (in a real app, this would be more sophisticated)
+            const recommendedItems = menuItems
+                .filter(item => item.popular || user.favorites.includes(item.id))
+                .sort(() => 0.5 - Math.random())
+                .slice(0, 4);
+            
+            if (recommendedItems.length === 0) {
+                recommendedItems.push(...menuItems.filter(item => item.popular).slice(0, 4));
+            }
+            
+            recommendedItems.forEach(item => {
+                const isFavorite = user.favorites.includes(item.id);
+                const menuItemElement = document.createElement('div');
+                menuItemElement.classList.add('menu-item');
+                menuItemElement.innerHTML = `
+                    <button class="favorite-btn ${isFavorite ? 'active' : ''}" data-id="${item.id}">
+                        <i class="fas fa-heart"></i>
+                    </button>
+                    <img src="${item.image}" alt="${item.name}" class="menu-item-img" onerror="this.src='https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80'">
+                    <div class="menu-item-content">
+                        <h3 class="menu-item-title">${item.name}</h3>
+                        <div class="rating">
+                            ${generateStarRating(item.rating)}
+                            <span>(${item.rating})</span>
+                        </div>
+                        <p class="menu-item-desc">${item.description}</p>
+                        <span class="menu-item-price">$${item.price.toFixed(2)}</span>
+                        <button class="add-to-cart" data-id="${item.id}">Add to Cart</button>
                     </div>
-                    <p class="menu-item-desc">${item.description}</p>
-                    <span class="menu-item-price">$${item.price.toFixed(2)}</span>
-                    <button class="add-to-cart" data-id="${item.id}">Add to Cart</button>
-                </div>
-            `;
-            forYouContainer.appendChild(menuItemElement);
-        });
+                `;
+                forYouContainer.appendChild(menuItemElement);
+            });
 
-        // Add event listeners
-        document.querySelectorAll('.add-to-cart').forEach(button => {
-            button.addEventListener('click', addToCart);
-        });
+            // Add event listeners
+            document.querySelectorAll('.add-to-cart').forEach(button => {
+                button.addEventListener('click', addToCart);
+            });
 
-        document.querySelectorAll('.favorite-btn').forEach(button => {
-            button.addEventListener('click', toggleFavorite);
-        });
+            document.querySelectorAll('.favorite-btn').forEach(button => {
+                button.addEventListener('click', toggleFavorite);
+            });
+            
+            // Add staggered animations
+            const recommendedElements = document.querySelectorAll('#for-you-items .menu-item');
+            addStaggeredAnimation(recommendedElements, 100);
+            
+            hideSectionSkeleton('recommended');
+        }, 200);
     }
 
     // Display special offers
     function displaySpecialOffers() {
-        specialOffersContainer.innerHTML = '';
+        showSectionSkeleton('offers');
         
-        specialOffers.forEach(offer => {
-            const offerElement = document.createElement('div');
-            offerElement.classList.add('offer-card');
-            offerElement.innerHTML = `
-                <div class="offer-badge">Special Offer</div>
-                <img src="${offer.image}" alt="${offer.title}" class="offer-image" onerror="this.src='https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80'">
-                <div class="offer-content">
-                    <h3 class="offer-title">${offer.title}</h3>
-                    <p class="offer-description">${offer.description}</p>
-                    <div class="offer-price">
-                        ${offer.originalPrice > 0 ? `
-                            <span class="original">$${offer.originalPrice.toFixed(2)}</span>
-                            <span class="discounted">$${offer.discountedPrice.toFixed(2)}</span>
-                        ` : `
-                            <span class="discounted">${offer.discount} Off</span>
-                        `}
+        setTimeout(() => {
+            specialOffersContainer.innerHTML = '';
+            
+            specialOffers.forEach(offer => {
+                const offerElement = document.createElement('div');
+                offerElement.classList.add('offer-card');
+                offerElement.innerHTML = `
+                    <div class="offer-badge">Special Offer</div>
+                    <img src="${offer.image}" alt="${offer.title}" class="offer-image" onerror="this.src='https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80'">
+                    <div class="offer-content">
+                        <h3 class="offer-title">${offer.title}</h3>
+                        <p class="offer-description">${offer.description}</p>
+                        <div class="offer-price">
+                            ${offer.originalPrice > 0 ? `
+                                <span class="original">$${offer.originalPrice.toFixed(2)}</span>
+                                <span class="discounted">$${offer.discountedPrice.toFixed(2)}</span>
+                            ` : `
+                                <span class="discounted">${offer.discount} Off</span>
+                            `}
+                        </div>
+                        <button class="btn" style="width: 100%; margin-top: 10px;" data-offer-id="${offer.id}">Add to Cart</button>
                     </div>
-                    <button class="btn" style="width: 100%; margin-top: 10px;" data-offer-id="${offer.id}">Add to Cart</button>
-                </div>
-            `;
-            specialOffersContainer.appendChild(offerElement);
-        });
+                `;
+                specialOffersContainer.appendChild(offerElement);
+            });
 
-        // Add event listeners to offer buttons
-        document.querySelectorAll('[data-offer-id]').forEach(button => {
-            button.addEventListener('click', addOfferToCart);
-        });
+            // Add event listeners to offer buttons
+            document.querySelectorAll('[data-offer-id]').forEach(button => {
+                button.addEventListener('click', addOfferToCart);
+            });
+            
+            // Add staggered animations
+            const offerCards = document.querySelectorAll('.offer-card');
+            addStaggeredAnimation(offerCards, 150);
+            
+            hideSectionSkeleton('offers');
+        }, 400);
     }
 
     // Add special offer to cart
@@ -1203,10 +1254,21 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Initialize the page
-    displayMenuItems();
-    displayRecommendedItems();
-    displaySpecialOffers();
-    displayPreviousOrders();
+    showSkeletonLoading(); // Show skeleton loading initially
+    
+    // Initialize advanced UI features
+    initTheme();
+    initPullToRefresh();
+    
+    // Load content with skeleton loading
+    setTimeout(() => {
+        displayMenuItems();
+        displayRecommendedItems();
+        displaySpecialOffers();
+        displayPreviousOrders();
+        hideSkeletonLoading(); // Hide skeleton loading after content loads
+    }, 1000);
+    
     updateCart();
     initLocation();
     updateProfileStats();
@@ -1918,4 +1980,339 @@ document.addEventListener('DOMContentLoaded', function() {
     function showAllItems() {
         clearAllFilters();
     }
+
+    // Theme Management Functions
+    function initTheme() {
+        // Apply saved theme
+        applyTheme(currentTheme);
+        
+        // Update theme option UI
+        updateThemeOptionUI();
+        
+        // Add theme menu event listeners
+        themeMenuBtn.addEventListener('click', toggleThemeMenu);
+        
+        // Add theme option event listeners
+        themeOptionElements.forEach(option => {
+            option.addEventListener('click', () => {
+                const theme = option.getAttribute('data-theme');
+                changeTheme(theme);
+            });
+        });
+        
+        // Close theme menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.theme-selector')) {
+                themeOptions.classList.remove('show');
+            }
+        });
+    }
+    
+    function toggleThemeMenu() {
+        themeOptions.classList.toggle('show');
+    }
+    
+    function changeTheme(theme) {
+        currentTheme = theme;
+        applyTheme(theme);
+        updateThemeOptionUI();
+        localStorage.setItem('theme', theme);
+        themeOptions.classList.remove('show');
+        
+        // Show theme change notification
+        showNotification(`Theme changed to ${theme.charAt(0).toUpperCase() + theme.slice(1)}`);
+    }
+    
+    function applyTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        
+        // Update theme-specific elements
+        const themePreview = document.querySelector(`[data-theme="${theme}"] .theme-preview`);
+        if (themePreview) {
+            themePreview.style.borderColor = getComputedStyle(document.documentElement).getPropertyValue('--primary-color');
+        }
+    }
+    
+    function updateThemeOptionUI() {
+        themeOptionElements.forEach(option => {
+            option.classList.remove('active');
+            if (option.getAttribute('data-theme') === currentTheme) {
+                option.classList.add('active');
+            }
+        });
+    }
+
+    // Skeleton Loading Functions
+    function showSkeletonLoading() {
+        skeletonOffers.style.display = 'grid';
+        skeletonMenu.style.display = 'grid';
+        skeletonRecommended.style.display = 'grid';
+        skeletonOrders.style.display = 'grid';
+    }
+    
+    function hideSkeletonLoading() {
+        skeletonOffers.style.display = 'none';
+        skeletonMenu.style.display = 'none';
+        skeletonRecommended.style.display = 'none';
+        skeletonOrders.style.display = 'none';
+    }
+    
+    function showSectionSkeleton(section) {
+        switch(section) {
+            case 'offers':
+                skeletonOffers.style.display = 'grid';
+                break;
+            case 'menu':
+                skeletonMenu.style.display = 'grid';
+                break;
+            case 'recommended':
+                skeletonRecommended.style.display = 'grid';
+                break;
+            case 'orders':
+                skeletonOrders.style.display = 'grid';
+                break;
+        }
+    }
+    
+    function hideSectionSkeleton(section) {
+        switch(section) {
+            case 'offers':
+                skeletonOffers.style.display = 'none';
+                break;
+            case 'menu':
+                skeletonMenu.style.display = 'none';
+                break;
+            case 'recommended':
+                skeletonRecommended.style.display = 'none';
+                break;
+            case 'orders':
+                skeletonOrders.style.display = 'none';
+                break;
+        }
+    }
+
+    // Pull to Refresh Functions
+    function initPullToRefresh() {
+        let startY = 0;
+        let currentY = 0;
+        let isPulling = false;
+        
+        // Touch events for mobile
+        document.addEventListener('touchstart', (e) => {
+            if (window.scrollY === 0) {
+                startY = e.touches[0].clientY;
+                isPulling = true;
+            }
+        });
+        
+        document.addEventListener('touchmove', (e) => {
+            if (!isPulling) return;
+            
+            currentY = e.touches[0].clientY;
+            const pullDistance = currentY - startY;
+            
+            if (pullDistance > 0 && window.scrollY === 0) {
+                e.preventDefault();
+                updatePullIndicator(pullDistance);
+            }
+        });
+        
+        document.addEventListener('touchend', () => {
+            if (!isPulling) return;
+            
+            const pullDistance = currentY - startY;
+            if (pullDistance > PULL_THRESHOLD) {
+                triggerRefresh();
+            } else {
+                resetPullIndicator();
+            }
+            
+            isPulling = false;
+        });
+        
+        // Mouse events for desktop
+        document.addEventListener('mousedown', (e) => {
+            if (window.scrollY === 0 && e.clientY < 100) {
+                startY = e.clientY;
+                isPulling = true;
+            }
+        });
+        
+        document.addEventListener('mousemove', (e) => {
+            if (!isPulling) return;
+            
+            currentY = e.clientY;
+            const pullDistance = currentY - startY;
+            
+            if (pullDistance > 0 && window.scrollY === 0) {
+                updatePullIndicator(pullDistance);
+            }
+        });
+        
+        document.addEventListener('mouseup', () => {
+            if (!isPulling) return;
+            
+            const pullDistance = currentY - startY;
+            if (pullDistance > PULL_THRESHOLD) {
+                triggerRefresh();
+            } else {
+                resetPullIndicator();
+            }
+            
+            isPulling = false;
+        });
+    }
+    
+    function updatePullIndicator(distance) {
+        const progress = Math.min(distance / PULL_THRESHOLD, 1);
+        pullRefreshIndicator.style.transform = `translateY(${Math.min(distance * 0.5, 60)}px)`;
+        
+        if (progress >= 1) {
+            pullRefreshIndicator.classList.add('show');
+            pullRefreshIndicator.querySelector('span').textContent = 'Release to refresh';
+            pullRefreshIndicator.querySelector('i').className = 'fas fa-arrow-up';
+        } else {
+            pullRefreshIndicator.classList.remove('show');
+            pullRefreshIndicator.querySelector('span').textContent = 'Pull to refresh';
+            pullRefreshIndicator.querySelector('i').className = 'fas fa-arrow-down';
+        }
+    }
+    
+    function resetPullIndicator() {
+        pullRefreshIndicator.style.transform = 'translateY(-100%)';
+        pullRefreshIndicator.classList.remove('show');
+        pullRefreshIndicator.querySelector('span').textContent = 'Pull to refresh';
+        pullRefreshIndicator.querySelector('i').className = 'fas fa-arrow-down';
+    }
+    
+    function triggerRefresh() {
+        if (isRefreshing) return;
+        
+        isRefreshing = true;
+        pullRefreshIndicator.classList.add('refreshing');
+        pullRefreshIndicator.querySelector('span').textContent = 'Refreshing...';
+        pullRefreshIndicator.querySelector('i').className = 'fas fa-spinner fa-spin';
+        
+        // Simulate refresh delay
+        setTimeout(() => {
+            refreshContent();
+            isRefreshing = false;
+            resetPullIndicator();
+            showNotification('Content refreshed!');
+        }, 1500);
+    }
+    
+    function refreshContent() {
+        // Refresh all content sections
+        showSkeletonLoading();
+        
+        setTimeout(() => {
+            displayMenuItems();
+            displayRecommendedItems();
+            displaySpecialOffers();
+            displayPreviousOrders();
+            hideSkeletonLoading();
+        }, 800);
+    }
+
+    // Enhanced Animation Functions
+    function addStaggeredAnimation(elements, delay = 100) {
+        elements.forEach((element, index) => {
+            element.style.animationDelay = `${index * delay}ms`;
+            element.style.animationFillMode = 'both';
+        });
+    }
+    
+    function animateElement(element, animation, duration = 600) {
+        element.style.animation = `${animation} ${duration}ms ease-out`;
+        element.style.animationFillMode = 'both';
+        
+        setTimeout(() => {
+            element.style.animation = '';
+        }, duration);
+    }
+    
+    function addLoadingState(element) {
+        element.classList.add('loading');
+        element.style.position = 'relative';
+    }
+    
+    function removeLoadingState(element) {
+        element.classList.remove('loading');
+    }
+
+    // Enhanced Notification System
+    function showEnhancedNotification(message, type = 'info', duration = 3000) {
+        const notification = document.createElement('div');
+        notification.className = `enhanced-notification ${type}`;
+        notification.innerHTML = `
+            <div class="notification-content">
+                <i class="fas ${getNotificationIcon(type)}"></i>
+                <span>${message}</span>
+                <button class="notification-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        `;
+        
+        // Add styles
+        notification.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--card-bg);
+            border: 2px solid var(--border-color);
+            border-left: 4px solid var(--${type}-color);
+            border-radius: 8px;
+            padding: 15px 20px;
+            box-shadow: var(--shadow);
+            z-index: 10000;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            max-width: 300px;
+        `;
+        
+        document.body.appendChild(notification);
+        
+        // Animate in
+        setTimeout(() => {
+            notification.style.transform = 'translateX(0)';
+        }, 100);
+        
+        // Close button functionality
+        const closeBtn = notification.querySelector('.notification-close');
+        closeBtn.addEventListener('click', () => {
+            closeNotification(notification);
+        });
+        
+        // Auto close
+        setTimeout(() => {
+            closeNotification(notification);
+        }, duration);
+    }
+    
+    function closeNotification(notification) {
+        notification.style.transform = 'translateX(100%)';
+        setTimeout(() => {
+            if (notification.parentNode) {
+                notification.parentNode.removeChild(notification);
+            }
+        }, 300);
+    }
+    
+    function getNotificationIcon(type) {
+        switch(type) {
+            case 'success': return 'fa-check-circle';
+            case 'error': return 'fa-exclamation-circle';
+            case 'warning': return 'fa-exclamation-triangle';
+            case 'info': 
+            default: return 'fa-info-circle';
+        }
+    }
+
+    // Enhanced showNotification function
+    const originalShowNotification = showNotification;
+    showNotification = function(message, type = 'info') {
+        showEnhancedNotification(message, type);
+    };
 });
