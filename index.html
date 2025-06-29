@@ -9,26 +9,35 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
 </head>
 <body>
-    <header>
-        <div class="container">
-            <h1>FoodExpress</h1>
-            <div class="location-selector">
-                <i class="fas fa-map-marker-alt"></i>
-                <span id="current-location">Loading location...</span>
-                <button id="change-location">Change</button>
-            </div>
-            <nav>
-                <ul>
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#menu">Menu</a></li>
-                    <li><a href="#for-you">For You</a></li>
-                    <li><a href="#previous-orders">Orders</a></li>
-                    <li><a href="#profile"><i class="fas fa-user"></i></a></li>
-                    <li><a href="#cart"><i class="fas fa-shopping-cart"></i> <span id="cart-count">0</span></a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+<header>
+  <div class="container">
+    <!-- LOGO + TITLE TOGETHER LEFT SIDE -->
+    <div class="branding">
+      <img src="images/logo.jpg" alt="FoodOrder Logo" class="logo-img" />
+      <h1>FoodExpress</h1>
+    </div>
+
+    <!-- Location -->
+    <div class="location-selector">
+      <i class="fas fa-map-marker-alt"></i>
+      <span id="current-location">Loading location...</span>
+      <button id="change-location">Change</button>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#menu">Menu</a></li>
+        <li><a href="#for-you">For You</a></li>
+        <li><a href="#previous-orders">Orders</a></li>
+        <li><a href="#profile"><i class="fas fa-user"></i></a></li>
+        <li><a href="#cart"><i class="fas fa-shopping-cart"></i> <span id="cart-count">0</span></a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
 
     <main class="container">
         <section id="home" class="hero">
@@ -99,7 +108,7 @@
                 <!-- Cart items will be loaded here -->
             </div>
             <div class="cart-total">
-                <h3>Total: $<span id="cart-total">0.00</span></h3>
+                <h3>Total: ₹<span id="cart-total">0.00</span></h3>
             </div>
             <form id="delivery-form">
                 <h3>Delivery Information</h3>
@@ -119,7 +128,7 @@
                     <label for="instructions">Delivery Instructions (optional)</label>
                     <textarea id="instructions" placeholder="e.g., Leave at front door"></textarea>
                 </div>
-                <button type="submit" class="btn">Place Order ($<span id="order-total">0.00</span>)</button>
+                <button type="submit" class="btn">Place Order (₹<span id="order-total">0.00</span>)</button>
             </form>
         </div>
     </div>
