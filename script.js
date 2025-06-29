@@ -860,24 +860,20 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Filter menu items
+    // Category filter buttons functionality
     filterButtons.forEach(button => {
         button.addEventListener('click', (e) => {
             // Remove active class from all buttons
             filterButtons.forEach(btn => btn.classList.remove('active'));
-            
             // Add active class to clicked button
-            e.target.classList.add('active');
-            
-            // Update category filter
-            const category = e.target.getAttribute('data-category');
-            currentFilters.category = category;
-            
-            // Perform search for main menu
-            performSearch();
-            
-            // Update "For You" section with category-specific recommendations
-            displayRecommendedItems();
+            button.classList.add('active');
+            // Get category and filter menu
+            const category = button.getAttribute('data-category');
+            displayMenuItems(category);
+            // Optionally, update recommendations as well
+            if (typeof displayRecommendedItems === 'function') {
+                displayRecommendedItems();
+            }
         });
     });
 
