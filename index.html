@@ -25,10 +25,48 @@
                     <li><a href="#previous-orders">Orders</a></li>
                     <li><a href="#profile"><i class="fas fa-user"></i></a></li>
                     <li><a href="#cart"><i class="fas fa-shopping-cart"></i> <span id="cart-count">0</span></a></li>
+                    <li class="theme-controls">
+                        <button id="dark-mode-toggle" class="dark-mode-btn"><i class="fas fa-moon"></i></button>
+                        <div class="theme-selector">
+                            <button id="theme-menu-btn" class="theme-menu-btn">
+                                <i class="fas fa-palette"></i>
+                            </button>
+                            <div class="theme-options" id="theme-options">
+                                <div class="theme-option" data-theme="default">
+                                    <span class="theme-preview default-theme"></span>
+                                    <span>Default</span>
+                                </div>
+                                <div class="theme-option" data-theme="ocean">
+                                    <span class="theme-preview ocean-theme"></span>
+                                    <span>Ocean</span>
+                                </div>
+                                <div class="theme-option" data-theme="sunset">
+                                    <span class="theme-preview sunset-theme"></span>
+                                    <span>Sunset</span>
+                                </div>
+                                <div class="theme-option" data-theme="forest">
+                                    <span class="theme-preview forest-theme"></span>
+                                    <span>Forest</span>
+                                </div>
+                                <div class="theme-option" data-theme="purple">
+                                    <span class="theme-preview purple-theme"></span>
+                                    <span>Purple</span>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
                 </ul>
             </nav>
         </div>
     </header>
+
+    <!-- Pull to Refresh Indicator -->
+    <div id="pull-refresh-indicator" class="pull-refresh-indicator">
+        <div class="pull-refresh-content">
+            <i class="fas fa-arrow-down"></i>
+            <span>Pull to refresh</span>
+        </div>
+    </div>
 
     <main class="container">
         <section id="home" class="hero">
@@ -45,21 +83,118 @@
         <section id="special-offers" class="section-with-header">
             <h2><i class="fas fa-tag"></i> Special Offers</h2>
             <div class="offers-container" id="special-offers-container">
+                <!-- Skeleton loading for offers -->
+                <div class="skeleton-offers" id="skeleton-offers">
+                    <div class="skeleton-offer"></div>
+                    <div class="skeleton-offer"></div>
+                    <div class="skeleton-offer"></div>
+                </div>
                 <!-- Offers will be loaded here by JavaScript -->
             </div>
         </section>
 
         <section id="menu" class="section-with-header">
             <h2><i class="fas fa-utensils"></i> Our Menu</h2>
+            
+            <!-- Search and Filter System -->
+            <div class="search-filter-container">
+                <!-- Search Bar -->
+                <div class="search-section">
+                    <div class="search-bar-container">
+                        <i class="fas fa-search search-icon"></i>
+                        <input type="text" id="menu-search" placeholder="Search for dishes, ingredients, or descriptions..." autocomplete="off">
+                        <button id="clear-search" class="clear-search-btn" style="display: none;">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div id="search-suggestions" class="search-suggestions"></div>
+                </div>
+                
+                <!-- Advanced Filters -->
+                <div class="advanced-filters">
+                    <div class="filter-group">
+                        <label for="price-range">Price Range:</label>
+                        <select id="price-range">
+                            <option value="">All Prices</option>
+                            <option value="0-5">Under $5</option>
+                            <option value="5-10">$5 - $10</option>
+                            <option value="10-15">$10 - $15</option>
+                            <option value="15+">$15+</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="prep-time">Prep Time:</label>
+                        <select id="prep-time">
+                            <option value="">Any Time</option>
+                            <option value="0-10">Under 10 min</option>
+                            <option value="10-20">10-20 min</option>
+                            <option value="20-30">20-30 min</option>
+                            <option value="30+">30+ min</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="dietary-filter">Dietary:</label>
+                        <select id="dietary-filter">
+                            <option value="">All Options</option>
+                            <option value="vegetarian">Vegetarian</option>
+                            <option value="vegan">Vegan</option>
+                            <option value="gluten-free">Gluten-Free</option>
+                            <option value="low-calorie">Low Calorie</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="sort-by">Sort By:</label>
+                        <select id="sort-by">
+                            <option value="name">Name A-Z</option>
+                            <option value="price-low">Price: Low to High</option>
+                            <option value="price-high">Price: High to Low</option>
+                            <option value="rating">Rating</option>
+                            <option value="popular">Popular</option>
+                        </select>
+                    </div>
+                    
+                    <button id="clear-filters" class="clear-filters-btn">
+                        <i class="fas fa-times"></i> Clear All Filters
+                    </button>
+                </div>
+                
+                <!-- Recent Searches -->
+                <div class="recent-searches" id="recent-searches" style="display: none;">
+                    <h4><i class="fas fa-history"></i> Recent Searches</h4>
+                    <div class="recent-search-tags" id="recent-search-tags"></div>
+                </div>
+            </div>
+            
+            <!-- Results Summary -->
+            <div class="results-summary" id="results-summary">
+                <span id="results-count">Showing all items</span>
+                <span id="active-filters" class="active-filters"></span>
+            </div>
+            
             <div class="menu-filters">
                 <button class="filter-btn active" data-category="all">All</button>
                 <button class="filter-btn" data-category="pizza">Pizza</button>
                 <button class="filter-btn" data-category="burger">Burgers</button>
                 <button class="filter-btn" data-category="pasta">Pasta</button>
                 <button class="filter-btn" data-category="salad">Salads</button>
+                <button class="filter-btn" data-category="appetizer">Appetizers</button>
                 <button class="filter-btn" data-category="drink">Drinks</button>
                 <button class="filter-btn" data-category="dessert">Desserts</button>
             </div>
+            
+            <!-- Skeleton loading for menu items -->
+            <div class="skeleton-menu" id="skeleton-menu">
+                <div class="skeleton-menu-item"></div>
+                <div class="skeleton-menu-item"></div>
+                <div class="skeleton-menu-item"></div>
+                <div class="skeleton-menu-item"></div>
+                <div class="skeleton-menu-item"></div>
+                <div class="skeleton-menu-item"></div>
+            </div>
+            
             <div class="menu-items" id="menu-items">
                 <!-- Menu items will be loaded here by JavaScript -->
             </div>
@@ -68,6 +203,15 @@
         <section id="for-you" class="section-with-header">
             <h2><i class="fas fa-heart"></i> For You</h2>
             <p class="section-description">Recommended based on your preferences and order history</p>
+            
+            <!-- Skeleton loading for recommended items -->
+            <div class="skeleton-recommended" id="skeleton-recommended">
+                <div class="skeleton-menu-item"></div>
+                <div class="skeleton-menu-item"></div>
+                <div class="skeleton-menu-item"></div>
+                <div class="skeleton-menu-item"></div>
+            </div>
+            
             <div class="menu-items" id="for-you-items">
                 <!-- Recommended items will be loaded here by JavaScript -->
             </div>
@@ -75,6 +219,13 @@
 
         <section id="previous-orders" class="section-with-header">
             <h2><i class="fas fa-history"></i> Your Previous Orders</h2>
+            
+            <!-- Skeleton loading for orders -->
+            <div class="skeleton-orders" id="skeleton-orders">
+                <div class="skeleton-order"></div>
+                <div class="skeleton-order"></div>
+            </div>
+            
             <div class="orders-container" id="previous-orders-container">
                 <!-- Previous orders will be loaded here by JavaScript -->
             </div>
@@ -104,61 +255,120 @@
             <form id="delivery-form">
                 <h3>Delivery Information</h3>
                 <div class="form-group">
-                    <label for="name">Full Name</label>
-                    <input type="text" id="name" required>
+                    <label for="name">Full Name *</label>
+                    <input type="text" id="name" name="name" required minlength="2" maxlength="50" pattern="[A-Za-z\s]+" placeholder="Enter your full name">
+                    <div class="error-message" id="name-error"></div>
                 </div>
                 <div class="form-group">
-                    <label for="address">Delivery Address</label>
-                    <textarea id="address" required></textarea>
+                    <label for="email">Email Address *</label>
+                    <input type="email" id="email" name="email" required placeholder="Enter your email address">
+                    <div class="error-message" id="email-error"></div>
                 </div>
                 <div class="form-group">
-                    <label for="phone">Phone Number</label>
-                    <input type="tel" id="phone" required>
+                    <label for="phone">Phone Number *</label>
+                    <input type="tel" id="phone" name="phone" required pattern="[\+]?[0-9\s\-\(\)]{10,15}" placeholder="Enter your phone number">
+                    <div class="error-message" id="phone-error"></div>
+                </div>
+                <div class="form-group">
+                    <label for="address">Delivery Address *</label>
+                    <textarea id="address" name="address" required minlength="10" maxlength="200" placeholder="Enter your complete delivery address"></textarea>
+                    <div class="error-message" id="address-error"></div>
                 </div>
                 <div class="form-group">
                     <label for="instructions">Delivery Instructions (optional)</label>
-                    <textarea id="instructions" placeholder="e.g., Leave at front door"></textarea>
+                    <textarea id="instructions" name="instructions" maxlength="100" placeholder="e.g., Leave at front door, call when arriving"></textarea>
+                    <div class="error-message" id="instructions-error"></div>
                 </div>
-                <button type="submit" class="btn">Place Order ($<span id="order-total">0.00</span>)</button>
+                <button type="submit" class="btn" id="submit-order-btn">
+                    <i class="fas fa-check"></i>
+                    <span>Place Order ($<span id="order-total">0.00</span>)</span>
+                </button>
             </form>
         </div>
     </div>
 
     <!-- Profile Modal -->
     <div id="profile-modal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Your Profile</h2>
-            <div class="profile-info">
-                <div class="profile-avatar">
-                    <i class="fas fa-user-circle"></i>
-                    <button id="change-avatar">Change</button>
+        <div class="modal-content profile-modal">
+            <div class="profile-header">
+                <span class="close">&times;</span>
+                <h2><i class="fas fa-user-circle"></i> Your Profile</h2>
+            </div>
+            
+            <div class="profile-main">
+                <div class="profile-avatar-section">
+                    <div class="profile-avatar">
+                        <div class="avatar-container">
+                            <i class="fas fa-user-circle"></i>
+                        </div>
+                        <button id="change-avatar" class="avatar-btn">
+                            <i class="fas fa-camera"></i>
+                            <span>Change Photo</span>
+                        </button>
+                    </div>
+                    
+                    <div class="profile-details">
+                        <h3 id="profile-name">Guest User</h3>
+                        <div class="profile-contact">
+                            <div class="contact-item">
+                                <i class="fas fa-envelope"></i>
+                                <span id="profile-email">guest@example.com</span>
+                            </div>
+                            <div class="contact-item">
+                                <i class="fas fa-phone"></i>
+                                <span id="profile-phone">Not provided</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="profile-details">
-                    <h3 id="profile-name">Guest User</h3>
-                    <p><i class="fas fa-envelope"></i> <span id="profile-email">guest@example.com</span></p>
-                    <p><i class="fas fa-phone"></i> <span id="profile-phone">Not provided</span></p>
+                
+                <div class="profile-stats-section">
+                    <h4><i class="fas fa-chart-bar"></i> Your Stats</h4>
+                    <div class="profile-stats">
+                        <div class="stat-item">
+                            <div class="stat-icon">
+                                <i class="fas fa-shopping-bag"></i>
+                            </div>
+                            <div class="stat-content">
+                                <div class="stat-value" id="total-orders">0</div>
+                                <div class="stat-label">Total Orders</div>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <div class="stat-content">
+                                <div class="stat-value" id="favorite-items">0</div>
+                                <div class="stat-label">Favorites</div>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon">
+                                <i class="fas fa-calendar-alt"></i>
+                            </div>
+                            <div class="stat-content">
+                                <div class="stat-value" id="member-since">Today</div>
+                                <div class="stat-label">Member Since</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="profile-favorites-section">
+                    <h4><i class="fas fa-heart"></i> Your Favorites</h4>
+                    <div class="favorites-container" id="favorites-container">
+                        <!-- Favorite items will be loaded here -->
+                    </div>
                 </div>
             </div>
-            <div class="profile-stats">
-                <div class="stat-item">
-                    <div class="stat-value" id="total-orders">0</div>
-                    <div class="stat-label">Total Orders</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-value" id="favorite-items">0</div>
-                    <div class="stat-label">Favorites</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-value" id="member-since">Today</div>
-                    <div class="stat-label">Member Since</div>
-                </div>
+            
+            <div class="profile-actions">
+                <button id="logout-btn" class="btn btn-outline logout-btn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Sign Out</span>
+                </button>
             </div>
-            <h3>Your Favorites</h3>
-            <div class="favorites-container" id="favorites-container">
-                <!-- Favorite items will be loaded here -->
-            </div>
-            <button id="logout-btn" class="btn btn-outline">Sign Out</button>
         </div>
     </div>
 
