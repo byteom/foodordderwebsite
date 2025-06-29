@@ -17,38 +17,38 @@
                 <span id="current-location">Loading location...</span>
                 <button id="change-location">Change</button>
             </div>
-            <nav>
+            <nav role="navigation" aria-label="Main Navigation">
                 <ul>
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#menu">Menu</a></li>
-                    <li><a href="#for-you">For You</a></li>
-                    <li><a href="#previous-orders">Orders</a></li>
-                    <li><a href="#profile"><i class="fas fa-user"></i></a></li>
-                    <li><a href="#cart"><i class="fas fa-shopping-cart"></i> <span id="cart-count">0</span></a></li>
+                    <li><a href="#home" tabindex="0">Home</a></li>
+                    <li><a href="#menu" tabindex="0">Menu</a></li>
+                    <li><a href="#for-you" tabindex="0">For You</a></li>
+                    <li><a href="#previous-orders" tabindex="0">Orders</a></li>
+                    <li><a href="#profile" tabindex="0" aria-label="Profile"><i class="fas fa-user"></i></a></li>
+                    <li><a href="#cart" tabindex="0" aria-label="Cart"><i class="fas fa-shopping-cart"></i> <span id="cart-count">0</span></a></li>
                     <li class="theme-controls">
-                        <button id="dark-mode-toggle" class="dark-mode-btn"><i class="fas fa-moon"></i></button>
+                        <button id="dark-mode-toggle" class="dark-mode-btn" aria-label="Toggle dark mode"><i class="fas fa-moon"></i></button>
                         <div class="theme-selector">
-                            <button id="theme-menu-btn" class="theme-menu-btn">
+                            <button id="theme-menu-btn" class="theme-menu-btn" aria-label="Theme menu">
                                 <i class="fas fa-palette"></i>
                             </button>
-                            <div class="theme-options" id="theme-options">
-                                <div class="theme-option" data-theme="default">
+                            <div class="theme-options" id="theme-options" role="menu" aria-label="Theme options">
+                                <div class="theme-option" data-theme="default" tabindex="0" aria-label="Default theme">
                                     <span class="theme-preview default-theme"></span>
                                     <span>Default</span>
                                 </div>
-                                <div class="theme-option" data-theme="ocean">
+                                <div class="theme-option" data-theme="ocean" tabindex="0" aria-label="Ocean theme">
                                     <span class="theme-preview ocean-theme"></span>
                                     <span>Ocean</span>
                                 </div>
-                                <div class="theme-option" data-theme="sunset">
+                                <div class="theme-option" data-theme="sunset" tabindex="0" aria-label="Sunset theme">
                                     <span class="theme-preview sunset-theme"></span>
                                     <span>Sunset</span>
                                 </div>
-                                <div class="theme-option" data-theme="forest">
+                                <div class="theme-option" data-theme="forest" tabindex="0" aria-label="Forest theme">
                                     <span class="theme-preview forest-theme"></span>
                                     <span>Forest</span>
                                 </div>
-                                <div class="theme-option" data-theme="purple">
+                                <div class="theme-option" data-theme="purple" tabindex="0" aria-label="Purple theme">
                                     <span class="theme-preview purple-theme"></span>
                                     <span>Purple</span>
                                 </div>
@@ -242,10 +242,10 @@
     </main>
 
     <!-- Cart Modal -->
-    <div id="cart-modal" class="modal">
+    <div id="cart-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="cart-modal-title">
         <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Your Order</h2>
+            <span class="close" aria-label="Close cart modal" tabindex="0">&times;</span>
+            <h2 id="cart-modal-title">Your Order</h2>
             <div id="cart-items">
                 <!-- Cart items will be loaded here -->
             </div>
@@ -288,11 +288,11 @@
     </div>
 
     <!-- Profile Modal -->
-    <div id="profile-modal" class="modal">
+    <div id="profile-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="profile-modal-title">
         <div class="modal-content profile-modal">
             <div class="profile-header">
-                <span class="close">&times;</span>
-                <h2><i class="fas fa-user-circle"></i> Your Profile</h2>
+                <span class="close" aria-label="Close profile modal" tabindex="0">&times;</span>
+                <h2 id="profile-modal-title"><i class="fas fa-user-circle"></i> Your Profile</h2>
             </div>
             
             <div class="profile-main">
@@ -373,10 +373,10 @@
     </div>
 
     <!-- Location Modal -->
-    <div id="location-modal" class="modal">
+    <div id="location-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="location-modal-title">
         <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Change Delivery Location</h2>
+            <span class="close" aria-label="Close location modal" tabindex="0">&times;</span>
+            <h2 id="location-modal-title">Change Delivery Location</h2>
             <div id="location-map" style="height: 300px; margin-bottom: 20px;"></div>
             <div class="form-group">
                 <label for="delivery-address">Enter your address</label>
@@ -387,9 +387,9 @@
     </div>
 
     <!-- Order Confirmation -->
-    <div id="order-confirmation" class="modal">
+    <div id="order-confirmation" class="modal" role="dialog" aria-modal="true" aria-labelledby="order-confirmation-title">
         <div class="modal-content confirmation">
-            <h2>Order Confirmed!</h2>
+            <h2 id="order-confirmation-title">Order Confirmed!</h2>
             <div class="confirmation-icon">
                 <i class="fas fa-check-circle"></i>
             </div>

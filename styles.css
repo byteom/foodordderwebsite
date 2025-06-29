@@ -9,7 +9,7 @@
 :root {
     /* Default Theme */
     --primary-color: #ff6b6b;
-    --primary-hover: #ff5252;
+    --primary-hover: #e55a5a;
     --secondary-color: #4ecdc4;
     --accent-color: #ffe66d;
     
@@ -19,12 +19,12 @@
     --header-bg: #ffffff;
     
     /* Text Colors */
-    --text-color: #333333;
-    --text-muted: #666666;
-    --text-light: #999999;
+    --text-color: #222;
+    --text-muted: #444;
+    --text-light: #444;
     
     /* Border Colors */
-    --border-color: #e0e0e0;
+    --border-color: #d1d5db;
     --border-light: #f0f0f0;
     
     /* Shadow */
@@ -42,8 +42,8 @@
     --bg-color: #1a1a1a;
     --card-bg: #2d2d2d;
     --header-bg: #2d2d2d;
-    --text-color: #ffffff;
-    --text-muted: #cccccc;
+    --text-color: #f5f5f5;
+    --text-muted: #ccc;
     --text-light: #999999;
     --border-color: #404040;
     --border-light: #333333;
@@ -134,10 +134,11 @@ body {
 .section-with-header h2 {
     margin-bottom: 20px;
     font-size: 1.8rem;
-    color: var(--text-color);
+    color: var(--primary-color);
     display: flex;
     align-items: center;
     gap: 10px;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.04);
 }
 
 .section-with-header h2 i {
@@ -212,7 +213,7 @@ nav ul li {
 
 nav ul li a {
     text-decoration: none;
-    color: var(--text-color);
+    color: var(--primary-color);
     font-weight: 500;
     transition: color 0.3s;
     display: flex;
@@ -221,7 +222,8 @@ nav ul li a {
 }
 
 nav ul li a:hover {
-    color: var(--primary-color);
+    color: #b80000;
+    text-decoration: underline;
 }
 
 nav ul li a.active {

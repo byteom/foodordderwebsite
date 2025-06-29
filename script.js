@@ -2372,4 +2372,44 @@ document.addEventListener('DOMContentLoaded', function() {
     showNotification = function(message, type = 'info') {
         showEnhancedNotification(message, type);
     };
+
+    // Accessibility: Trap focus in modals and support keyboard navigation
+    function trapFocus(modal) {
+        const focusableSelectors = 'a[href], button, textarea, input, select, [tabindex]:not([tabindex="-1"])';
+        const focusableEls = modal.querySelectorAll(focusableSelectors);
+        if (!focusableEls.length) return;
+        const firstEl = focusableEls[0];
+        const lastEl = focusableEls[focusableEls.length - 1];
+        modal.addEventListener('keydown', function(e) {
+            if (e.key === 'Tab') {
+                if (e.shiftKey) {
+                    if (document.activeElement === firstEl) {
+                        e.preventDefault();
+                        lastEl.focus();
+                    }
+                } else {
+                    if (document.activeElement === lastEl) {
+                        e.preventDefault();
+                        firstEl.focus();
+                    }
+                }
+            }
+            if (e.key === 'Escape') {
+                modal.style.display = 'none';
+            }
+        });
+    }
+    // Apply trapFocus to all modals when opened
+    [cartModal, profileModal, locationModal, orderConfirmation].forEach(modal => {
+        modal.addEventListener('show', () => trapFocus(modal));
+    });
+    // Make close buttons keyboard accessible
+    [...document.querySelectorAll('.modal .close')].forEach(btn => {
+        btn.addEventListener('keydown', e => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                btn.click();
+            }
+        });
+    });
 });
