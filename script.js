@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', function() {
             description: 'Refreshing iced tea with lemon',
             price: 2.99,
             category: 'drink',
-            image: 'https://images.unsplash.com/photo-1560343090-f0409e92791a?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
+            image: 'images/iced-tea.jpg',
             rating: 3.8,
             prepTime: '5 min',
             calories: 90,
@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', function() {
             description: 'Homemade lemonade with fresh lemons',
             price: 3.49,
             category: 'drink',
-            image: 'https://images.unsplash.com/photo-1508253730651-e5ace80a7025?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
+            image: 'images/lemonade.jpg',
             rating: 4.1,
             prepTime: '5 min',
             calories: 120,
@@ -127,7 +127,7 @@ document.addEventListener('DOMContentLoaded', function() {
             description: 'Classic Italian dessert with layers of coffee-soaked ladyfingers and mascarpone cream',
             price: 7.49,
             category: 'dessert',
-            image: 'https://images.unsplash.com/photo-1535920527002-b35e9672ebf1?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
+            image: 'images/tiramisu.jpg',
             rating: 4.7,
             prepTime: '10 min',
             calories: 450,
@@ -139,7 +139,7 @@ document.addEventListener('DOMContentLoaded', function() {
             description: 'Toasted bread with garlic butter and herbs',
             price: 4.99,
             category: 'appetizer',
-            image: 'https://images.unsplash.com/photo-1586449480558-33ae22f7e3fa?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
+            image: 'images/garlic-bread.jpg',   
             rating: 4.2,
             prepTime: '10 min',
             calories: 320,
@@ -207,6 +207,17 @@ document.addEventListener('DOMContentLoaded', function() {
     const locationClose = locationModal.querySelector('.close');
     const confirmLocationBtn = document.getElementById('confirm-location');
     const deliveryAddressInput = document.getElementById('delivery-address');
+    const scrollToTopBtn = document.getElementById('scrollToTop');
+
+    // Show button only when scrolled down
+    window.addEventListener('scroll', () => {
+    scrollToTopBtn.style.display = window.scrollY > 300 ? 'block' : 'none';
+    });
+
+    // Scroll to top on click
+    scrollToTopBtn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
 
     // Initialize cart, user data, and location from local storage
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -250,7 +261,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         <span>(${item.rating})</span>
                     </div>
                     <p class="menu-item-desc">${item.description}</p>
-                    <span class="menu-item-price">$${item.price.toFixed(2)}</span>
+                    <span class="menu-item-price">₹${item.price.toFixed(2)}</span>
                     <button class="add-to-cart" data-id="${item.id}">Add to Cart</button>
                 </div>
             `;
@@ -319,7 +330,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         <span>(${item.rating})</span>
                     </div>
                     <p class="menu-item-desc">${item.description}</p>
-                    <span class="menu-item-price">$${item.price.toFixed(2)}</span>
+                    <span class="menu-item-price">₹${item.price.toFixed(2)}</span>
                     <button class="add-to-cart" data-id="${item.id}">Add to Cart</button>
                 </div>
             `;
@@ -351,8 +362,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     <p class="offer-description">${offer.description}</p>
                     <div class="offer-price">
                         ${offer.originalPrice > 0 ? `
-                            <span class="original">$${offer.originalPrice.toFixed(2)}</span>
-                            <span class="discounted">$${offer.discountedPrice.toFixed(2)}</span>
+                            <span class="original">₹${offer.originalPrice.toFixed(2)}</span>
+                            <span class="discounted">₹${offer.discountedPrice.toFixed(2)}</span>
                         ` : `
                             <span class="discounted">${offer.discount} Off</span>
                         `}
@@ -399,9 +410,27 @@ document.addEventListener('DOMContentLoaded', function() {
             
             showNotification('Weekend Special added to cart!');
         } else if (offerId === 3) {
-            // Dessert Combo
-            showNotification('Add any 2 desserts to your cart to get 20% off!');
+    // Dessert Combo Logic
+    const dessertsInCart = cart.filter(item => item.category === 'dessert');
+
+    if (dessertsInCart.length < 2) {
+        showNotification('Add any 2 desserts to your cart to get 20% off!');
+        return;
+    }
+
+    // Apply discount only if not already applied
+    dessertsInCart.forEach(item => {
+        if (!item.discountApplied) {
+            item.price = parseFloat((item.price * 0.8).toFixed(2));
+            item.discountApplied = true; // flag to avoid double discount
         }
+    });
+
+    updateCart();
+    showNotification('20% discount applied to desserts!');
+}
+
+
     }
 
     // Helper function to add offer items to cart
@@ -438,17 +467,21 @@ document.addEventListener('DOMContentLoaded', function() {
             const orderElement = document.createElement('div');
             orderElement.classList.add('order-card');
             
-            let itemsHtml = '';
+        let itemsHtml = '';
+
+        if (!order.items || order.items.length === 0) {
+            itemsHtml = `<p style="padding: 10px; color: gray;">No items in this order.</p>`;
+        } else {
             order.items.forEach(item => {
                 itemsHtml += `
                     <div class="order-item">
                         <div class="order-item-name">${item.name}</div>
                         <div class="order-item-quantity">x${item.quantity}</div>
-                        <div class="order-item-price">$${(item.price * item.quantity).toFixed(2)}</div>
+                        <div class="order-item-price">₹${(item.price * item.quantity).toFixed(2)}</div>
                     </div>
                 `;
             });
-            
+        }
             const orderDate = new Date(order.date);
             const statusClass = `status-${order.status.toLowerCase()}`;
             
@@ -465,7 +498,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
                 <div class="order-total">
                     <span>Total</span>
-                    <span>$${order.total.toFixed(2)}</span>
+                   <span>₹${order.total.toFixed(2)}</span>
                 </div>
                 <button class="reorder-btn" data-order-id="${order.id}">Reorder</button>
             `;
@@ -591,7 +624,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         <div class="cart-item-desc">${item.description}</div>
                     </div>
                 </div>
-                <div class="cart-item-price">$${item.price.toFixed(2)}</div>
+                <div class="cart-item-price">₹${item.price.toFixed(2)}</div>
                 <div class="cart-item-quantity">
                     <button class="quantity-btn minus" data-id="${item.id}">-</button>
                     <span class="quantity">${item.quantity}</span>
@@ -838,62 +871,73 @@ document.addEventListener('DOMContentLoaded', function() {
         deliveryAddressInput.value = `${Math.round(lat*100)/100}, ${Math.round(lng*100)/100}`;
     }
 
-    // Handle form submission
-    deliveryForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        
-        if (cart.length === 0) {
-            alert('Your cart is empty. Please add items before placing an order.');
-            return;
-        }
-        
-        const name = document.getElementById('name').value;
-        const address = document.getElementById('address').value;
-        const phone = document.getElementById('phone').value;
-        const instructions = document.getElementById('instructions').value;
-        
-        // Update user info if changed
-        if (name && name !== user.name) {
-            user.name = name;
-            if (phone) user.phone = phone;
-            localStorage.setItem('user', JSON.stringify(user));
-            updateProfileStats();
-        }
-        
-        // Save order to local storage
-        const order = {
-            id: Date.now(),
-            date: new Date().toISOString(),
-            items: [...cart],
-            total: parseFloat(cartTotal.textContent),
-            customer: { name, address, phone, instructions },
-            status: 'pending',
-            location: deliveryLocation
-        };
-        
-        let orders = JSON.parse(localStorage.getItem('orders')) || [];
-        orders.push(order);
-        localStorage.setItem('orders', JSON.stringify(orders));
-        
-        // Clear cart
-        cart = [];
-        updateCart();
-        deliveryForm.reset();
-        
-        // Show confirmation
-        orderIdSpan.textContent = order.id;
-        
-        // Calculate estimated delivery time (30-45 minutes from now)
-        const now = new Date();
-        const deliveryTime = new Date(now.getTime() + (30 + Math.random() * 15) * 60000);
-        deliveryTimeSpan.textContent = deliveryTime.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-        
-        cartModal.style.display = 'none';
-        orderConfirmation.style.display = 'block';
-        
-        // Update previous orders display
-        displayPreviousOrders();
-    });
+// Handle form submission
+deliveryForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const name = document.getElementById('name').value.trim();
+    const address = document.getElementById('address').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const instructions = document.getElementById('instructions').value.trim();
+
+    // ✅ VALIDATION FIRST
+    if (!name || !address || !phone) {
+        alert("Please fill all required fields.");
+        return;
+    }
+
+    if (!/^[6-9]\d{9}$/.test(phone)) {
+        alert("Please enter a valid 10-digit Indian phone number.");
+        return;
+    }
+
+    if (cart.length === 0) {
+        alert('Your cart is empty. Please add items before placing an order.');
+        return;
+    }
+
+    // ✅ All good — proceed to submit
+    alert("Your order has been placed successfully!");
+
+    // Save user info
+    user.name = name;
+    user.phone = phone;
+    localStorage.setItem('user', JSON.stringify(user));
+    updateProfileStats();
+
+    // Save order
+    const order = {
+        id: Date.now(),
+        date: new Date().toISOString(),
+        items: [...cart],
+        total: parseFloat(cartTotal.textContent),
+        customer: { name, address, phone, instructions },
+        status: 'pending',
+        location: deliveryLocation
+    };
+
+    let orders = JSON.parse(localStorage.getItem('orders')) || [];
+    orders.push(order);
+    localStorage.setItem('orders', JSON.stringify(orders));
+
+    // Clear cart & form
+    cart = [];
+    updateCart();
+    displayCartItems();
+    deliveryForm.reset();
+
+    // Show confirmation modal
+    orderIdSpan.textContent = order.id;
+    const now = new Date();
+    const deliveryTime = new Date(now.getTime() + (30 + Math.random() * 15) * 60000);
+    deliveryTimeSpan.textContent = deliveryTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+    cartModal.style.display = 'none';
+    orderConfirmation.style.display = 'block';
+
+    // Update previous orders
+    displayPreviousOrders();
+});
 
     // Close confirmation modal
     closeConfirmation.addEventListener('click', () => {
