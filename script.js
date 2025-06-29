@@ -438,7 +438,11 @@ document.addEventListener('DOMContentLoaded', function() {
             const orderElement = document.createElement('div');
             orderElement.classList.add('order-card');
             
-            let itemsHtml = '';
+        let itemsHtml = '';
+
+        if (!order.items || order.items.length === 0) {
+            itemsHtml = `<p style="padding: 10px; color: gray;">No items in this order.</p>`;
+        } else {
             order.items.forEach(item => {
                 itemsHtml += `
                     <div class="order-item">
@@ -448,7 +452,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     </div>
                 `;
             });
-            
+        }
             const orderDate = new Date(order.date);
             const statusClass = `status-${order.status.toLowerCase()}`;
             

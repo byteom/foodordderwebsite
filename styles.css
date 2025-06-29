@@ -13,10 +13,10 @@ body {
 }
 
 .container {
-    width: 90%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
+  width: 95%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 10px;
 }
 
 .btn {
