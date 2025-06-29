@@ -141,6 +141,23 @@ nav ul li a:hover {
     color: #ff6b6b;
 }
 
+nav ul li a.active {
+    color: #ff6b6b;
+    font-weight: bold;
+    position: relative;
+}
+
+nav ul li a.active::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #ff6b6b;
+    border-radius: 1px;
+}
+
 /* Hero Section */
 .hero {
     background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
@@ -855,6 +872,17 @@ footer {
     nav ul {
         width: 100%;
         justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    nav ul li a {
+        font-size: 0.9rem;
+        padding: 5px 8px;
+    }
+
+    nav ul li a.active::after {
+        bottom: -3px;
     }
 
     .hero-content h2 {
@@ -886,6 +914,19 @@ footer {
 }
 
 @media (max-width: 480px) {
+    header h1 {
+        font-size: 24px;
+    }
+
+    nav ul {
+        gap: 5px;
+    }
+
+    nav ul li a {
+        font-size: 0.8rem;
+        padding: 3px 5px;
+    }
+
     .menu-items, .offers-container {
         grid-template-columns: 1fr;
     }
