@@ -244,6 +244,9 @@ document.addEventListener('DOMContentLoaded', function() {
             ? menuItems 
             : menuItems.filter(item => item.category === category);
         
+        console.log(`Displaying ${filteredItems.length} items for category: ${category}`);
+        console.log('Items:', filteredItems.map(item => ({ name: item.name, category: item.category })));
+        
         filteredItems.forEach(item => {
             const isFavorite = user.favorites.includes(item.id);
             const menuItemElement = document.createElement('div');
@@ -252,7 +255,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <button class="favorite-btn ${isFavorite ? 'active' : ''}" data-id="${item.id}">
                     <i class="fas fa-heart"></i>
                 </button>
-                <img src="${item.image}" alt="${item.name}" class="menu-item-img">
+                <img src="${item.image}" alt="${item.name}" class="menu-item-img" onerror="this.src='https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80'">
                 <div class="menu-item-content">
                     <h3 class="menu-item-title">${item.name}</h3>
                     <div class="rating">
@@ -321,7 +324,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <button class="favorite-btn ${isFavorite ? 'active' : ''}" data-id="${item.id}">
                     <i class="fas fa-heart"></i>
                 </button>
-                <img src="${item.image}" alt="${item.name}" class="menu-item-img">
+                <img src="${item.image}" alt="${item.name}" class="menu-item-img" onerror="this.src='https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80'">
                 <div class="menu-item-content">
                     <h3 class="menu-item-title">${item.name}</h3>
                     <div class="rating">
@@ -355,7 +358,7 @@ document.addEventListener('DOMContentLoaded', function() {
             offerElement.classList.add('offer-card');
             offerElement.innerHTML = `
                 <div class="offer-badge">Special Offer</div>
-                <img src="${offer.image}" alt="${offer.title}" class="offer-image">
+                <img src="${offer.image}" alt="${offer.title}" class="offer-image" onerror="this.src='https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80'">
                 <div class="offer-content">
                     <h3 class="offer-title">${offer.title}</h3>
                     <p class="offer-description">${offer.description}</p>
@@ -595,7 +598,7 @@ document.addEventListener('DOMContentLoaded', function() {
             cartItemElement.classList.add('cart-item');
             cartItemElement.innerHTML = `
                 <div class="cart-item-info">
-                    <img src="${item.image}" alt="${item.name}" class="cart-item-img">
+                    <img src="${item.image}" alt="${item.name}" class="cart-item-img" onerror="this.src='https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80'">
                     <div class="cart-item-details">
                         <div class="cart-item-name">${item.name}</div>
                         <div class="cart-item-desc">${item.description}</div>
@@ -788,7 +791,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const favoriteElement = document.createElement('div');
                 favoriteElement.classList.add('favorite-item');
                 favoriteElement.innerHTML = `
-                    <img src="${item.image}" alt="${item.name}">
+                    <img src="${item.image}" alt="${item.name}" onerror="this.src='https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80'">
                     <div class="favorite-item-name">${item.name}</div>
                 `;
                 favoritesContainer.appendChild(favoriteElement);
