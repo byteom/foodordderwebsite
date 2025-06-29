@@ -211,6 +211,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // Navigation links for smooth scrolling
     const navLinks = document.querySelectorAll('nav a[href^="#"]:not([href="#cart"]):not([href="#profile"])');
 
+    // Dark mode toggle
+    const darkModeToggle = document.getElementById('dark-mode-toggle');
+    const darkModeIcon = darkModeToggle.querySelector('i');
+
     // Initialize cart, user data, and location from local storage
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
     let user = JSON.parse(localStorage.getItem('user')) || {
@@ -225,6 +229,9 @@ document.addEventListener('DOMContentLoaded', function() {
         address: 'Model Town, Jalandhar, Punjab, India',
         coordinates: [31.3260, 75.5762] // Coordinates for Jalandhar, Punjab, India
     };
+    
+    // Initialize dark mode from local storage
+    let isDarkMode = localStorage.getItem('darkMode') === 'true';
     
     // Initialize maps
     let map, locationMap;
@@ -670,6 +677,32 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 3000);
     }
 
+    // Dark mode toggle function
+    function toggleDarkMode() {
+        isDarkMode = !isDarkMode;
+        
+        if (isDarkMode) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            darkModeIcon.className = 'fas fa-sun';
+            localStorage.setItem('darkMode', 'true');
+        } else {
+            document.documentElement.setAttribute('data-theme', 'light');
+            darkModeIcon.className = 'fas fa-moon';
+            localStorage.setItem('darkMode', 'false');
+        }
+    }
+
+    // Initialize dark mode on page load
+    function initDarkMode() {
+        if (isDarkMode) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            darkModeIcon.className = 'fas fa-sun';
+        } else {
+            document.documentElement.setAttribute('data-theme', 'light');
+            darkModeIcon.className = 'fas fa-moon';
+        }
+    }
+
     // Filter menu items
     filterButtons.forEach(button => {
         button.addEventListener('click', () => {
@@ -998,4 +1031,10 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     `;
     document.head.appendChild(style);
+
+    // Initialize dark mode on page load
+    initDarkMode();
+
+    // Dark mode toggle event listener
+    darkModeToggle.addEventListener('click', toggleDarkMode);
 });
