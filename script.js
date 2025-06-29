@@ -208,6 +208,25 @@ document.addEventListener('DOMContentLoaded', function() {
     const confirmLocationBtn = document.getElementById('confirm-location');
     const deliveryAddressInput = document.getElementById('delivery-address');
 
+    // Form validation elements
+    const formInputs = {
+        name: document.getElementById('name'),
+        email: document.getElementById('email'),
+        phone: document.getElementById('phone'),
+        address: document.getElementById('address'),
+        instructions: document.getElementById('instructions')
+    };
+
+    const formErrors = {
+        name: document.getElementById('name-error'),
+        email: document.getElementById('email-error'),
+        phone: document.getElementById('phone-error'),
+        address: document.getElementById('address-error'),
+        instructions: document.getElementById('instructions-error')
+    };
+
+    const submitOrderBtn = document.getElementById('submit-order-btn');
+
     // Navigation links for smooth scrolling
     const navLinks = document.querySelectorAll('nav a[href^="#"]:not([href="#cart"]):not([href="#profile"])');
 
@@ -771,8 +790,14 @@ document.addEventListener('DOMContentLoaded', function() {
         
         document.getElementById('favorite-items').textContent = user.favorites.length;
         
+        // Fix date formatting
         const memberSince = new Date(user.memberSince);
-        document.getElementById('member-since').textContent = memberSince.toLocaleDateString();
+        const options = { 
+            year: 'numeric', 
+            month: 'short', 
+            day: 'numeric' 
+        };
+        document.getElementById('member-since').textContent = memberSince.toLocaleDateString('en-US', options);
     }
 
     // Display favorite items
@@ -882,56 +907,86 @@ document.addEventListener('DOMContentLoaded', function() {
         e.preventDefault();
         
         if (cart.length === 0) {
-            alert('Your cart is empty. Please add items before placing an order.');
+            showNotification('Your cart is empty. Please add items before placing an order.');
             return;
         }
+
+        // Validate form before submission
+        if (!validateForm()) {
+            showValidationSummary();
+            return;
+        }
+
+        // Show loading state
+        submitOrderBtn.disabled = true;
+        submitOrderBtn.classList.add('loading');
+        submitOrderBtn.innerHTML = '<span>Processing Order...</span>';
         
-        const name = document.getElementById('name').value;
-        const address = document.getElementById('address').value;
-        const phone = document.getElementById('phone').value;
-        const instructions = document.getElementById('instructions').value;
+        // Get form data
+        const name = formInputs.name.value.trim();
+        const email = formInputs.email.value.trim();
+        const phone = formInputs.phone.value.trim();
+        const address = formInputs.address.value.trim();
+        const instructions = formInputs.instructions.value.trim();
         
         // Update user info if changed
         if (name && name !== user.name) {
             user.name = name;
+            if (email) user.email = email;
             if (phone) user.phone = phone;
             localStorage.setItem('user', JSON.stringify(user));
             updateProfileStats();
         }
         
-        // Save order to local storage
-        const order = {
-            id: Date.now(),
-            date: new Date().toISOString(),
-            items: [...cart],
-            total: parseFloat(cartTotal.textContent),
-            customer: { name, address, phone, instructions },
-            status: 'pending',
-            location: deliveryLocation
-        };
-        
-        let orders = JSON.parse(localStorage.getItem('orders')) || [];
-        orders.push(order);
-        localStorage.setItem('orders', JSON.stringify(orders));
-        
-        // Clear cart
-        cart = [];
-        updateCart();
-        deliveryForm.reset();
-        
-        // Show confirmation
-        orderIdSpan.textContent = order.id;
-        
-        // Calculate estimated delivery time (30-45 minutes from now)
-        const now = new Date();
-        const deliveryTime = new Date(now.getTime() + (30 + Math.random() * 15) * 60000);
-        deliveryTimeSpan.textContent = deliveryTime.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-        
-        cartModal.style.display = 'none';
-        orderConfirmation.style.display = 'block';
-        
-        // Update previous orders display
-        displayPreviousOrders();
+        // Simulate order processing delay
+        setTimeout(() => {
+            // Save order to local storage
+            const order = {
+                id: Date.now(),
+                date: new Date().toISOString(),
+                items: [...cart],
+                total: parseFloat(cartTotal.textContent),
+                customer: { name, email, phone, address, instructions },
+                status: 'pending',
+                location: deliveryLocation
+            };
+            
+            let orders = JSON.parse(localStorage.getItem('orders')) || [];
+            orders.push(order);
+            localStorage.setItem('orders', JSON.stringify(orders));
+            
+            // Clear cart
+            cart = [];
+            updateCart();
+            deliveryForm.reset();
+            
+            // Reset form validation states
+            Object.keys(formInputs).forEach(fieldName => {
+                formInputs[fieldName].classList.remove('valid', 'invalid');
+                formErrors[fieldName].classList.remove('show');
+            });
+            
+            // Show confirmation
+            orderIdSpan.textContent = order.id;
+            
+            // Calculate estimated delivery time (30-45 minutes from now)
+            const now = new Date();
+            const deliveryTime = new Date(now.getTime() + (30 + Math.random() * 15) * 60000);
+            deliveryTimeSpan.textContent = deliveryTime.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+            
+            // Reset button state
+            submitOrderBtn.disabled = false;
+            submitOrderBtn.classList.remove('loading');
+            submitOrderBtn.innerHTML = '<i class="fas fa-check"></i><span>Place Order ($<span id="order-total">0.00</span>)</span>';
+            
+            cartModal.style.display = 'none';
+            orderConfirmation.style.display = 'block';
+            
+            // Update previous orders display
+            displayPreviousOrders();
+            
+            showNotification('Order placed successfully!');
+        }, 2000); // 2 second delay to simulate processing
     });
 
     // Close confirmation modal
@@ -1006,6 +1061,7 @@ document.addEventListener('DOMContentLoaded', function() {
     updateCart();
     initLocation();
     updateProfileStats();
+    setupFormValidation();
 
     // Set Home link as active by default
     const homeLink = document.querySelector('nav a[href="#home"]');
@@ -1040,4 +1096,158 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Dark mode toggle event listener
     darkModeToggle.addEventListener('click', toggleDarkMode);
+
+    // Form Validation Functions
+    const validationRules = {
+        name: {
+            required: true,
+            minLength: 2,
+            maxLength: 50,
+            pattern: /^[A-Za-z\s]+$/,
+            message: 'Name must be 2-50 characters and contain only letters and spaces'
+        },
+        email: {
+            required: true,
+            pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+            message: 'Please enter a valid email address'
+        },
+        phone: {
+            required: true,
+            pattern: /^[\+]?[0-9\s\-\(\)]{10,15}$/,
+            message: 'Please enter a valid phone number (10-15 digits)'
+        },
+        address: {
+            required: true,
+            minLength: 10,
+            maxLength: 200,
+            message: 'Address must be 10-200 characters long'
+        },
+        instructions: {
+            required: false,
+            maxLength: 100,
+            message: 'Instructions must be less than 100 characters'
+        }
+    };
+
+    // Validate individual field
+    function validateField(fieldName, value) {
+        const rules = validationRules[fieldName];
+        const input = formInputs[fieldName];
+        const errorElement = formErrors[fieldName];
+
+        // Clear previous validation states
+        input.classList.remove('valid', 'invalid');
+        errorElement.classList.remove('show');
+        errorElement.textContent = '';
+
+        // Check if field is empty and required
+        if (rules.required && (!value || value.trim() === '')) {
+            input.classList.add('invalid');
+            errorElement.textContent = `${fieldName.charAt(0).toUpperCase() + fieldName.slice(1)} is required`;
+            errorElement.classList.add('show');
+            return false;
+        }
+
+        // Skip validation for empty optional fields
+        if (!rules.required && (!value || value.trim() === '')) {
+            return true;
+        }
+
+        // Check minimum length
+        if (rules.minLength && value.length < rules.minLength) {
+            input.classList.add('invalid');
+            errorElement.textContent = rules.message;
+            errorElement.classList.add('show');
+            return false;
+        }
+
+        // Check maximum length
+        if (rules.maxLength && value.length > rules.maxLength) {
+            input.classList.add('invalid');
+            errorElement.textContent = rules.message;
+            errorElement.classList.add('show');
+            return false;
+        }
+
+        // Check pattern
+        if (rules.pattern && !rules.pattern.test(value)) {
+            input.classList.add('invalid');
+            errorElement.textContent = rules.message;
+            errorElement.classList.add('show');
+            return false;
+        }
+
+        // Field is valid
+        input.classList.add('valid');
+        return true;
+    }
+
+    // Validate entire form
+    function validateForm() {
+        let isValid = true;
+        
+        Object.keys(formInputs).forEach(fieldName => {
+            const value = formInputs[fieldName].value.trim();
+            if (!validateField(fieldName, value)) {
+                isValid = false;
+            }
+        });
+
+        return isValid;
+    }
+
+    // Show form validation summary
+    function showValidationSummary() {
+        const invalidFields = Object.keys(formInputs).filter(fieldName => {
+            return !validateField(fieldName, formInputs[fieldName].value.trim());
+        });
+
+        if (invalidFields.length > 0) {
+            showNotification(`Please fix ${invalidFields.length} error(s) in the form`);
+            // Focus on first invalid field
+            const firstInvalidField = formInputs[invalidFields[0]];
+            firstInvalidField.focus();
+            return false;
+        }
+
+        return true;
+    }
+
+    // Setup form validation
+    function setupFormValidation() {
+        Object.keys(formInputs).forEach(fieldName => {
+            const input = formInputs[fieldName];
+            
+            // Add event listeners for real-time validation
+            input.addEventListener('blur', () => {
+                validateField(fieldName, input.value.trim());
+            });
+
+            input.addEventListener('input', () => {
+                // Clear validation state on input
+                input.classList.remove('valid', 'invalid');
+                formErrors[fieldName].classList.remove('show');
+            });
+
+            // Special handling for phone number formatting
+            if (fieldName === 'phone') {
+                input.addEventListener('input', (e) => {
+                    let value = e.target.value.replace(/\D/g, ''); // Remove non-digits
+                    
+                    // Format phone number as user types
+                    if (value.length > 0) {
+                        if (value.length <= 3) {
+                            value = `(${value}`;
+                        } else if (value.length <= 6) {
+                            value = `(${value.slice(0, 3)}) ${value.slice(3)}`;
+                        } else {
+                            value = `(${value.slice(0, 3)}) ${value.slice(3, 6)}-${value.slice(6, 10)}`;
+                        }
+                    }
+                    
+                    e.target.value = value;
+                });
+            }
+        });
+    }
 });
