@@ -128,39 +128,86 @@
 
     <!-- Profile Modal -->
     <div id="profile-modal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Your Profile</h2>
-            <div class="profile-info">
-                <div class="profile-avatar">
-                    <i class="fas fa-user-circle"></i>
-                    <button id="change-avatar">Change</button>
+        <div class="modal-content profile-modal">
+            <div class="profile-header">
+                <span class="close">&times;</span>
+                <h2><i class="fas fa-user-circle"></i> Your Profile</h2>
+            </div>
+            
+            <div class="profile-main">
+                <div class="profile-avatar-section">
+                    <div class="profile-avatar">
+                        <div class="avatar-container">
+                            <i class="fas fa-user-circle"></i>
+                        </div>
+                        <button id="change-avatar" class="avatar-btn">
+                            <i class="fas fa-camera"></i>
+                            <span>Change Photo</span>
+                        </button>
+                    </div>
+                    
+                    <div class="profile-details">
+                        <h3 id="profile-name">Guest User</h3>
+                        <div class="profile-contact">
+                            <div class="contact-item">
+                                <i class="fas fa-envelope"></i>
+                                <span id="profile-email">guest@example.com</span>
+                            </div>
+                            <div class="contact-item">
+                                <i class="fas fa-phone"></i>
+                                <span id="profile-phone">Not provided</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="profile-details">
-                    <h3 id="profile-name">Guest User</h3>
-                    <p><i class="fas fa-envelope"></i> <span id="profile-email">guest@example.com</span></p>
-                    <p><i class="fas fa-phone"></i> <span id="profile-phone">Not provided</span></p>
+                
+                <div class="profile-stats-section">
+                    <h4><i class="fas fa-chart-bar"></i> Your Stats</h4>
+                    <div class="profile-stats">
+                        <div class="stat-item">
+                            <div class="stat-icon">
+                                <i class="fas fa-shopping-bag"></i>
+                            </div>
+                            <div class="stat-content">
+                                <div class="stat-value" id="total-orders">0</div>
+                                <div class="stat-label">Total Orders</div>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <div class="stat-content">
+                                <div class="stat-value" id="favorite-items">0</div>
+                                <div class="stat-label">Favorites</div>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon">
+                                <i class="fas fa-calendar-alt"></i>
+                            </div>
+                            <div class="stat-content">
+                                <div class="stat-value" id="member-since">Today</div>
+                                <div class="stat-label">Member Since</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="profile-favorites-section">
+                    <h4><i class="fas fa-heart"></i> Your Favorites</h4>
+                    <div class="favorites-container" id="favorites-container">
+                        <!-- Favorite items will be loaded here -->
+                    </div>
                 </div>
             </div>
-            <div class="profile-stats">
-                <div class="stat-item">
-                    <div class="stat-value" id="total-orders">0</div>
-                    <div class="stat-label">Total Orders</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-value" id="favorite-items">0</div>
-                    <div class="stat-label">Favorites</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-value" id="member-since">Today</div>
-                    <div class="stat-label">Member Since</div>
-                </div>
+            
+            <div class="profile-actions">
+                <button id="logout-btn" class="btn btn-outline logout-btn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Sign Out</span>
+                </button>
             </div>
-            <h3>Your Favorites</h3>
-            <div class="favorites-container" id="favorites-container">
-                <!-- Favorite items will be loaded here -->
-            </div>
-            <button id="logout-btn" class="btn btn-outline">Sign Out</button>
         </div>
     </div>
 
