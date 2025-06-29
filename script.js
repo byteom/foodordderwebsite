@@ -224,7 +224,14 @@ document.addEventListener('DOMContentLoaded', function() {
     };
     
     // Initialize maps
-    let map, locationMap;
+    let map, locationMap, locationMarker;
+
+    // Track event listeners for cleanup
+    const eventListeners = {
+        cart: [],
+        favorites: [],
+        quantity: []
+    };
 
     // Display menu items
     function displayMenuItems(category = 'all') {
@@ -257,14 +264,95 @@ document.addEventListener('DOMContentLoaded', function() {
             menuContainer.appendChild(menuItemElement);
         });
 
-        // Add event listeners
+        // Clean up old event listeners
+        cleanupEventListeners();
+
+        // Add new event listeners with tracking
         document.querySelectorAll('.add-to-cart').forEach(button => {
-            button.addEventListener('click', addToCart);
+            const handler = addToCart;
+            button.addEventListener('click', handler);
+            eventListeners.cart.push({
+                element: button,
+                type: 'click',
+                handler: handler
+            });
         });
 
         document.querySelectorAll('.favorite-btn').forEach(button => {
-            button.addEventListener('click', toggleFavorite);
+            const handler = toggleFavorite;
+            button.addEventListener('click', handler);
+            eventListeners.favorites.push({
+                element: button,
+                type: 'click',
+                handler: handler
+            });
         });
+    }
+
+    // Clean up event listeners
+    function cleanupEventListeners() {
+        Object.values(eventListeners).forEach(listeners => {
+            listeners.forEach(({element, type, handler}) => {
+                if (element && element.removeEventListener) {
+                    element.removeEventListener(type, handler);
+                }
+            });
+        });
+        
+        // Reset the tracker
+        eventListeners.cart = [];
+        eventListeners.favorites = [];
+        eventListeners.quantity = [];
+    }
+
+    // Clean up location map
+    function cleanupLocationMap() {
+        if (locationMap) {
+            // Remove all map layers and events
+            locationMap.eachLayer(layer => {
+                locationMap.removeLayer(layer);
+            });
+            
+            // Remove marker reference
+            if (locationMarker) {
+                locationMarker.off();
+                locationMarker = null;
+            }
+            
+            // Remove the map instance
+            locationMap.remove();
+            locationMap = null;
+            
+            // Clean up the container element
+            const mapContainer = document.getElementById('location-map');
+            if (mapContainer) {
+                mapContainer.innerHTML = '';
+            }
+        }
+    }
+
+    // Clean up main map
+    function cleanupMainMap() {
+        if (map) {
+            // Remove all map layers and events
+            map.eachLayer(layer => {
+                map.removeLayer(layer);
+            });
+            
+            // Remove the map instance
+            map.remove();
+            map = null;
+        }
+    }
+
+    // Close all modals
+    function closeAllModals() {
+        cartModal.style.display = 'none';
+        profileModal.style.display = 'none';
+        locationModal.style.display = 'none';
+        orderConfirmation.style.display = 'none';
+        cleanupMainMap();
+        cleanupLocationMap();
     }
 
     // Generate star rating HTML
@@ -293,7 +381,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function displayRecommendedItems() {
         forYouContainer.innerHTML = '';
         
-        // Simple recommendation logic (in a real app, this would be more sophisticated)
+        // Simple recommendation logic
         const recommendedItems = menuItems
             .filter(item => item.popular || user.favorites.includes(item.id))
             .sort(() => 0.5 - Math.random())
@@ -390,7 +478,7 @@ document.addEventListener('DOMContentLoaded', function() {
         } else if (offerId === 2) {
             // Weekend Special
             const cheeseburger = menuItems.find(item => item.id === 4);
-            const fries = menuItems.find(item => item.id === 12); // Using garlic bread as fries for demo
+            const fries = menuItems.find(item => item.id === 12);
             const icedTea = menuItems.find(item => item.id === 8);
             
             addOfferItemToCart(cheeseburger, 1);
@@ -492,7 +580,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (existingItem) {
                     existingItem.quantity += item.quantity;
                 } else {
-                    // Find the full menu item to get all properties
                     const menuItem = menuItems.find(menuItem => menuItem.id === item.id);
                     if (menuItem) {
                         cart.push({
@@ -605,17 +692,43 @@ document.addEventListener('DOMContentLoaded', function() {
         cartTotal.textContent = total.toFixed(2);
         orderTotal.textContent = total.toFixed(2);
         
-        // Add event listeners to quantity buttons
+        // Clean up old quantity event listeners
+        eventListeners.quantity.forEach(({element, type, handler}) => {
+            if (element && element.removeEventListener) {
+                element.removeEventListener(type, handler);
+            }
+        });
+        eventListeners.quantity = [];
+        
+        // Add new event listeners with tracking
         document.querySelectorAll('.minus').forEach(button => {
-            button.addEventListener('click', decreaseQuantity);
+            const handler = decreaseQuantity;
+            button.addEventListener('click', handler);
+            eventListeners.quantity.push({
+                element: button,
+                type: 'click',
+                handler: handler
+            });
         });
         
         document.querySelectorAll('.plus').forEach(button => {
-            button.addEventListener('click', increaseQuantity);
+            const handler = increaseQuantity;
+            button.addEventListener('click', handler);
+            eventListeners.quantity.push({
+                element: button,
+                type: 'click',
+                handler: handler
+            });
         });
         
         document.querySelectorAll('.remove-item').forEach(button => {
-            button.addEventListener('click', removeItem);
+            const handler = removeItem;
+            button.addEventListener('click', handler);
+            eventListeners.quantity.push({
+                element: button,
+                type: 'click',
+                handler: handler
+            });
         });
     }
 
@@ -680,18 +793,20 @@ document.addEventListener('DOMContentLoaded', function() {
     // Open cart modal
     cartLink.addEventListener('click', (e) => {
         e.preventDefault();
+        closeAllModals();
         cartModal.style.display = 'block';
         displayCartItems();
     });
 
     // Close cart modal
     closeModal.addEventListener('click', () => {
-        cartModal.style.display = 'none';
+        closeAllModals();
     });
 
     // Open profile modal
     profileLink.addEventListener('click', (e) => {
         e.preventDefault();
+        closeAllModals();
         profileModal.style.display = 'block';
         updateProfileStats();
         displayFavorites();
@@ -699,7 +814,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Close profile modal
     profileClose.addEventListener('click', () => {
-        profileModal.style.display = 'none';
+        closeAllModals();
     });
 
     // Logout
@@ -713,7 +828,7 @@ document.addEventListener('DOMContentLoaded', function() {
             avatar: null
         };
         localStorage.setItem('user', JSON.stringify(user));
-        profileModal.style.display = 'none';
+        closeAllModals();
         updateProfileStats();
         displayFavorites();
         displayRecommendedItems();
@@ -766,7 +881,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Initialize map with Punjab coordinates
         if (!map) {
-            map = L.map('map').setView([31.6340, 74.8723], 12); // Zoom level 12 for city view
+            map = L.map('map').setView([31.6340, 74.8723], 12);
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             }).addTo(map);
@@ -780,7 +895,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 color: '#ff6b6b',
                 fillColor: '#ff6b6b',
                 fillOpacity: 0.2,
-                radius: 8046.72 // 5 miles in meters
+                radius: 8046.72
             }).addTo(map);
         }
     }
@@ -788,32 +903,35 @@ document.addEventListener('DOMContentLoaded', function() {
     // Change location
     changeLocationBtn.addEventListener('click', (e) => {
         e.preventDefault();
+        closeAllModals();
         locationModal.style.display = 'block';
         
-        // Initialize location map if not already done
-        if (!locationMap) {
-            locationMap = L.map('location-map').setView(deliveryLocation.coordinates, 13);
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            }).addTo(locationMap);
-            
-            const marker = L.marker(deliveryLocation.coordinates, {
-                draggable: true
-            }).addTo(locationMap);
-            
-            marker.on('dragend', function() {
-                const newPos = marker.getLatLng();
-                updateAddressFromCoordinates(newPos.lat, newPos.lng);
-            });
-            
-            // Set initial address
-            deliveryAddressInput.value = deliveryLocation.address;
-        }
+        // Initialize location map
+        cleanupLocationMap();
+        
+        const mapContainer = document.getElementById('location-map');
+        mapContainer.innerHTML = '';
+        
+        locationMap = L.map('location-map').setView(deliveryLocation.coordinates, 13);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(locationMap);
+        
+        locationMarker = L.marker(deliveryLocation.coordinates, {
+            draggable: true
+        }).addTo(locationMap);
+        
+        locationMarker.on('dragend', function() {
+            const newPos = locationMarker.getLatLng();
+            updateAddressFromCoordinates(newPos.lat, newPos.lng);
+        });
+        
+        deliveryAddressInput.value = deliveryLocation.address;
     });
 
     // Close location modal
     locationClose.addEventListener('click', () => {
-        locationModal.style.display = 'none';
+        closeAllModals();
     });
 
     // Confirm new location
@@ -822,19 +940,16 @@ document.addEventListener('DOMContentLoaded', function() {
         const newAddress = deliveryAddressInput.value.trim();
         
         if (newAddress) {
-            // In a real app, you would geocode this address to get coordinates
-            // For demo, we'll just use the current coordinates
             deliveryLocation.address = newAddress;
             localStorage.setItem('deliveryLocation', JSON.stringify(deliveryLocation));
             currentLocationSpan.textContent = newAddress;
-            locationModal.style.display = 'none';
+            closeAllModals();
             showNotification('Delivery location updated!');
         }
     });
 
     // Helper function to update address from coordinates (mock for demo)
     function updateAddressFromCoordinates(lat, lng) {
-        // In a real app, you would use a geocoding service here
         deliveryAddressInput.value = `${Math.round(lat*100)/100}, ${Math.round(lng*100)/100}`;
     }
 
