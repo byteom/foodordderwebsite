@@ -289,13 +289,15 @@ nav ul li a:hover {
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
     position: relative;
+    border: 1px solid transparent;
 }
 
 .menu-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    border: 1px solid #ff6b6b;
 }
 
 .favorite-btn {
