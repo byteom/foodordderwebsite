@@ -250,7 +250,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         <span>(${item.rating})</span>
                     </div>
                     <p class="menu-item-desc">${item.description}</p>
-                    <span class="menu-item-price">$${item.price.toFixed(2)}</span>
+                   <span class="menu-item-price">${new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(item.price)}</span>
                     <button class="add-to-cart" data-id="${item.id}">Add to Cart</button>
                 </div>
             `;
@@ -258,9 +258,14 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         // Add event listeners
-        document.querySelectorAll('.add-to-cart').forEach(button => {
-            button.addEventListener('click', addToCart);
-        });
+     document.addEventListener('DOMContentLoaded', () => {
+    menuContainer.addEventListener('click', function (e) {
+        const button = e.target.closest('.add-to-cart');
+        if (!button) return;
+        addToCart({ target: button });
+    });
+});
+
 
         document.querySelectorAll('.favorite-btn').forEach(button => {
             button.addEventListener('click', toggleFavorite);
@@ -319,7 +324,13 @@ document.addEventListener('DOMContentLoaded', function() {
                         <span>(${item.rating})</span>
                     </div>
                     <p class="menu-item-desc">${item.description}</p>
-                    <span class="menu-item-price">$${item.price.toFixed(2)}</span>
+                   <span class="menu-item-price">
+  ${new Intl.NumberFormat('en-IN', {
+    style: 'currency',
+    currency: 'INR'
+  }).format(item.price)}
+</span>
+
                     <button class="add-to-cart" data-id="${item.id}">Add to Cart</button>
                 </div>
             `;
@@ -327,9 +338,12 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         // Add event listeners
-        document.querySelectorAll('.add-to-cart').forEach(button => {
-            button.addEventListener('click', addToCart);
-        });
+    menuContainer.addEventListener('click', function (e) {
+    const button = e.target.closest('.add-to-cart');
+    if (!button) return;
+
+    addToCart({ target: button });
+});
 
         document.querySelectorAll('.favorite-btn').forEach(button => {
             button.addEventListener('click', toggleFavorite);
@@ -351,9 +365,15 @@ document.addEventListener('DOMContentLoaded', function() {
                     <p class="offer-description">${offer.description}</p>
                     <div class="offer-price">
                         ${offer.originalPrice > 0 ? `
-                            <span class="original">$${offer.originalPrice.toFixed(2)}</span>
-                            <span class="discounted">$${offer.discountedPrice.toFixed(2)}</span>
-                        ` : `
+                            <span class="original">
+  ${new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(offer.originalPrice)}
+</span>
+
+<span class="discounted">
+  ${new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(offer.discountedPrice)}
+</span>
+
+` : `
                             <span class="discounted">${offer.discount} Off</span>
                         `}
                     </div>
@@ -444,7 +464,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     <div class="order-item">
                         <div class="order-item-name">${item.name}</div>
                         <div class="order-item-quantity">x${item.quantity}</div>
-                        <div class="order-item-price">$${(item.price * item.quantity).toFixed(2)}</div>
+                        <div class="order-item-price">
+  ${new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(item.price * item.quantity)}
+</div>
                     </div>
                 `;
             });
@@ -465,7 +487,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
                 <div class="order-total">
                     <span>Total</span>
-                    <span>$${order.total.toFixed(2)}</span>
+                    <span>
+  ${new Intl.NumberFormat('en-IN', {
+    style: 'currency',
+    currency: 'INR'
+  }).format(order.total)}
+</span>
                 </div>
                 <button class="reorder-btn" data-order-id="${order.id}">Reorder</button>
             `;
@@ -511,24 +538,26 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Add item to cart
-    function addToCart(e) {
-        const itemId = parseInt(e.target.getAttribute('data-id'));
-        const item = menuItems.find(item => item.id === itemId);
-        
-        const existingItem = cart.find(cartItem => cartItem.id === itemId);
-        
-        if (existingItem) {
-            existingItem.quantity += 1;
-        } else {
-            cart.push({
-                ...item,
-                quantity: 1
-            });
-        }
-        
-        updateCart();
-        showNotification(`${item.name} added to cart!`);
+  function addToCart(e) {
+    const button = e.target.closest('.add-to-cart');
+    const itemId = parseInt(button.getAttribute('data-id'));
+
+    const item = menuItems.find(item => item.id === itemId);
+    const existingItem = cart.find(cartItem => cartItem.id === itemId);
+
+    if (existingItem) {
+        existingItem.quantity += 1;
+    } else {
+        cart.push({
+            ...item,
+            quantity: 1
+        });
     }
+
+    updateCart();
+    showNotification(`${item.name} added to cart!`);
+}
+
 
     // Toggle favorite item
     function toggleFavorite(e) {
@@ -591,7 +620,13 @@ document.addEventListener('DOMContentLoaded', function() {
                         <div class="cart-item-desc">${item.description}</div>
                     </div>
                 </div>
-                <div class="cart-item-price">$${item.price.toFixed(2)}</div>
+               <div class="cart-item-price">
+  ${new Intl.NumberFormat('en-IN', {
+    style: 'currency',
+    currency: 'INR'
+  }).format(item.price)}
+</div>
+
                 <div class="cart-item-quantity">
                     <button class="quantity-btn minus" data-id="${item.id}">-</button>
                     <span class="quantity">${item.quantity}</span>
@@ -805,6 +840,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 const newPos = marker.getLatLng();
                 updateAddressFromCoordinates(newPos.lat, newPos.lng);
             });
+            locationMap.on('click', function(e) {
+    const { lat, lng } = e.latlng;
+    marker.setLatLng([lat, lng]); // Move the marker
+    updateAddressFromCoordinates(lat, lng); // Update the input box
+});
+
             
             // Set initial address
             deliveryAddressInput.value = deliveryLocation.address;
