@@ -250,7 +250,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         <span>(${item.rating})</span>
                     </div>
                     <p class="menu-item-desc">${item.description}</p>
-                    <span class="menu-item-price">$${item.price.toFixed(2)}</span>
+                    <span class="menu-item-price">₹${item.price.toFixed(2)}</span>
                     <button class="add-to-cart" data-id="${item.id}">Add to Cart</button>
                 </div>
             `;
@@ -319,7 +319,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         <span>(${item.rating})</span>
                     </div>
                     <p class="menu-item-desc">${item.description}</p>
-                    <span class="menu-item-price">$${item.price.toFixed(2)}</span>
+                    <span class="menu-item-price">₹${item.price.toFixed(2)}</span>
                     <button class="add-to-cart" data-id="${item.id}">Add to Cart</button>
                 </div>
             `;
@@ -351,8 +351,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     <p class="offer-description">${offer.description}</p>
                     <div class="offer-price">
                         ${offer.originalPrice > 0 ? `
-                            <span class="original">$${offer.originalPrice.toFixed(2)}</span>
-                            <span class="discounted">$${offer.discountedPrice.toFixed(2)}</span>
+                            <span class="original">₹${offer.originalPrice.toFixed(2)}</span>
+                            <span class="discounted">₹${offer.discountedPrice.toFixed(2)}</span>
                         ` : `
                             <span class="discounted">${offer.discount} Off</span>
                         `}
@@ -444,7 +444,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <div class="order-item">
                         <div class="order-item-name">${item.name}</div>
                         <div class="order-item-quantity">x${item.quantity}</div>
-                        <div class="order-item-price">$${(item.price * item.quantity).toFixed(2)}</div>
+                        <div class="order-item-price">₹${(item.price * item.quantity).toFixed(2)}</div>
                     </div>
                 `;
             });
@@ -465,7 +465,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
                 <div class="order-total">
                     <span>Total</span>
-                    <span>$${order.total.toFixed(2)}</span>
+                   <span>₹${order.total.toFixed(2)}</span>
                 </div>
                 <button class="reorder-btn" data-order-id="${order.id}">Reorder</button>
             `;
@@ -591,7 +591,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         <div class="cart-item-desc">${item.description}</div>
                     </div>
                 </div>
-                <div class="cart-item-price">$${item.price.toFixed(2)}</div>
+                <div class="cart-item-price">₹${item.price.toFixed(2)}</div>
                 <div class="cart-item-quantity">
                     <button class="quantity-btn minus" data-id="${item.id}">-</button>
                     <span class="quantity">${item.quantity}</span>
@@ -846,6 +846,18 @@ document.addEventListener('DOMContentLoaded', function() {
             alert('Your cart is empty. Please add items before placing an order.');
             return;
         }
+        // Show success alert
+        alert("Your order has been placed successfully!");
+
+        //Clear the cart
+        cart = []; // empty the cart array
+
+        //Update UI
+        updateCart();          // refresh cart totals
+        displayCartItems();    // show "Your cart is empty."
+
+        // ✅ Step 4: Optionally hide modal
+        cartModal.style.display = 'none'; // close the cart popup
         
         const name = document.getElementById('name').value;
         const address = document.getElementById('address').value;
