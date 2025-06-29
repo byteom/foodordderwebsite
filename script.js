@@ -373,7 +373,7 @@ document.addEventListener('DOMContentLoaded', function() {
   ${new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(offer.discountedPrice)}
 </span>
 
-                        ` : `
+` : `
                             <span class="discounted">${offer.discount} Off</span>
                         `}
                     </div>
@@ -840,6 +840,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 const newPos = marker.getLatLng();
                 updateAddressFromCoordinates(newPos.lat, newPos.lng);
             });
+            locationMap.on('click', function(e) {
+    const { lat, lng } = e.latlng;
+    marker.setLatLng([lat, lng]); // Move the marker
+    updateAddressFromCoordinates(lat, lng); // Update the input box
+});
+
             
             // Set initial address
             deliveryAddressInput.value = deliveryLocation.address;
