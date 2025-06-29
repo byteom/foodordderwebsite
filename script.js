@@ -2426,4 +2426,29 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+
+    // Sync cart item prices with latest menu data
+    function syncCartPrices() {
+        let updated = false;
+        cart.forEach(item => {
+            const menuItem = menuItems.find(m => m.id === item.id);
+            if (menuItem && item.price !== menuItem.price) {
+                item.price = menuItem.price;
+                updated = true;
+            }
+        });
+        if (updated) {
+            localStorage.setItem('cart', JSON.stringify(cart));
+            if (cartModal.style.display === 'block') displayCartItems();
+        }
+    }
+    // Call on page load
+    syncCartPrices();
+    // Also call before placing order
+    if (deliveryForm) {
+        deliveryForm.addEventListener('submit', function(e) {
+            syncCartPrices();
+            // ... existing code ...
+        });
+    }
 });
