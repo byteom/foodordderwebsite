@@ -846,6 +846,18 @@ document.addEventListener('DOMContentLoaded', function() {
             alert('Your cart is empty. Please add items before placing an order.');
             return;
         }
+        // Show success alert
+        alert("Your order has been placed successfully!");
+
+        //Clear the cart
+        cart = []; // empty the cart array
+
+        //Update UI
+        updateCart();        // refresh cart totals
+        displayCartItems();    // show "Your cart is empty."
+
+        // ✅ Step 4: Optionally hide modal
+        cartModal.style.display = 'none'; // close the cart popup
         
         const name = document.getElementById('name').value;
         const address = document.getElementById('address').value;
