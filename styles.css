@@ -727,20 +727,55 @@ nav ul li a.active::after {
 /* Delivery Area */
 .delivery-info {
     margin-top: 20px;
-    background-color: #f8f9fa;
-    padding: 15px;
-    border-radius: 5px;
+    background: linear-gradient(135deg, #f8f9fa 60%, #e9ecef 100%);
+    padding: 22px 28px;
+    border-radius: 12px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.07), 0 1.5px 4px rgba(0,0,0,0.04);
+    border: 1.5px solid #e2e6ea;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 1.08rem;
+    font-weight: 500;
+    transition: background 0.3s, color 0.3s, border 0.3s;
 }
 
 .delivery-info p {
-    margin-bottom: 10px;
+    margin-bottom: 0;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
+    color: #333;
+    font-size: 1.08rem;
+    letter-spacing: 0.01em;
+    line-height: 1.6;
+    transition: color 0.3s;
 }
 
 .delivery-info i {
     color: #ff6b6b;
+    font-size: 1.25rem;
+    background: #fff0f0;
+    border-radius: 50%;
+    padding: 6px;
+    box-shadow: 0 1px 4px rgba(255,107,107,0.08);
+    transition: color 0.3s, background 0.3s;
+}
+
+[data-theme="dark"] .delivery-info {
+    background: linear-gradient(135deg, #23272b 60%, #181a1b 100%);
+    border: 1.5px solid #2c2f34;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.18), 0 1.5px 4px rgba(0,0,0,0.12);
+}
+
+[data-theme="dark"] .delivery-info p {
+    color: #e6e6e6;
+}
+
+[data-theme="dark"] .delivery-info i {
+    color: #ffb3b3;
+    background: #2c2f34;
+    box-shadow: 0 1px 4px rgba(255,107,107,0.13);
 }
 
 /* Modal Styles */

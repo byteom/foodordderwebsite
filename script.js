@@ -376,6 +376,51 @@ document.addEventListener('DOMContentLoaded', function() {
     // INR currency formatter
     const inrFormat = new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' });
 
+    // Leaflet tile layers for light and dark mode
+    const lightTileLayer = L.tileLayer(
+      'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+      {
+        attribution: '&copy; OpenStreetMap contributors'
+      }
+    );
+    const darkTileLayer = L.tileLayer(
+      'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
+      {
+        attribution: '&copy; <a href="https://carto.com/attributions">CARTO</a>',
+        subdomains: 'abcd',
+        maxZoom: 19
+      }
+    );
+    let currentTileLayer = null;
+
+    function switchMapTheme(isDark) {
+      if (map && currentTileLayer) {
+        map.removeLayer(currentTileLayer);
+      }
+      if (map) {
+        if (isDark) {
+          darkTileLayer.addTo(map);
+          currentTileLayer = darkTileLayer;
+        } else {
+          lightTileLayer.addTo(map);
+          currentTileLayer = lightTileLayer;
+        }
+      }
+      // For location modal map if present
+      if (locationMap && locationMap.removeLayer && locationMap.addLayer) {
+        if (locationMap._tileLayer) {
+          locationMap.removeLayer(locationMap._tileLayer);
+        }
+        if (isDark) {
+          darkTileLayer.addTo(locationMap);
+          locationMap._tileLayer = darkTileLayer;
+        } else {
+          lightTileLayer.addTo(locationMap);
+          locationMap._tileLayer = lightTileLayer;
+        }
+      }
+    }
+
     function createImageWithFallback(src, alt) {
         const wrapper = document.createElement('div');
         wrapper.className = 'img-wrapper';
@@ -919,6 +964,7 @@ document.addEventListener('DOMContentLoaded', function() {
             darkModeIcon.className = 'fas fa-moon';
             localStorage.setItem('darkMode', 'false');
         }
+        switchMapTheme(isDarkMode);
     }
 
     // Initialize dark mode on page load
@@ -1101,6 +1147,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Initialize map with Punjab coordinates
         if (!map) {
             map = L.map('map').setView([31.6340, 74.8723], 12); // Zoom level 12 for city view
+            switchMapTheme(isDarkMode);
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             }).addTo(map);
@@ -1127,6 +1174,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Initialize location map if not already done
         if (!locationMap) {
             locationMap = L.map('location-map').setView(deliveryLocation.coordinates, 13);
+            switchMapTheme(isDarkMode);
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             }).addTo(locationMap);
@@ -2487,4 +2535,9 @@ document.addEventListener('DOMContentLoaded', function() {
         offer.image = 'https://images.pexels.com/photos/96974/pexels-photo-96974.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260';
       }
     });
+
+    // On page load, set correct map theme
+    if (typeof isDarkMode !== 'undefined') {
+      switchMapTheme(isDarkMode);
+    }
 });
