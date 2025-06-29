@@ -207,17 +207,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const locationClose = locationModal.querySelector('.close');
     const confirmLocationBtn = document.getElementById('confirm-location');
     const deliveryAddressInput = document.getElementById('delivery-address');
-    const phoneInput = document.getElementById('phone');
-
-    //form validation for phone number field
-
-    phoneInput.addEventListener('input', () => {
-        phoneInput.value = phoneInput.value.replace(/\D/g, ''); // removes all non-digit characters
-      });
-      
-
 
     // Initialize cart, user data, and location from local storage
+    let marker;
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
     let user = JSON.parse(localStorage.getItem('user')) || {
         name: 'Guest User',
@@ -772,50 +764,45 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize location
     function initLocation() {
         currentLocationSpan.textContent = deliveryLocation.address;
-        
-        // Initialize map with Punjab coordinates
+    
         if (!map) {
-            map = L.map('map').setView([31.6340, 74.8723], 12); // Zoom level 12 for city view
+            map = L.map('map').setView([31.6340, 74.8723], 12);
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                attribution: '&copy; OpenStreetMap contributors'
             }).addTo(map);
-            
+    
             L.marker([31.6340, 74.8723]).addTo(map)
                 .bindPopup('Our Restaurant Location')
                 .openPopup();
-            
-            // Draw delivery radius (5 miles ≈ 8km)
+    
             L.circle([31.6340, 74.8723], {
                 color: '#ff6b6b',
                 fillColor: '#ff6b6b',
                 fillOpacity: 0.2,
-                radius: 8046.72 // 5 miles in meters
+                radius: 8046.72 // ~5 miles
             }).addTo(map);
         }
     }
+       
 
     // Change location
     changeLocationBtn.addEventListener('click', (e) => {
         e.preventDefault();
         locationModal.style.display = 'block';
-        
-        // Initialize location map if not already done
+    
         if (!locationMap) {
             locationMap = L.map('location-map').setView(deliveryLocation.coordinates, 13);
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                attribution: '&copy; OpenStreetMap contributors'
             }).addTo(locationMap);
-            
-            const marker = L.marker(deliveryLocation.coordinates, {
-                draggable: true
-            }).addTo(locationMap);
-            
-            marker.on('dragend', function() {
+    
+            marker = L.marker(deliveryLocation.coordinates, { draggable: true }).addTo(locationMap);
+    
+            marker.on('dragend', function () {
                 const newPos = marker.getLatLng();
                 updateAddressFromCoordinates(newPos.lat, newPos.lng);
             });
-            
-            // Set initial address
+    
             deliveryAddressInput.value = deliveryLocation.address;
         }
     });
@@ -829,22 +816,56 @@ document.addEventListener('DOMContentLoaded', function() {
     confirmLocationBtn.addEventListener('click', (e) => {
         e.preventDefault();
         const newAddress = deliveryAddressInput.value.trim();
-        
+    
         if (newAddress) {
-            // In a real app, you would geocode this address to get coordinates
-            // For demo, we'll just use the current coordinates
-            deliveryLocation.address = newAddress;
-            localStorage.setItem('deliveryLocation', JSON.stringify(deliveryLocation));
-            currentLocationSpan.textContent = newAddress;
-            locationModal.style.display = 'none';
-            showNotification('Delivery location updated!');
+            fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(newAddress)}`)
+                .then(res => res.json())
+                .then(results => {
+                    if (results && results.length > 0) {
+                        const result = results[0];
+                        const lat = parseFloat(result.lat);
+                        const lon = parseFloat(result.lon);
+    
+                        if (marker) {
+                            marker.setLatLng([lat, lon]);
+                            locationMap.setView([lat, lon], 13);
+                        }
+    
+                        deliveryLocation.address = result.display_name;
+                        deliveryLocation.coordinates = [lat, lon];
+                        currentLocationSpan.textContent = result.display_name;
+    
+                        localStorage.setItem('deliveryLocation', JSON.stringify(deliveryLocation));
+                        showNotification('Delivery location updated!');
+                        locationModal.style.display = 'none';
+                    } else {
+                        alert('Address not found. Please be more specific.');
+                    }
+                })
+                .catch(err => {
+                    console.error("Forward geocoding failed:", err);
+                    alert("Failed to locate address.");
+                });
         }
     });
 
     // Helper function to update address from coordinates (mock for demo)
     function updateAddressFromCoordinates(lat, lng) {
-        // In a real app, you would use a geocoding service here
-        deliveryAddressInput.value = `${Math.round(lat*100)/100}, ${Math.round(lng*100)/100}`;
+        fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lng}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data && data.display_name) {
+                    deliveryAddressInput.value = data.display_name;
+                    deliveryLocation.address = data.display_name;
+                    deliveryLocation.coordinates = [lat, lng];
+                } else {
+                    deliveryAddressInput.value = `${lat.toFixed(5)}, ${lng.toFixed(5)}`;
+                }
+            })
+            .catch(err => {
+                console.error("Reverse geocoding failed:", err);
+                deliveryAddressInput.value = `${lat.toFixed(5)}, ${lng.toFixed(5)}`;
+            });
     }
 
     // Handle form submission
