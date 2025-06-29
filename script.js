@@ -258,9 +258,14 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         // Add event listeners
-        document.querySelectorAll('.add-to-cart').forEach(button => {
-            button.addEventListener('click', addToCart);
-        });
+     document.addEventListener('DOMContentLoaded', () => {
+    menuContainer.addEventListener('click', function (e) {
+        const button = e.target.closest('.add-to-cart');
+        if (!button) return;
+        addToCart({ target: button });
+    });
+});
+
 
         document.querySelectorAll('.favorite-btn').forEach(button => {
             button.addEventListener('click', toggleFavorite);
@@ -327,9 +332,12 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         // Add event listeners
-        document.querySelectorAll('.add-to-cart').forEach(button => {
-            button.addEventListener('click', addToCart);
-        });
+    menuContainer.addEventListener('click', function (e) {
+    const button = e.target.closest('.add-to-cart');
+    if (!button) return;
+
+    addToCart({ target: button });
+});
 
         document.querySelectorAll('.favorite-btn').forEach(button => {
             button.addEventListener('click', toggleFavorite);
@@ -511,24 +519,26 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Add item to cart
-    function addToCart(e) {
-        const itemId = parseInt(e.target.getAttribute('data-id'));
-        const item = menuItems.find(item => item.id === itemId);
-        
-        const existingItem = cart.find(cartItem => cartItem.id === itemId);
-        
-        if (existingItem) {
-            existingItem.quantity += 1;
-        } else {
-            cart.push({
-                ...item,
-                quantity: 1
-            });
-        }
-        
-        updateCart();
-        showNotification(`${item.name} added to cart!`);
+  function addToCart(e) {
+    const button = e.target.closest('.add-to-cart');
+    const itemId = parseInt(button.getAttribute('data-id'));
+
+    const item = menuItems.find(item => item.id === itemId);
+    const existingItem = cart.find(cartItem => cartItem.id === itemId);
+
+    if (existingItem) {
+        existingItem.quantity += 1;
+    } else {
+        cart.push({
+            ...item,
+            quantity: 1
+        });
     }
+
+    updateCart();
+    showNotification(`${item.name} added to cart!`);
+}
+
 
     // Toggle favorite item
     function toggleFavorite(e) {
