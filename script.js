@@ -189,6 +189,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const orderTotal = document.getElementById('order-total');
     const closeModal = document.querySelector('.close');
     const cartLink = document.querySelector('a[href="#cart"]');
+    const profileLink = document.querySelector('a[href="#profile"]');
     const filterButtons = document.querySelectorAll('.filter-btn');
     const deliveryForm = document.getElementById('delivery-form');
     const orderConfirmation = document.getElementById('order-confirmation');
@@ -197,7 +198,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const deliveryTimeSpan = document.getElementById('delivery-time');
     const previousOrdersContainer = document.getElementById('previous-orders-container');
     const specialOffersContainer = document.getElementById('special-offers-container');
-    const profileLink = document.querySelector('a[href="#profile"]');
     const profileModal = document.getElementById('profile-modal');
     const profileClose = profileModal.querySelector('.close');
     const logoutBtn = document.getElementById('logout-btn');
@@ -207,6 +207,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const locationClose = locationModal.querySelector('.close');
     const confirmLocationBtn = document.getElementById('confirm-location');
     const deliveryAddressInput = document.getElementById('delivery-address');
+
+    // Navigation links for smooth scrolling
+    const navLinks = document.querySelectorAll('nav a[href^="#"]:not([href="#cart"]):not([href="#profile"])');
+
+    // Dark mode toggle
+    const darkModeToggle = document.getElementById('dark-mode-toggle');
+    const darkModeIcon = darkModeToggle.querySelector('i');
 
     // Initialize cart, user data, and location from local storage
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -222,6 +229,9 @@ document.addEventListener('DOMContentLoaded', function() {
         address: 'Model Town, Jalandhar, Punjab, India',
         coordinates: [31.3260, 75.5762] // Coordinates for Jalandhar, Punjab, India
     };
+    
+    // Initialize dark mode from local storage
+    let isDarkMode = localStorage.getItem('darkMode') === 'true';
     
     // Initialize maps
     let map, locationMap;
@@ -667,6 +677,32 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 3000);
     }
 
+    // Dark mode toggle function
+    function toggleDarkMode() {
+        isDarkMode = !isDarkMode;
+        
+        if (isDarkMode) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            darkModeIcon.className = 'fas fa-sun';
+            localStorage.setItem('darkMode', 'true');
+        } else {
+            document.documentElement.setAttribute('data-theme', 'light');
+            darkModeIcon.className = 'fas fa-moon';
+            localStorage.setItem('darkMode', 'false');
+        }
+    }
+
+    // Initialize dark mode on page load
+    function initDarkMode() {
+        if (isDarkMode) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            darkModeIcon.className = 'fas fa-sun';
+        } else {
+            document.documentElement.setAttribute('data-theme', 'light');
+            darkModeIcon.className = 'fas fa-moon';
+        }
+    }
+
     // Filter menu items
     filterButtons.forEach(button => {
         button.addEventListener('click', () => {
@@ -916,6 +952,49 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    // Smooth scrolling for navigation links
+    navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const targetId = link.getAttribute('href').substring(1);
+            const targetSection = document.getElementById(targetId);
+            
+            if (targetSection) {
+                // Remove active class from all nav links
+                navLinks.forEach(navLink => navLink.classList.remove('active'));
+                // Add active class to clicked link
+                link.classList.add('active');
+                
+                // Smooth scroll to target section
+                targetSection.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+
+    // Update active nav link based on scroll position
+    window.addEventListener('scroll', () => {
+        const sections = document.querySelectorAll('section[id]');
+        const scrollPos = window.scrollY + 100; // Offset for header height
+        
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.offsetHeight;
+            const sectionId = section.getAttribute('id');
+            
+            if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${sectionId}`) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+        });
+    });
+
     // Initialize the page
     displayMenuItems();
     displayRecommendedItems();
@@ -924,6 +1003,12 @@ document.addEventListener('DOMContentLoaded', function() {
     updateCart();
     initLocation();
     updateProfileStats();
+
+    // Set Home link as active by default
+    const homeLink = document.querySelector('nav a[href="#home"]');
+    if (homeLink) {
+        homeLink.classList.add('active');
+    }
 
     // Add notification styles dynamically
     const style = document.createElement('style');
@@ -946,4 +1031,10 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     `;
     document.head.appendChild(style);
+
+    // Initialize dark mode on page load
+    initDarkMode();
+
+    // Dark mode toggle event listener
+    darkModeToggle.addEventListener('click', toggleDarkMode);
 });
