@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', function() {
             description: 'Refreshing iced tea with lemon',
             price: 2.99,
             category: 'drink',
-            image: 'https://images.unsplash.com/photo-1560343090-f0409e92791a?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
+            image: 'images/iced-tea.jpg',
             rating: 3.8,
             prepTime: '5 min',
             calories: 90,
@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', function() {
             description: 'Homemade lemonade with fresh lemons',
             price: 3.49,
             category: 'drink',
-            image: 'https://images.unsplash.com/photo-1508253730651-e5ace80a7025?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
+            image: 'images/lemonade.jpg',
             rating: 4.1,
             prepTime: '5 min',
             calories: 120,
@@ -127,7 +127,7 @@ document.addEventListener('DOMContentLoaded', function() {
             description: 'Classic Italian dessert with layers of coffee-soaked ladyfingers and mascarpone cream',
             price: 7.49,
             category: 'dessert',
-            image: 'https://images.unsplash.com/photo-1535920527002-b35e9672ebf1?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
+            image: 'images/tiramisu.jpg',
             rating: 4.7,
             prepTime: '10 min',
             calories: 450,
@@ -139,7 +139,7 @@ document.addEventListener('DOMContentLoaded', function() {
             description: 'Toasted bread with garlic butter and herbs',
             price: 4.99,
             category: 'appetizer',
-            image: 'https://images.unsplash.com/photo-1586449480558-33ae22f7e3fa?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
+            image: 'images/garlic-bread.jpg',   
             rating: 4.2,
             prepTime: '10 min',
             calories: 320,
@@ -250,7 +250,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         <span>(${item.rating})</span>
                     </div>
                     <p class="menu-item-desc">${item.description}</p>
-                    <span class="menu-item-price">$${item.price.toFixed(2)}</span>
+                    <span class="menu-item-price">₹${item.price.toFixed(2)}</span>
                     <button class="add-to-cart" data-id="${item.id}">Add to Cart</button>
                 </div>
             `;
@@ -319,7 +319,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         <span>(${item.rating})</span>
                     </div>
                     <p class="menu-item-desc">${item.description}</p>
-                    <span class="menu-item-price">$${item.price.toFixed(2)}</span>
+                    <span class="menu-item-price">₹${item.price.toFixed(2)}</span>
                     <button class="add-to-cart" data-id="${item.id}">Add to Cart</button>
                 </div>
             `;
@@ -351,8 +351,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     <p class="offer-description">${offer.description}</p>
                     <div class="offer-price">
                         ${offer.originalPrice > 0 ? `
-                            <span class="original">$${offer.originalPrice.toFixed(2)}</span>
-                            <span class="discounted">$${offer.discountedPrice.toFixed(2)}</span>
+                            <span class="original">₹${offer.originalPrice.toFixed(2)}</span>
+                            <span class="discounted">₹${offer.discountedPrice.toFixed(2)}</span>
                         ` : `
                             <span class="discounted">${offer.discount} Off</span>
                         `}
@@ -438,17 +438,21 @@ document.addEventListener('DOMContentLoaded', function() {
             const orderElement = document.createElement('div');
             orderElement.classList.add('order-card');
             
-            let itemsHtml = '';
+        let itemsHtml = '';
+
+        if (!order.items || order.items.length === 0) {
+            itemsHtml = `<p style="padding: 10px; color: gray;">No items in this order.</p>`;
+        } else {
             order.items.forEach(item => {
                 itemsHtml += `
                     <div class="order-item">
                         <div class="order-item-name">${item.name}</div>
                         <div class="order-item-quantity">x${item.quantity}</div>
-                        <div class="order-item-price">$${(item.price * item.quantity).toFixed(2)}</div>
+                        <div class="order-item-price">₹${(item.price * item.quantity).toFixed(2)}</div>
                     </div>
                 `;
             });
-            
+        }
             const orderDate = new Date(order.date);
             const statusClass = `status-${order.status.toLowerCase()}`;
             
@@ -465,7 +469,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
                 <div class="order-total">
                     <span>Total</span>
-                    <span>$${order.total.toFixed(2)}</span>
+                   <span>₹${order.total.toFixed(2)}</span>
                 </div>
                 <button class="reorder-btn" data-order-id="${order.id}">Reorder</button>
             `;
@@ -591,7 +595,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         <div class="cart-item-desc">${item.description}</div>
                     </div>
                 </div>
-                <div class="cart-item-price">$${item.price.toFixed(2)}</div>
+                <div class="cart-item-price">₹${item.price.toFixed(2)}</div>
                 <div class="cart-item-quantity">
                     <button class="quantity-btn minus" data-id="${item.id}">-</button>
                     <span class="quantity">${item.quantity}</span>
@@ -846,6 +850,18 @@ document.addEventListener('DOMContentLoaded', function() {
             alert('Your cart is empty. Please add items before placing an order.');
             return;
         }
+        // Show success alert
+        alert("Your order has been placed successfully!");
+
+        //Clear the cart
+        cart = []; // empty the cart array
+
+        //Update UI
+        updateCart();          // refresh cart totals
+        displayCartItems();    // show "Your cart is empty."
+
+        // ✅ Step 4: Optionally hide modal
+        cartModal.style.display = 'none'; // close the cart popup
         
         const name = document.getElementById('name').value;
         const address = document.getElementById('address').value;
