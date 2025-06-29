@@ -409,43 +409,135 @@ nav ul li a.active::after {
 }
 
 .menu-item {
-    background-color: var(--card-bg);
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: var(--shadow);
-    transition: transform 0.3s;
+    perspective: 1200px;
     position: relative;
-}
-
-.menu-item:hover {
-    transform: translateY(-5px);
-}
-
-.favorite-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: rgba(255, 255, 255, 0.8);
+    min-height: 340px;
+    background: none;
+    box-shadow: none;
     border: none;
-    width: 30px;
-    height: 30px;
+    padding: 0;
+    margin: 0;
+}
+
+.menu-item-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 340px;
+    transition: transform 0.7s cubic-bezier(0.4,0.2,0.2,1);
+    transform-style: preserve-3d;
+    will-change: transform;
+}
+
+.menu-item:hover .menu-item-inner,
+.menu-item.flipped .menu-item-inner {
+    transform: rotateY(180deg);
+}
+
+.menu-item-front, .menu-item-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0; left: 0;
+    backface-visibility: hidden;
+    border-radius: 18px;
+    box-shadow: var(--shadow);
+    background: var(--card-bg);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.menu-item-front {
+    z-index: 2;
+}
+
+.menu-item-back {
+    transform: rotateY(180deg);
+    z-index: 3;
+    padding: 24px 20px 20px 20px;
+    text-align: left;
+    color: var(--text-color);
+    background: var(--card-bg);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.menu-item-back h3 {
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+    color: var(--primary-color);
+}
+
+.menu-item-back .desc {
+    font-size: 1rem;
+    margin-bottom: 8px;
+    color: var(--text-muted);
+}
+
+.menu-item-back .info-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 6px;
+    font-size: 0.98rem;
+}
+
+.menu-item-back .info-row i {
+    color: var(--primary-color);
+    margin-right: 6px;
+}
+
+.menu-item-back .ingredients {
+    font-size: 0.95rem;
+    color: var(--text-light);
+    margin-bottom: 8px;
+}
+
+.menu-item-back .back-actions {
+    margin-top: 12px;
+    display: flex;
+    gap: 10px;
+}
+
+.menu-item-back .add-to-cart {
+    background: var(--primary-color);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 18px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.menu-item-back .add-to-cart:hover {
+    background: var(--primary-hover);
+}
+
+.menu-item-back .favorite-btn {
+    background: none;
+    border: 1.5px solid var(--primary-color);
+    color: var(--primary-color);
     border-radius: 50%;
+    width: 38px;
+    height: 38px;
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
-    color: #ccc;
-    font-size: 1rem;
-    transition: all 0.3s;
+    font-size: 1.2rem;
+    margin-left: 8px;
+    transition: background 0.2s, color 0.2s;
 }
 
-.favorite-btn.active {
-    color: #ff6b6b;
-}
-
-.favorite-btn:hover {
-    background: white;
-    color: #ff6b6b;
+.menu-item-back .favorite-btn.active,
+.menu-item-back .favorite-btn:hover {
+    background: var(--primary-color);
+    color: #fff;
 }
 
 .menu-item-img {
@@ -2937,4 +3029,25 @@ textarea:focus {
 .no-recommendations p {
     color: #666;
     margin-bottom: 20px;
+}
+
+/* Responsive Flip Card */
+@media (max-width: 600px) {
+    .menu-item, .menu-item-inner {
+        min-height: 270px;
+    }
+    .menu-item-back, .menu-item-front {
+        padding: 14px 10px 10px 10px;
+    }
+    .menu-item-back h3 {
+        font-size: 1.05rem;
+    }
+    .menu-item-back .desc, .menu-item-back .ingredients {
+        font-size: 0.92rem;
+    }
+}
+
+/* Touch device support: tap to flip */
+.menu-item.touch .menu-item-inner {
+    cursor: pointer;
 }

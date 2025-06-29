@@ -379,51 +379,62 @@ document.addEventListener('DOMContentLoaded', function() {
     // Display menu items
     function displayMenuItems(category = 'all') {
         showSectionSkeleton('menu');
-        
         setTimeout(() => {
             menuContainer.innerHTML = '';
-            
             const filteredItems = category === 'all' 
                 ? menuItems 
                 : menuItems.filter(item => item.category === category);
-            
             filteredItems.forEach(item => {
                 const isFavorite = user.favorites.includes(item.id);
+                // Ingredients fallback
+                const ingredients = item.ingredients ? item.ingredients.join(', ') : 'See description';
+                // Card HTML
                 const menuItemElement = document.createElement('div');
                 menuItemElement.classList.add('menu-item');
                 menuItemElement.innerHTML = `
-                    <button class="favorite-btn ${isFavorite ? 'active' : ''}" data-id="${item.id}">
-                        <i class="fas fa-heart"></i>
-                    </button>
-                    <img src="${item.image}" alt="${item.name}" class="menu-item-img" onerror="this.src='https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80'">
-                    <div class="menu-item-content">
-                        <h3 class="menu-item-title">${item.name}</h3>
-                        <div class="rating">
-                            ${generateStarRating(item.rating)}
-                            <span>(${item.rating})</span>
+                    <div class="menu-item-inner">
+                        <div class="menu-item-front">
+                            <button class="favorite-btn ${isFavorite ? 'active' : ''}" data-id="${item.id}">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                            <img src="${item.image}" alt="${item.name}" class="menu-item-img" onerror="this.src='https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80'">
+                            <div class="menu-item-content">
+                                <h3 class="menu-item-title">${item.name}</h3>
+                                <div class="rating">
+                                    ${generateStarRating(item.rating)}
+                                    <span>(${item.rating})</span>
+                                </div>
+                                <span class="menu-item-price">${inrFormat.format(item.price)}</span>
+                            </div>
                         </div>
-                        <p class="menu-item-desc">${item.description}</p>
-                        <span class="menu-item-price">${inrFormat.format(item.price)}</span>
-                        <button class="add-to-cart" data-id="${item.id}">Add to Cart</button>
+                        <div class="menu-item-back">
+                            <h3>${item.name}</h3>
+                            <div class="desc">${item.description}</div>
+                            <div class="info-row"><i class="fas fa-clock"></i> ${item.prepTime} <i class="fas fa-fire"></i> ${item.calories} kcal</div>
+                            <div class="ingredients"><strong>Ingredients:</strong> ${ingredients}</div>
+                            <div class="back-actions">
+                                <button class="add-to-cart" data-id="${item.id}">Add to Cart</button>
+                                <button class="favorite-btn ${isFavorite ? 'active' : ''}" data-id="${item.id}"><i class="fas fa-heart"></i></button>
+                            </div>
+                        </div>
                     </div>
                 `;
+                // Touch support: tap to flip
+                menuItemElement.addEventListener('touchstart', function(e) {
+                    this.classList.toggle('flipped');
+                });
                 menuContainer.appendChild(menuItemElement);
             });
-
             // Add event listeners
             document.querySelectorAll('.add-to-cart').forEach(button => {
                 button.addEventListener('click', addToCart);
             });
-
             document.querySelectorAll('.favorite-btn').forEach(button => {
                 button.addEventListener('click', toggleFavorite);
             });
-            
             // Add staggered animations
-            const menuItems = document.querySelectorAll('.menu-item');
-            addStaggeredAnimation(menuItems, 50);
-            
-            // Hide skeleton loading
+            const menuItemsEls = document.querySelectorAll('.menu-item');
+            addStaggeredAnimation(menuItemsEls, 50);
             hideSectionSkeleton('menu');
         }, 300);
     }
