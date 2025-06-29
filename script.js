@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
             description: 'Classic pizza with tomato sauce, mozzarella, and basil',
             price: 299,
             category: 'pizza',
-            image: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
+            image: 'https://images.pexels.com/photos/315755/pexels-photo-315755.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
             rating: 4.5,
             prepTime: '20-25 min',
             calories: 850,
@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
             description: 'Pizza with tomato sauce, mozzarella, and pepperoni',
             price: 349,
             category: 'pizza',
-            image: 'https://images.unsplash.com/photo-1588315029754-2dd089d39a1a?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
+            image: 'https://images.pexels.com/photos/4109073/pexels-photo-4109073.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
             rating: 4.7,
             prepTime: '20-25 min',
             calories: 920,
@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function() {
             description: 'Pasta with eggs, cheese, pancetta, and black pepper',
             price: 279,
             category: 'pasta',
-            image: 'https://images.unsplash.com/photo-1555949258-eb67b1ef0ceb?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
+            image: 'https://images.pexels.com/photos/1279330/pexels-photo-1279330.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
             rating: 4.6,
             prepTime: '25-30 min',
             calories: 720,
@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', function() {
             description: 'Romaine lettuce with croutons, parmesan, and Caesar dressing',
             price: 149,
             category: 'salad',
-            image: 'https://images.unsplash.com/photo-1546793665-c74683f339c1?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
+            image: 'https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
             rating: 4.0,
             prepTime: '10-15 min',
             calories: 350,
@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', function() {
             description: 'Salad with tomatoes, cucumber, olives, and feta cheese',
             price: 169,
             category: 'salad',
-            image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
+            image: 'https://images.pexels.com/photos/32645263/pexels-photo-32645263.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
             rating: 4.3,
             prepTime: '10-15 min',
             calories: 420,
@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', function() {
             description: 'Refreshing iced tea with lemon',
             price: 59,
             category: 'drink',
-            image: 'https://images.unsplash.com/photo-1560343090-f0409e92791a?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
+            image: 'https://images.pexels.com/photos/31868614/pexels-photo-31868614.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
             rating: 3.8,
             prepTime: '5 min',
             calories: 90,
@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', function() {
             description: 'Homemade lemonade with fresh lemons',
             price: 69,
             category: 'drink',
-            image: 'https://images.unsplash.com/photo-1508253730651-e5ace80a7025?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
+            image: 'https://images.pexels.com/photos/96974/pexels-photo-96974.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
             rating: 4.1,
             prepTime: '5 min',
             calories: 120,
@@ -127,7 +127,7 @@ document.addEventListener('DOMContentLoaded', function() {
             description: 'Classic Italian dessert with layers of coffee-soaked ladyfingers and mascarpone cream',
             price: 149,
             category: 'dessert',
-            image: 'https://images.unsplash.com/photo-1535920527002-b35e9672ebf1?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
+            image: 'https://images.pexels.com/photos/31499306/pexels-photo-31499306.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
             rating: 4.7,
             prepTime: '10 min',
             calories: 450,
@@ -139,7 +139,7 @@ document.addEventListener('DOMContentLoaded', function() {
             description: 'Toasted bread with garlic butter and herbs',
             price: 99,
             category: 'appetizer',
-            image: 'https://images.unsplash.com/photo-1586449480558-33ae22f7e3fa?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
+            image: 'https://images.pexels.com/photos/13698106/pexels-photo-13698106.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
             rating: 4.2,
             prepTime: '10 min',
             calories: 320,
@@ -151,7 +151,7 @@ document.addEventListener('DOMContentLoaded', function() {
             description: 'Pizza topped with bell peppers, mushrooms, onions, and olives',
             price: 369,
             category: 'pizza',
-            image: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
+            image: 'https://images.pexels.com/photos/31969431/pexels-photo-31969431.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
             rating: 4.4,
             prepTime: '20-25 min',
             calories: 850,
@@ -175,7 +175,7 @@ document.addEventListener('DOMContentLoaded', function() {
             description: 'Pasta made with rice flour, served with tomato sauce',
             price: 299,
             category: 'pasta',
-            image: 'https://images.unsplash.com/photo-1555949258-eb67b1ef0ceb?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
+            image: 'https://images.pexels.com/photos/28647073/pexels-photo-28647073.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
             rating: 4.0,
             prepTime: '18-22 min',
             calories: 420,
@@ -187,7 +187,7 @@ document.addEventListener('DOMContentLoaded', function() {
             description: 'Grilled chicken breast with mixed greens and light dressing',
             price: 189,
             category: 'salad',
-            image: 'https://images.unsplash.com/photo-1546793665-c74683f339c1?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
+            image: 'https://images.pexels.com/photos/32640314/pexels-photo-32640314.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
             rating: 4.3,
             prepTime: '12-15 min',
             calories: 280,
@@ -199,7 +199,7 @@ document.addEventListener('DOMContentLoaded', function() {
             description: 'Blend of strawberries, bananas, and yogurt',
             price: 99,
             category: 'drink',
-            image: 'https://images.unsplash.com/photo-1508253730651-e5ace80a7025?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
+            image: 'https://images.pexels.com/photos/7937485/pexels-photo-7937485.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
             rating: 4.5,
             prepTime: '8 min',
             calories: 180,
@@ -211,7 +211,7 @@ document.addEventListener('DOMContentLoaded', function() {
             description: 'New York style cheesecake with berry compote',
             price: 139,
             category: 'dessert',
-            image: 'https://images.unsplash.com/photo-1535920527002-b35e9672ebf1?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
+            image: 'https://images.pexels.com/photos/16958583/pexels-photo-16958583.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
             rating: 4.6,
             prepTime: '5 min',
             calories: 520,
@@ -227,7 +227,7 @@ document.addEventListener('DOMContentLoaded', function() {
             description: '2 large pizzas, garlic bread, and 1.5L drink',
             originalPrice: 999, // realistic INR price
             discountedPrice: 799, // discounted INR price
-            image: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
+            image: 'https://images.pexels.com/photos/31969431/pexels-photo-31969431.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
             validUntil: '2023-12-31'
         },
         {
@@ -236,7 +236,7 @@ document.addEventListener('DOMContentLoaded', function() {
             description: 'Burger, fries, and drink for a special price',
             originalPrice: 399,
             discountedPrice: 299,
-            image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
+            image: 'https://images.pexels.com/photos/70497/pexels-photo-70497.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260', // Burger, fries, and drink combo
             validUntil: '2023-12-31'
         },
         {
@@ -246,7 +246,7 @@ document.addEventListener('DOMContentLoaded', function() {
             originalPrice: 0,
             discountedPrice: 0,
             discount: '20%',
-            image: 'https://images.unsplash.com/photo-1551024506-0bccd828d307?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
+            image: 'https://images.pexels.com/photos/16958583/pexels-photo-16958583.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
             validUntil: '2023-12-31'
         }
     ];
@@ -826,7 +826,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const cartItem = document.createElement('div');
             cartItem.className = 'cart-item';
             cartItem.innerHTML = `
-                <img src="${item.image}" alt="${item.name}" class="cart-item-img" onerror="this.src='https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80'">
+                <img src="${item.image}" alt="${item.name}" class="cart-item-img" onerror="this.src='https://images.pexels.com/photos/315755/pexels-photo-315755.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'">
                 <div class="cart-item-details">
                     <h4>${item.name}</h4>
                     <div class="cart-item-qty">
@@ -1071,21 +1071,24 @@ document.addEventListener('DOMContentLoaded', function() {
     function displayFavorites() {
         const favoritesContainer = document.getElementById('favorites-container');
         favoritesContainer.innerHTML = '';
-        
         if (user.favorites.length === 0) {
             favoritesContainer.innerHTML = '<p>You have no favorite items yet.</p>';
             return;
         }
-        
         user.favorites.forEach(itemId => {
             const item = menuItems.find(item => item.id === itemId);
             if (item) {
                 const favoriteElement = document.createElement('div');
                 favoriteElement.classList.add('favorite-item');
-                favoriteElement.innerHTML = `
-                    <img src="${item.image}" alt="${item.name}" onerror="this.src='https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80'">
-                    <div class="favorite-item-name">${item.name}</div>
-                `;
+                // Use createImageWithFallback for favorites
+                const imgWrapper = createImageWithFallback(item.image, item.name);
+                imgWrapper.querySelector('img').style.height = '90px';
+                imgWrapper.querySelector('img').style.borderRadius = '12px';
+                favoriteElement.appendChild(imgWrapper);
+                const nameDiv = document.createElement('div');
+                nameDiv.className = 'favorite-item-name';
+                nameDiv.textContent = item.name;
+                favoriteElement.appendChild(nameDiv);
                 favoritesContainer.appendChild(favoriteElement);
             }
         });
@@ -1770,7 +1773,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <button class="favorite-btn ${isFavorite ? 'active' : ''}" data-id="${item.id}">
                         <i class="fas fa-heart"></i>
                     </button>
-                    <img src="${item.image}" alt="${item.name}" class="menu-item-img" onerror="this.src='https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80'">
+                    <img src="${item.image}" alt="${item.name}" class="menu-item-img" onerror="this.src='https://images.pexels.com/photos/315755/pexels-photo-315755.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'">
                     <div class="menu-item-content">
                         <h3 class="menu-item-title">${item.name}</h3>
                         <div class="rating">
@@ -2451,4 +2454,37 @@ document.addEventListener('DOMContentLoaded', function() {
             // ... existing code ...
         });
     }
+
+    // ... existing code ...
+    const menuImages = {
+      "Margherita Pizza": "https://images.pexels.com/photos/315755/pexels-photo-315755.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+      "Pepperoni Pizza": "https://images.pexels.com/photos/4109073/pexels-photo-4109073.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+      "Spaghetti Carbonara": "https://images.pexels.com/photos/1279330/pexels-photo-1279330.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+      "Caesar Salad": "https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+      "Greek Salad": "https://images.pexels.com/photos/32645263/pexels-photo-32645263.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+      "Iced Tea": "https://images.pexels.com/photos/31868614/pexels-photo-31868614.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+      "Tiramisu": "https://images.pexels.com/photos/31499306/pexels-photo-31499306.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+      "Garlic Bread": "https://images.pexels.com/photos/13698106/pexels-photo-13698106.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+      "Veggie Supreme Pizza": "https://images.pexels.com/photos/31969431/pexels-photo-31969431.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+      "Gluten‑Free Pasta": "https://images.pexels.com/photos/28647073/pexels-photo-28647073.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+      "Cheesecake": "https://images.pexels.com/photos/16958583/pexels-photo-16958583.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+      "Low‑Calorie Chicken Salad": "https://images.pexels.com/photos/32640314/pexels-photo-32640314.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+      "Fresh Fruit Smoothie": "https://images.pexels.com/photos/7937485/pexels-photo-7937485.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+    };
+    menuItems.forEach(item => {
+      if (menuImages[item.name]) {
+        item.image = menuImages[item.name];
+      }
+    });
+    // ... existing code ...
+
+    // Update special offer image for Weekend Special
+    specialOffers.forEach(offer => {
+      if (offer.title === 'Weekend Special') {
+        offer.image = 'https://images.pexels.com/photos/70497/pexels-photo-70497.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'; // Burger, fries, and drink combo
+      }
+      if (offer.title === 'Lemonade') {
+        offer.image = 'https://images.pexels.com/photos/96974/pexels-photo-96974.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260';
+      }
+    });
 });
