@@ -381,7 +381,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const garlicBread = menuItems.find(item => item.id === 12);
             const lemonade = menuItems.find(item => item.id === 9);
             
-            addOfferItemToCart(margherita, 2);
+            addOfferItemToCart(margherita, 1);
             addOfferItemToCart(pepperoni, 1);
             addOfferItemToCart(garlicBread, 1);
             addOfferItemToCart(lemonade, 1);
