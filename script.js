@@ -225,6 +225,34 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initialize maps
     let map, locationMap;
+     function initLocation() {
+        currentLocationSpan.textContent = deliveryLocation.address;
+        
+        if (!map) {
+            map = L.map('map').setView([31.6340, 74.8723], 12);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+            
+            L.marker([31.6340, 74.8723]).addTo(map)
+                .bindPopup('Our Restaurant Location');
+        }
+    }
+
+    // Updated close handlers
+    closeModal.addEventListener('click', () => {
+        cartModal.style.display = 'none';
+        if (map) {
+            map.remove();
+            map = null;
+        }
+    });
+
+    locationClose.addEventListener('click', () => {
+        locationModal.style.display = 'none';
+        if (locationMap) {
+            locationMap.remove();
+            locationMap = null;
+        }
+    });
 
     // Display menu items
     function displayMenuItems(category = 'all') {
