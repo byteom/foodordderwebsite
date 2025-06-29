@@ -149,7 +149,7 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 13,
             name: 'Fries',
             description: 'Thin strips of potato that are deep-fried until golden and crispy',
-            price: 9.99,
+            price: 4.99,
             category: 'appetizer',
             image: 'https://imgs.search.brave.com/wV5vYrV9fJGZkD9BOys_V1MXFkpnwqSqEPMJqgAyVBg/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/Zm9vZGllc2ZlZWQu/Y29tL3dwLWNvbnRl/bnQvdXBsb2Fkcy8y/MDIzLzAzL2ZyZW5j/aC1mcmllcy1kZXRh/aWwuanBn',
             rating: 4.3,
