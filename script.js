@@ -811,14 +811,12 @@ document.addEventListener('DOMContentLoaded', function() {
     function updateCart() {
         localStorage.setItem('cart', JSON.stringify(cart));
         cartCount.textContent = cart.reduce((total, item) => total + item.quantity, 0);
-        
         if (cartModal.style.display === 'block') {
             displayCartItems();
         }
-        
-        // Update order total in form button
+        // Update order total in form button (keep inrFormat)
         const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-        orderTotal.textContent = inrFormat.format(total);
+        orderTotal.textContent = inrFormat.format(total).replace(/^\u20B9\s?/, '');
     }
 
     // Display cart items in modal
@@ -842,6 +840,22 @@ document.addEventListener('DOMContentLoaded', function() {
             `;
             cartItemsContainer.appendChild(cartItem);
         });
+        // Add event listeners for quantity and remove buttons
+        cartItemsContainer.querySelectorAll('.decrease-qty').forEach(btn => {
+            btn.addEventListener('click', decreaseQuantity);
+        });
+        cartItemsContainer.querySelectorAll('.increase-qty').forEach(btn => {
+            btn.addEventListener('click', increaseQuantity);
+        });
+        cartItemsContainer.querySelectorAll('.remove-item').forEach(btn => {
+            btn.addEventListener('click', removeItem);
+        });
+        // Update cart total below items
+        const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        const cartTotalEl = document.getElementById('cart-total');
+        if (cartTotalEl) {
+            cartTotalEl.textContent = inrFormat.format(total).replace(/^\u20B9\s?/, ''); // Remove extra ₹ if present
+        }
     }
 
     // Decrease item quantity
