@@ -376,6 +376,39 @@ document.addEventListener('DOMContentLoaded', function() {
     // INR currency formatter
     const inrFormat = new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' });
 
+    function createImageWithFallback(src, alt) {
+        const wrapper = document.createElement('div');
+        wrapper.className = 'img-wrapper';
+        const img = document.createElement('img');
+        img.src = src;
+        img.alt = alt;
+        img.className = 'menu-item-img';
+        // Loading spinner
+        const spinner = document.createElement('div');
+        spinner.className = 'img-loading-spinner';
+        spinner.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+        wrapper.appendChild(spinner);
+        wrapper.appendChild(img);
+        // On load
+        img.onload = () => {
+            spinner.style.display = 'none';
+        };
+        // On error
+        img.onerror = () => {
+            spinner.style.display = 'none';
+            img.src = 'https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80';
+            img.classList.add('img-fallback');
+            // Optionally, show a fallback message
+            if (!wrapper.querySelector('.img-fallback-msg')) {
+                const msg = document.createElement('div');
+                msg.className = 'img-fallback-msg';
+                msg.textContent = 'Image unavailable';
+                wrapper.appendChild(msg);
+            }
+        };
+        return wrapper;
+    }
+
     // Display menu items
     function displayMenuItems(category = 'all') {
         showSectionSkeleton('menu');
@@ -386,9 +419,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 : menuItems.filter(item => item.category === category);
             filteredItems.forEach(item => {
                 const isFavorite = user.favorites.includes(item.id);
-                // Ingredients fallback
                 const ingredients = item.ingredients ? item.ingredients.join(', ') : 'See description';
-                // Card HTML
                 const menuItemElement = document.createElement('div');
                 menuItemElement.classList.add('menu-item');
                 menuItemElement.innerHTML = `
@@ -397,7 +428,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             <button class="favorite-btn ${isFavorite ? 'active' : ''}" data-id="${item.id}">
                                 <i class="fas fa-heart"></i>
                             </button>
-                            <img src="${item.image}" alt="${item.name}" class="menu-item-img" onerror="this.src='https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80'">
+                            <div class="img-wrapper"></div>
                             <div class="menu-item-content">
                                 <h3 class="menu-item-title">${item.name}</h3>
                                 <div class="rating">
@@ -419,20 +450,21 @@ document.addEventListener('DOMContentLoaded', function() {
                         </div>
                     </div>
                 `;
+                // Insert image with fallback
+                const imgWrapper = createImageWithFallback(item.image, item.name);
+                menuItemElement.querySelector('.img-wrapper').replaceWith(imgWrapper);
                 // Touch support: tap to flip
                 menuItemElement.addEventListener('touchstart', function(e) {
                     this.classList.toggle('flipped');
                 });
                 menuContainer.appendChild(menuItemElement);
             });
-            // Add event listeners
             document.querySelectorAll('.add-to-cart').forEach(button => {
                 button.addEventListener('click', addToCart);
             });
             document.querySelectorAll('.favorite-btn').forEach(button => {
                 button.addEventListener('click', toggleFavorite);
             });
-            // Add staggered animations
             const menuItemsEls = document.querySelectorAll('.menu-item');
             addStaggeredAnimation(menuItemsEls, 50);
             hideSectionSkeleton('menu');
@@ -464,10 +496,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // Display recommended items
     function displayRecommendedItems() {
         showSectionSkeleton('recommended');
-        
         setTimeout(() => {
             forYouContainer.innerHTML = '';
-            
             const currentCategory = currentFilters.category || 'all';
             let availableItems = [...menuItems];
             if (currentCategory !== 'all') {
@@ -507,7 +537,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <button class="favorite-btn ${isFavorite ? 'active' : ''}" data-id="${item.id}">
                         <i class="fas fa-heart"></i>
                     </button>
-                    <img src="${item.image}" alt="${item.name}" class="menu-item-img" onerror="this.src='https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80'">
+                    <div class="img-wrapper"></div>
                     <div class="menu-item-content">
                         <h3 class="menu-item-title">${item.name}</h3>
                         <div class="rating">
@@ -519,22 +549,19 @@ document.addEventListener('DOMContentLoaded', function() {
                         <button class="add-to-cart" data-id="${item.id}">Add to Cart</button>
                     </div>
                 `;
+                // Insert image with fallback
+                const imgWrapper = createImageWithFallback(item.image, item.name);
+                menuItemElement.querySelector('.img-wrapper').replaceWith(imgWrapper);
                 forYouContainer.appendChild(menuItemElement);
             });
-
-            // Add event listeners
-            document.querySelectorAll('.add-to-cart').forEach(button => {
+            document.querySelectorAll('#for-you-items .add-to-cart').forEach(button => {
                 button.addEventListener('click', addToCart);
             });
-
-            document.querySelectorAll('.favorite-btn').forEach(button => {
+            document.querySelectorAll('#for-you-items .favorite-btn').forEach(button => {
                 button.addEventListener('click', toggleFavorite);
             });
-            
-            // Add staggered animations
             const recommendedElements = document.querySelectorAll('#for-you-items .menu-item');
             addStaggeredAnimation(recommendedElements, 100);
-            
             hideSectionSkeleton('recommended');
         }, 200);
     }
@@ -542,16 +569,14 @@ document.addEventListener('DOMContentLoaded', function() {
     // Display special offers
     function displaySpecialOffers() {
         showSectionSkeleton('offers');
-        
         setTimeout(() => {
             specialOffersContainer.innerHTML = '';
-            
             specialOffers.forEach(offer => {
                 const offerElement = document.createElement('div');
                 offerElement.classList.add('offer-card');
                 offerElement.innerHTML = `
                     <div class="offer-badge">Special Offer</div>
-                    <img src="${offer.image}" alt="${offer.title}" class="offer-image" onerror="this.src='https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80'">
+                    <div class="img-wrapper"></div>
                     <div class="offer-content">
                         <h3 class="offer-title">${offer.title}</h3>
                         <p class="offer-description">${offer.description}</p>
@@ -566,18 +591,16 @@ document.addEventListener('DOMContentLoaded', function() {
                         <button class="btn" style="width: 100%; margin-top: 10px;" data-offer-id="${offer.id}">Add to Cart</button>
                     </div>
                 `;
+                // Insert image with fallback
+                const imgWrapper = createImageWithFallback(offer.image, offer.title);
+                offerElement.querySelector('.img-wrapper').replaceWith(imgWrapper);
                 specialOffersContainer.appendChild(offerElement);
             });
-
-            // Add event listeners to offer buttons
             document.querySelectorAll('[data-offer-id]').forEach(button => {
                 button.addEventListener('click', addOfferToCart);
             });
-            
-            // Add staggered animations
             const offerCards = document.querySelectorAll('.offer-card');
             addStaggeredAnimation(offerCards, 150);
-            
             hideSectionSkeleton('offers');
         }, 400);
     }
