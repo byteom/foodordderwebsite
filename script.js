@@ -853,74 +853,73 @@ document.addEventListener('DOMContentLoaded', function() {
         deliveryAddressInput.value = `${Math.round(lat*100)/100}, ${Math.round(lng*100)/100}`;
     }
 
-    // Handle form submission
-    deliveryForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        
-        if (cart.length === 0) {
-            alert('Your cart is empty. Please add items before placing an order.');
-            return;
-        }
-        // Show success alert
-        alert("Your order has been placed successfully!");
+// Handle form submission
+deliveryForm.addEventListener('submit', (e) => {
+    e.preventDefault();
 
-        //Clear the cart
-        cart = []; // empty the cart array
+    const name = document.getElementById('name').value.trim();
+    const address = document.getElementById('address').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const instructions = document.getElementById('instructions').value.trim();
 
-        //Update UI
-        updateCart();          // refresh cart totals
-        displayCartItems();    // show "Your cart is empty."
+    // ✅ VALIDATION FIRST
+    if (!name || !address || !phone) {
+        alert("Please fill all required fields.");
+        return;
+    }
 
-        // ✅ Step 4: Optionally hide modal
-        cartModal.style.display = 'none'; // close the cart popup
-        
-        const name = document.getElementById('name').value;
-        const address = document.getElementById('address').value;
-        const phone = document.getElementById('phone').value;
-        const instructions = document.getElementById('instructions').value;
-        
-        // Update user info if changed
-        if (name && name !== user.name) {
-            user.name = name;
-            if (phone) user.phone = phone;
-            localStorage.setItem('user', JSON.stringify(user));
-            updateProfileStats();
-        }
-        
-        // Save order to local storage
-        const order = {
-            id: Date.now(),
-            date: new Date().toISOString(),
-            items: [...cart],
-            total: parseFloat(cartTotal.textContent),
-            customer: { name, address, phone, instructions },
-            status: 'pending',
-            location: deliveryLocation
-        };
-        
-        let orders = JSON.parse(localStorage.getItem('orders')) || [];
-        orders.push(order);
-        localStorage.setItem('orders', JSON.stringify(orders));
-        
-        // Clear cart
-        cart = [];
-        updateCart();
-        deliveryForm.reset();
-        
-        // Show confirmation
-        orderIdSpan.textContent = order.id;
-        
-        // Calculate estimated delivery time (30-45 minutes from now)
-        const now = new Date();
-        const deliveryTime = new Date(now.getTime() + (30 + Math.random() * 15) * 60000);
-        deliveryTimeSpan.textContent = deliveryTime.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-        
-        cartModal.style.display = 'none';
-        orderConfirmation.style.display = 'block';
-        
-        // Update previous orders display
-        displayPreviousOrders();
-    });
+    if (!/^[6-9]\d{9}$/.test(phone)) {
+        alert("Please enter a valid 10-digit Indian phone number.");
+        return;
+    }
+
+    if (cart.length === 0) {
+        alert('Your cart is empty. Please add items before placing an order.');
+        return;
+    }
+
+    // ✅ All good — proceed to submit
+    alert("Your order has been placed successfully!");
+
+    // Save user info
+    user.name = name;
+    user.phone = phone;
+    localStorage.setItem('user', JSON.stringify(user));
+    updateProfileStats();
+
+    // Save order
+    const order = {
+        id: Date.now(),
+        date: new Date().toISOString(),
+        items: [...cart],
+        total: parseFloat(cartTotal.textContent),
+        customer: { name, address, phone, instructions },
+        status: 'pending',
+        location: deliveryLocation
+    };
+
+    let orders = JSON.parse(localStorage.getItem('orders')) || [];
+    orders.push(order);
+    localStorage.setItem('orders', JSON.stringify(orders));
+
+    // Clear cart & form
+    cart = [];
+    updateCart();
+    displayCartItems();
+    deliveryForm.reset();
+
+    // Show confirmation modal
+    orderIdSpan.textContent = order.id;
+    const now = new Date();
+    const deliveryTime = new Date(now.getTime() + (30 + Math.random() * 15) * 60000);
+    deliveryTimeSpan.textContent = deliveryTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+    cartModal.style.display = 'none';
+    orderConfirmation.style.display = 'block';
+
+    // Update previous orders
+    displayPreviousOrders();
+});
 
     // Close confirmation modal
     closeConfirmation.addEventListener('click', () => {
