@@ -25,6 +25,7 @@
                     <li><a href="#previous-orders">Orders</a></li>
                     <li><a href="#profile"><i class="fas fa-user"></i></a></li>
                     <li><a href="#cart"><i class="fas fa-shopping-cart"></i> <span id="cart-count">0</span></a></li>
+                    <li><button id="dark-mode-toggle" class="dark-mode-btn"><i class="fas fa-moon"></i></button></li>
                 </ul>
             </nav>
         </div>
@@ -57,6 +58,7 @@
                 <button class="filter-btn" data-category="burger">Burgers</button>
                 <button class="filter-btn" data-category="pasta">Pasta</button>
                 <button class="filter-btn" data-category="salad">Salads</button>
+                <button class="filter-btn" data-category="appetizer">Appetizers</button>
                 <button class="filter-btn" data-category="drink">Drinks</button>
                 <button class="filter-btn" data-category="dessert">Desserts</button>
             </div>
@@ -104,61 +106,120 @@
             <form id="delivery-form">
                 <h3>Delivery Information</h3>
                 <div class="form-group">
-                    <label for="name">Full Name</label>
-                    <input type="text" id="name" required>
+                    <label for="name">Full Name *</label>
+                    <input type="text" id="name" name="name" required minlength="2" maxlength="50" pattern="[A-Za-z\s]+" placeholder="Enter your full name">
+                    <div class="error-message" id="name-error"></div>
                 </div>
                 <div class="form-group">
-                    <label for="address">Delivery Address</label>
-                    <textarea id="address" required></textarea>
+                    <label for="email">Email Address *</label>
+                    <input type="email" id="email" name="email" required placeholder="Enter your email address">
+                    <div class="error-message" id="email-error"></div>
                 </div>
                 <div class="form-group">
-                    <label for="phone">Phone Number</label>
-                    <input type="tel" id="phone" required>
+                    <label for="phone">Phone Number *</label>
+                    <input type="tel" id="phone" name="phone" required pattern="[\+]?[0-9\s\-\(\)]{10,15}" placeholder="Enter your phone number">
+                    <div class="error-message" id="phone-error"></div>
+                </div>
+                <div class="form-group">
+                    <label for="address">Delivery Address *</label>
+                    <textarea id="address" name="address" required minlength="10" maxlength="200" placeholder="Enter your complete delivery address"></textarea>
+                    <div class="error-message" id="address-error"></div>
                 </div>
                 <div class="form-group">
                     <label for="instructions">Delivery Instructions (optional)</label>
-                    <textarea id="instructions" placeholder="e.g., Leave at front door"></textarea>
+                    <textarea id="instructions" name="instructions" maxlength="100" placeholder="e.g., Leave at front door, call when arriving"></textarea>
+                    <div class="error-message" id="instructions-error"></div>
                 </div>
-                <button type="submit" class="btn">Place Order ($<span id="order-total">0.00</span>)</button>
+                <button type="submit" class="btn" id="submit-order-btn">
+                    <i class="fas fa-check"></i>
+                    <span>Place Order ($<span id="order-total">0.00</span>)</span>
+                </button>
             </form>
         </div>
     </div>
 
     <!-- Profile Modal -->
     <div id="profile-modal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Your Profile</h2>
-            <div class="profile-info">
-                <div class="profile-avatar">
-                    <i class="fas fa-user-circle"></i>
-                    <button id="change-avatar">Change</button>
+        <div class="modal-content profile-modal">
+            <div class="profile-header">
+                <span class="close">&times;</span>
+                <h2><i class="fas fa-user-circle"></i> Your Profile</h2>
+            </div>
+            
+            <div class="profile-main">
+                <div class="profile-avatar-section">
+                    <div class="profile-avatar">
+                        <div class="avatar-container">
+                            <i class="fas fa-user-circle"></i>
+                        </div>
+                        <button id="change-avatar" class="avatar-btn">
+                            <i class="fas fa-camera"></i>
+                            <span>Change Photo</span>
+                        </button>
+                    </div>
+                    
+                    <div class="profile-details">
+                        <h3 id="profile-name">Guest User</h3>
+                        <div class="profile-contact">
+                            <div class="contact-item">
+                                <i class="fas fa-envelope"></i>
+                                <span id="profile-email">guest@example.com</span>
+                            </div>
+                            <div class="contact-item">
+                                <i class="fas fa-phone"></i>
+                                <span id="profile-phone">Not provided</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="profile-details">
-                    <h3 id="profile-name">Guest User</h3>
-                    <p><i class="fas fa-envelope"></i> <span id="profile-email">guest@example.com</span></p>
-                    <p><i class="fas fa-phone"></i> <span id="profile-phone">Not provided</span></p>
+                
+                <div class="profile-stats-section">
+                    <h4><i class="fas fa-chart-bar"></i> Your Stats</h4>
+                    <div class="profile-stats">
+                        <div class="stat-item">
+                            <div class="stat-icon">
+                                <i class="fas fa-shopping-bag"></i>
+                            </div>
+                            <div class="stat-content">
+                                <div class="stat-value" id="total-orders">0</div>
+                                <div class="stat-label">Total Orders</div>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <div class="stat-content">
+                                <div class="stat-value" id="favorite-items">0</div>
+                                <div class="stat-label">Favorites</div>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon">
+                                <i class="fas fa-calendar-alt"></i>
+                            </div>
+                            <div class="stat-content">
+                                <div class="stat-value" id="member-since">Today</div>
+                                <div class="stat-label">Member Since</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="profile-favorites-section">
+                    <h4><i class="fas fa-heart"></i> Your Favorites</h4>
+                    <div class="favorites-container" id="favorites-container">
+                        <!-- Favorite items will be loaded here -->
+                    </div>
                 </div>
             </div>
-            <div class="profile-stats">
-                <div class="stat-item">
-                    <div class="stat-value" id="total-orders">0</div>
-                    <div class="stat-label">Total Orders</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-value" id="favorite-items">0</div>
-                    <div class="stat-label">Favorites</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-value" id="member-since">Today</div>
-                    <div class="stat-label">Member Since</div>
-                </div>
+            
+            <div class="profile-actions">
+                <button id="logout-btn" class="btn btn-outline logout-btn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Sign Out</span>
+                </button>
             </div>
-            <h3>Your Favorites</h3>
-            <div class="favorites-container" id="favorites-container">
-                <!-- Favorite items will be loaded here -->
-            </div>
-            <button id="logout-btn" class="btn btn-outline">Sign Out</button>
         </div>
     </div>
 
