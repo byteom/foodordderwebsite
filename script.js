@@ -207,6 +207,17 @@ document.addEventListener('DOMContentLoaded', function() {
     const locationClose = locationModal.querySelector('.close');
     const confirmLocationBtn = document.getElementById('confirm-location');
     const deliveryAddressInput = document.getElementById('delivery-address');
+    const scrollToTopBtn = document.getElementById('scrollToTop');
+
+    // Show button only when scrolled down
+    window.addEventListener('scroll', () => {
+    scrollToTopBtn.style.display = window.scrollY > 300 ? 'block' : 'none';
+    });
+
+    // Scroll to top on click
+    scrollToTopBtn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
 
     // Initialize cart, user data, and location from local storage
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
