@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 1,
             name: 'Margherita Pizza',
             description: 'Classic pizza with tomato sauce, mozzarella, and basil',
-            price: 12.99,
+            price: 299,
             category: 'pizza',
             image: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
             rating: 4.5,
@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 2,
             name: 'Pepperoni Pizza',
             description: 'Pizza with tomato sauce, mozzarella, and pepperoni',
-            price: 14.99,
+            price: 349,
             category: 'pizza',
             image: 'https://images.unsplash.com/photo-1588315029754-2dd089d39a1a?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
             rating: 4.7,
@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 3,
             name: 'Veggie Burger',
             description: 'Plant-based burger with lettuce, tomato, and special sauce',
-            price: 9.99,
+            price: 179,
             category: 'burger',
             image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
             rating: 4.2,
@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 4,
             name: 'Cheeseburger',
             description: 'Classic beef burger with cheese, lettuce, and tomato',
-            price: 11.99,
+            price: 199,
             category: 'burger',
             image: 'https://images.unsplash.com/photo-1561758033-d89a9ad46330?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
             rating: 4.4,
@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 5,
             name: 'Spaghetti Carbonara',
             description: 'Pasta with eggs, cheese, pancetta, and black pepper',
-            price: 13.99,
+            price: 279,
             category: 'pasta',
             image: 'https://images.unsplash.com/photo-1555949258-eb67b1ef0ceb?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
             rating: 4.6,
@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 6,
             name: 'Caesar Salad',
             description: 'Romaine lettuce with croutons, parmesan, and Caesar dressing',
-            price: 8.99,
+            price: 149,
             category: 'salad',
             image: 'https://images.unsplash.com/photo-1546793665-c74683f339c1?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
             rating: 4.0,
@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 7,
             name: 'Greek Salad',
             description: 'Salad with tomatoes, cucumber, olives, and feta cheese',
-            price: 9.99,
+            price: 169,
             category: 'salad',
             image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
             rating: 4.3,
@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 8,
             name: 'Iced Tea',
             description: 'Refreshing iced tea with lemon',
-            price: 2.99,
+            price: 59,
             category: 'drink',
             image: 'https://images.unsplash.com/photo-1560343090-f0409e92791a?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
             rating: 3.8,
@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 9,
             name: 'Lemonade',
             description: 'Homemade lemonade with fresh lemons',
-            price: 3.49,
+            price: 69,
             category: 'drink',
             image: 'https://images.unsplash.com/photo-1508253730651-e5ace80a7025?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
             rating: 4.1,
@@ -113,7 +113,7 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 10,
             name: 'Chocolate Lava Cake',
             description: 'Warm chocolate cake with a molten center, served with vanilla ice cream',
-            price: 6.99,
+            price: 129,
             category: 'dessert',
             image: 'https://images.unsplash.com/photo-1495147466023-ac5c588e2e94?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
             rating: 4.8,
@@ -125,7 +125,7 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 11,
             name: 'Tiramisu',
             description: 'Classic Italian dessert with layers of coffee-soaked ladyfingers and mascarpone cream',
-            price: 7.49,
+            price: 149,
             category: 'dessert',
             image: 'https://images.unsplash.com/photo-1535920527002-b35e9672ebf1?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
             rating: 4.7,
@@ -137,7 +137,7 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 12,
             name: 'Garlic Bread',
             description: 'Toasted bread with garlic butter and herbs',
-            price: 4.99,
+            price: 99,
             category: 'appetizer',
             image: 'https://images.unsplash.com/photo-1586449480558-33ae22f7e3fa?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
             rating: 4.2,
@@ -149,7 +149,7 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 13,
             name: 'Veggie Supreme Pizza',
             description: 'Pizza topped with bell peppers, mushrooms, onions, and olives',
-            price: 16.99,
+            price: 369,
             category: 'pizza',
             image: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
             rating: 4.4,
@@ -161,7 +161,7 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 14,
             name: 'Vegan Burger',
             description: 'Plant-based burger with lettuce, tomato, and vegan cheese',
-            price: 12.99,
+            price: 189,
             category: 'burger',
             image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
             rating: 4.1,
@@ -173,7 +173,7 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 15,
             name: 'Gluten-Free Pasta',
             description: 'Pasta made with rice flour, served with tomato sauce',
-            price: 14.99,
+            price: 299,
             category: 'pasta',
             image: 'https://images.unsplash.com/photo-1555949258-eb67b1ef0ceb?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
             rating: 4.0,
@@ -185,7 +185,7 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 16,
             name: 'Low-Calorie Chicken Salad',
             description: 'Grilled chicken breast with mixed greens and light dressing',
-            price: 11.99,
+            price: 189,
             category: 'salad',
             image: 'https://images.unsplash.com/photo-1546793665-c74683f339c1?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
             rating: 4.3,
@@ -197,7 +197,7 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 17,
             name: 'Fresh Fruit Smoothie',
             description: 'Blend of strawberries, bananas, and yogurt',
-            price: 5.99,
+            price: 99,
             category: 'drink',
             image: 'https://images.unsplash.com/photo-1508253730651-e5ace80a7025?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
             rating: 4.5,
@@ -209,7 +209,7 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 18,
             name: 'Cheesecake',
             description: 'New York style cheesecake with berry compote',
-            price: 8.99,
+            price: 139,
             category: 'dessert',
             image: 'https://images.unsplash.com/photo-1535920527002-b35e9672ebf1?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
             rating: 4.6,
@@ -225,8 +225,8 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 1,
             title: 'Family Pizza Deal',
             description: '2 large pizzas, garlic bread, and 1.5L drink',
-            originalPrice: 42.97,
-            discountedPrice: 34.99,
+            originalPrice: 999, // realistic INR price
+            discountedPrice: 799, // discounted INR price
             image: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
             validUntil: '2023-12-31'
         },
@@ -234,8 +234,8 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 2,
             title: 'Weekend Special',
             description: 'Burger, fries, and drink for a special price',
-            originalPrice: 14.97,
-            discountedPrice: 11.99,
+            originalPrice: 399,
+            discountedPrice: 299,
             image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
             validUntil: '2023-12-31'
         },
@@ -373,9 +373,11 @@ document.addEventListener('DOMContentLoaded', function() {
     let pullDistance = 0;
     const PULL_THRESHOLD = 80;
 
+    // INR currency formatter
+    const inrFormat = new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' });
+
     // Display menu items
     function displayMenuItems(category = 'all') {
-        // Show skeleton loading for menu section
         showSectionSkeleton('menu');
         
         setTimeout(() => {
@@ -384,9 +386,6 @@ document.addEventListener('DOMContentLoaded', function() {
             const filteredItems = category === 'all' 
                 ? menuItems 
                 : menuItems.filter(item => item.category === category);
-            
-            console.log(`Displaying ${filteredItems.length} items for category: ${category}`);
-            console.log('Items:', filteredItems.map(item => ({ name: item.name, category: item.category })));
             
             filteredItems.forEach(item => {
                 const isFavorite = user.favorites.includes(item.id);
@@ -404,7 +403,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             <span>(${item.rating})</span>
                         </div>
                         <p class="menu-item-desc">${item.description}</p>
-                        <span class="menu-item-price">$${item.price.toFixed(2)}</span>
+                        <span class="menu-item-price">${inrFormat.format(item.price)}</span>
                         <button class="add-to-cart" data-id="${item.id}">Add to Cart</button>
                     </div>
                 `;
@@ -458,16 +457,37 @@ document.addEventListener('DOMContentLoaded', function() {
         setTimeout(() => {
             forYouContainer.innerHTML = '';
             
-            // Simple recommendation logic (in a real app, this would be more sophisticated)
-            const recommendedItems = menuItems
+            const currentCategory = currentFilters.category || 'all';
+            let availableItems = [...menuItems];
+            if (currentCategory !== 'all') {
+                availableItems = availableItems.filter(item => item.category === currentCategory);
+            }
+            let recommendedItems = availableItems
                 .filter(item => item.popular || user.favorites.includes(item.id))
                 .sort(() => 0.5 - Math.random())
                 .slice(0, 4);
-            
-            if (recommendedItems.length === 0) {
-                recommendedItems.push(...menuItems.filter(item => item.popular).slice(0, 4));
+            if (recommendedItems.length === 0 && availableItems.length > 0) {
+                recommendedItems = availableItems
+                    .sort(() => 0.5 - Math.random())
+                    .slice(0, Math.min(4, availableItems.length));
             }
-            
+            if (recommendedItems.length === 0) {
+                recommendedItems = menuItems
+                    .filter(item => item.popular)
+                    .sort(() => 0.5 - Math.random())
+                    .slice(0, 4);
+            }
+            if (recommendedItems.length === 0) {
+                forYouContainer.innerHTML = `
+                    <div class="no-recommendations">
+                        <i class="fas fa-heart-broken"></i>
+                        <h3>No recommendations available</h3>
+                        <p>Try adding some items to your favorites or browse our menu</p>
+                    </div>
+                `;
+                hideSectionSkeleton('recommended');
+                return;
+            }
             recommendedItems.forEach(item => {
                 const isFavorite = user.favorites.includes(item.id);
                 const menuItemElement = document.createElement('div');
@@ -484,7 +504,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             <span>(${item.rating})</span>
                         </div>
                         <p class="menu-item-desc">${item.description}</p>
-                        <span class="menu-item-price">$${item.price.toFixed(2)}</span>
+                        <span class="menu-item-price">${inrFormat.format(item.price)}</span>
                         <button class="add-to-cart" data-id="${item.id}">Add to Cart</button>
                     </div>
                 `;
@@ -526,8 +546,8 @@ document.addEventListener('DOMContentLoaded', function() {
                         <p class="offer-description">${offer.description}</p>
                         <div class="offer-price">
                             ${offer.originalPrice > 0 ? `
-                                <span class="original">$${offer.originalPrice.toFixed(2)}</span>
-                                <span class="discounted">$${offer.discountedPrice.toFixed(2)}</span>
+                                <span class="original">${inrFormat.format(offer.originalPrice)}</span>
+                                <span class="discounted">${inrFormat.format(offer.discountedPrice)}</span>
                             ` : `
                                 <span class="discounted">${offer.discount} Off</span>
                             `}
@@ -605,35 +625,27 @@ document.addEventListener('DOMContentLoaded', function() {
     // Display previous orders
     function displayPreviousOrders() {
         previousOrdersContainer.innerHTML = '';
-        
         const orders = JSON.parse(localStorage.getItem('orders')) || [];
-        
         if (orders.length === 0) {
             previousOrdersContainer.innerHTML = '<p>You have no previous orders.</p>';
             return;
         }
-        
-        // Sort orders by date (newest first)
         orders.sort((a, b) => new Date(b.date) - new Date(a.date));
-        
         orders.forEach(order => {
             const orderElement = document.createElement('div');
             orderElement.classList.add('order-card');
-            
             let itemsHtml = '';
             order.items.forEach(item => {
                 itemsHtml += `
                     <div class="order-item">
                         <div class="order-item-name">${item.name}</div>
                         <div class="order-item-quantity">x${item.quantity}</div>
-                        <div class="order-item-price">$${(item.price * item.quantity).toFixed(2)}</div>
+                        <div class="order-item-price">${inrFormat.format(item.price * item.quantity)}</div>
                     </div>
                 `;
             });
-            
             const orderDate = new Date(order.date);
             const statusClass = `status-${order.status.toLowerCase()}`;
-            
             orderElement.innerHTML = `
                 <div class="order-header">
                     <div>
@@ -647,17 +659,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
                 <div class="order-total">
                     <span>Total</span>
-                    <span>$${order.total.toFixed(2)}</span>
+                    <span>${inrFormat.format(order.total)}</span>
                 </div>
                 <button class="reorder-btn" data-order-id="${order.id}">Reorder</button>
             `;
-            
             previousOrdersContainer.appendChild(orderElement);
-        });
-
-        // Add event listeners to reorder buttons
-        document.querySelectorAll('.reorder-btn').forEach(button => {
-            button.addEventListener('click', reorderItems);
         });
     }
 
@@ -743,61 +749,29 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Update order total in form button
         const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-        orderTotal.textContent = total.toFixed(2);
+        orderTotal.textContent = inrFormat.format(total);
     }
 
     // Display cart items in modal
     function displayCartItems() {
         cartItemsContainer.innerHTML = '';
-        
-        if (cart.length === 0) {
-            cartItemsContainer.innerHTML = '<p>Your cart is empty.</p>';
-            cartTotal.textContent = '0.00';
-            orderTotal.textContent = '0.00';
-            return;
-        }
-        
-        let total = 0;
-        
         cart.forEach(item => {
-            const itemTotal = item.price * item.quantity;
-            total += itemTotal;
-            
-            const cartItemElement = document.createElement('div');
-            cartItemElement.classList.add('cart-item');
-            cartItemElement.innerHTML = `
-                <div class="cart-item-info">
-                    <img src="${item.image}" alt="${item.name}" class="cart-item-img" onerror="this.src='https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80'">
-                    <div class="cart-item-details">
-                        <div class="cart-item-name">${item.name}</div>
-                        <div class="cart-item-desc">${item.description}</div>
+            const cartItem = document.createElement('div');
+            cartItem.className = 'cart-item';
+            cartItem.innerHTML = `
+                <img src="${item.image}" alt="${item.name}" class="cart-item-img" onerror="this.src='https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80'">
+                <div class="cart-item-details">
+                    <h4>${item.name}</h4>
+                    <div class="cart-item-qty">
+                        <button class="decrease-qty" data-id="${item.id}">-</button>
+                        <span>${item.quantity}</span>
+                        <button class="increase-qty" data-id="${item.id}">+</button>
                     </div>
+                    <span class="cart-item-price">${inrFormat.format(item.price)}</span>
                 </div>
-                <div class="cart-item-price">$${item.price.toFixed(2)}</div>
-                <div class="cart-item-quantity">
-                    <button class="quantity-btn minus" data-id="${item.id}">-</button>
-                    <span class="quantity">${item.quantity}</span>
-                    <button class="quantity-btn plus" data-id="${item.id}">+</button>
-                    <button class="remove-item" data-id="${item.id}">&times;</button>
-                </div>
+                <button class="remove-item" data-id="${item.id}"><i class="fas fa-trash"></i></button>
             `;
-            cartItemsContainer.appendChild(cartItemElement);
-        });
-        
-        cartTotal.textContent = total.toFixed(2);
-        orderTotal.textContent = total.toFixed(2);
-        
-        // Add event listeners to quantity buttons
-        document.querySelectorAll('.minus').forEach(button => {
-            button.addEventListener('click', decreaseQuantity);
-        });
-        
-        document.querySelectorAll('.plus').forEach(button => {
-            button.addEventListener('click', increaseQuantity);
-        });
-        
-        document.querySelectorAll('.remove-item').forEach(button => {
-            button.addEventListener('click', removeItem);
+            cartItemsContainer.appendChild(cartItem);
         });
     }
 
@@ -877,11 +851,22 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Filter menu items
     filterButtons.forEach(button => {
-        button.addEventListener('click', () => {
+        button.addEventListener('click', (e) => {
+            // Remove active class from all buttons
             filterButtons.forEach(btn => btn.classList.remove('active'));
-            button.classList.add('active');
-            const category = button.getAttribute('data-category');
-            displayMenuItems(category);
+            
+            // Add active class to clicked button
+            e.target.classList.add('active');
+            
+            // Update category filter
+            const category = e.target.getAttribute('data-category');
+            currentFilters.category = category;
+            
+            // Perform search for main menu
+            performSearch();
+            
+            // Update "For You" section with category-specific recommendations
+            displayRecommendedItems();
         });
     });
 
@@ -1379,7 +1364,11 @@ document.addEventListener('DOMContentLoaded', function() {
             const category = e.target.getAttribute('data-category');
             currentFilters.category = category;
             
+            // Perform search for main menu
             performSearch();
+            
+            // Update "For You" section with category-specific recommendations
+            displayRecommendedItems();
         });
     });
     
@@ -1710,7 +1699,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             <span>(${item.rating})</span>
                         </div>
                         <p class="menu-item-desc">${item.description}</p>
-                        <span class="menu-item-price">$${item.price.toFixed(2)}</span>
+                        <span class="menu-item-price">${inrFormat.format(item.price)}</span>
                         <button class="add-to-cart" data-id="${item.id}">Add to Cart</button>
                     </div>
                 `;
@@ -1975,6 +1964,9 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Perform search to show all items
         performSearch();
+        
+        // Update "For You" section with all recommendations
+        displayRecommendedItems();
     }
     
     function showAllItems() {

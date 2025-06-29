@@ -2914,3 +2914,27 @@ textarea:focus {
 .theme-purple .menu-item:hover {
     box-shadow: 0 20px 40px rgba(155, 89, 182, 0.2);
 }
+
+/* No Recommendations State */
+.no-recommendations {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-color);
+    grid-column: 1 / -1;
+}
+
+.no-recommendations i {
+    font-size: 4rem;
+    color: var(--border-color);
+    margin-bottom: 20px;
+}
+
+.no-recommendations h3 {
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+}
+
+.no-recommendations p {
+    color: #666;
+    margin-bottom: 20px;
+}
