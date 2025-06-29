@@ -144,6 +144,78 @@ document.addEventListener('DOMContentLoaded', function() {
             prepTime: '10 min',
             calories: 320,
             popular: true
+        },
+        {
+            id: 13,
+            name: 'Veggie Supreme Pizza',
+            description: 'Pizza topped with bell peppers, mushrooms, onions, and olives',
+            price: 16.99,
+            category: 'pizza',
+            image: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
+            rating: 4.4,
+            prepTime: '20-25 min',
+            calories: 850,
+            popular: false
+        },
+        {
+            id: 14,
+            name: 'Vegan Burger',
+            description: 'Plant-based burger with lettuce, tomato, and vegan cheese',
+            price: 12.99,
+            category: 'burger',
+            image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
+            rating: 4.1,
+            prepTime: '15-20 min',
+            calories: 380,
+            popular: false
+        },
+        {
+            id: 15,
+            name: 'Gluten-Free Pasta',
+            description: 'Pasta made with rice flour, served with tomato sauce',
+            price: 14.99,
+            category: 'pasta',
+            image: 'https://images.unsplash.com/photo-1555949258-eb67b1ef0ceb?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
+            rating: 4.0,
+            prepTime: '18-22 min',
+            calories: 420,
+            popular: false
+        },
+        {
+            id: 16,
+            name: 'Low-Calorie Chicken Salad',
+            description: 'Grilled chicken breast with mixed greens and light dressing',
+            price: 11.99,
+            category: 'salad',
+            image: 'https://images.unsplash.com/photo-1546793665-c74683f339c1?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
+            rating: 4.3,
+            prepTime: '12-15 min',
+            calories: 280,
+            popular: true
+        },
+        {
+            id: 17,
+            name: 'Fresh Fruit Smoothie',
+            description: 'Blend of strawberries, bananas, and yogurt',
+            price: 5.99,
+            category: 'drink',
+            image: 'https://images.unsplash.com/photo-1508253730651-e5ace80a7025?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
+            rating: 4.5,
+            prepTime: '8 min',
+            calories: 180,
+            popular: true
+        },
+        {
+            id: 18,
+            name: 'Cheesecake',
+            description: 'New York style cheesecake with berry compote',
+            price: 8.99,
+            category: 'dessert',
+            image: 'https://images.unsplash.com/photo-1535920527002-b35e9672ebf1?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
+            rating: 4.6,
+            prepTime: '5 min',
+            calories: 520,
+            popular: false
         }
     ];
 
@@ -207,6 +279,33 @@ document.addEventListener('DOMContentLoaded', function() {
     const locationClose = locationModal.querySelector('.close');
     const confirmLocationBtn = document.getElementById('confirm-location');
     const deliveryAddressInput = document.getElementById('delivery-address');
+
+    // Search and Filter Elements
+    const menuSearch = document.getElementById('menu-search');
+    const clearSearchBtn = document.getElementById('clear-search');
+    const searchSuggestions = document.getElementById('search-suggestions');
+    const priceRangeFilter = document.getElementById('price-range');
+    const prepTimeFilter = document.getElementById('prep-time');
+    const dietaryFilter = document.getElementById('dietary-filter');
+    const sortByFilter = document.getElementById('sort-by');
+    const clearFiltersBtn = document.getElementById('clear-filters');
+    const recentSearches = document.getElementById('recent-searches');
+    const recentSearchTags = document.getElementById('recent-search-tags');
+    const resultsCount = document.getElementById('results-count');
+    const activeFilters = document.getElementById('active-filters');
+    
+    // Search and Filter State
+    let currentSearchTerm = '';
+    let currentFilters = {
+        category: 'all',
+        priceRange: '',
+        prepTime: '',
+        dietary: '',
+        sortBy: 'name'
+    };
+    let recentSearchHistory = JSON.parse(localStorage.getItem('recentSearches')) || [];
+    let searchTimeout;
+    let selectedSuggestionIndex = -1;
 
     // Form validation elements
     const formInputs = {
@@ -760,6 +859,51 @@ document.addEventListener('DOMContentLoaded', function() {
         profileModal.style.display = 'none';
     });
 
+    // Click outside to close profile modal
+    window.addEventListener('click', (e) => {
+        if (e.target === profileModal) {
+            profileModal.style.display = 'none';
+        }
+    });
+
+    // Escape key to close profile modal
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && profileModal.style.display === 'block') {
+            profileModal.style.display = 'none';
+        }
+    });
+
+    // Change avatar functionality
+    const changeAvatarBtn = document.getElementById('change-avatar');
+    changeAvatarBtn.addEventListener('click', () => {
+        // Create a file input for image upload
+        const fileInput = document.createElement('input');
+        fileInput.type = 'file';
+        fileInput.accept = 'image/*';
+        fileInput.style.display = 'none';
+        
+        fileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    // Update the avatar with the selected image
+                    const avatarContainer = document.querySelector('.avatar-container');
+                    avatarContainer.innerHTML = `<img src="${e.target.result}" alt="Profile Avatar" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">`;
+                    
+                    // Save to user data
+                    user.avatar = e.target.result;
+                    localStorage.setItem('user', JSON.stringify(user));
+                    
+                    showNotification('Profile photo updated successfully!');
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+        
+        fileInput.click();
+    });
+
     // Logout
     logoutBtn.addEventListener('click', () => {
         user = {
@@ -783,6 +927,14 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('profile-name').textContent = user.name;
         document.getElementById('profile-email').textContent = user.email;
         document.getElementById('profile-phone').textContent = user.phone || 'Not provided';
+        
+        // Update avatar display
+        const avatarContainer = document.querySelector('.avatar-container');
+        if (user.avatar) {
+            avatarContainer.innerHTML = `<img src="${user.avatar}" alt="Profile Avatar" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">`;
+        } else {
+            avatarContainer.innerHTML = '<i class="fas fa-user-circle"></i>';
+        }
         
         const orders = JSON.parse(localStorage.getItem('orders')) || [];
         const userOrders = orders.filter(order => order.customer && order.customer.name === user.name);
@@ -999,9 +1151,6 @@ document.addEventListener('DOMContentLoaded', function() {
         if (e.target === cartModal) {
             cartModal.style.display = 'none';
         }
-        if (e.target === profileModal) {
-            profileModal.style.display = 'none';
-        }
         if (e.target === locationModal) {
             locationModal.style.display = 'none';
         }
@@ -1062,11 +1211,132 @@ document.addEventListener('DOMContentLoaded', function() {
     initLocation();
     updateProfileStats();
     setupFormValidation();
+    displayRecentSearches();
 
     // Set Home link as active by default
     const homeLink = document.querySelector('nav a[href="#home"]');
     if (homeLink) {
         homeLink.classList.add('active');
+    }
+
+    // Search and Filter Event Listeners
+    menuSearch.addEventListener('input', (e) => {
+        currentSearchTerm = e.target.value;
+        
+        if (currentSearchTerm.trim()) {
+            clearSearchBtn.style.display = 'block';
+            
+            // Clear previous timeout
+            if (searchTimeout) {
+                clearTimeout(searchTimeout);
+            }
+            
+            // Debounce search suggestions
+            searchTimeout = setTimeout(() => {
+                generateSearchSuggestions(currentSearchTerm);
+            }, 300);
+        } else {
+            clearSearchBtn.style.display = 'none';
+            searchSuggestions.style.display = 'none';
+        }
+        
+        performSearch();
+    });
+    
+    menuSearch.addEventListener('keydown', (e) => {
+        const suggestions = searchSuggestions.querySelectorAll('.search-suggestion-item');
+        
+        if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            selectedSuggestionIndex = Math.min(selectedSuggestionIndex + 1, suggestions.length - 1);
+            updateSelectedSuggestion(suggestions);
+        } else if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            selectedSuggestionIndex = Math.max(selectedSuggestionIndex - 1, -1);
+            updateSelectedSuggestion(suggestions);
+        } else if (e.key === 'Enter') {
+            e.preventDefault();
+            if (selectedSuggestionIndex >= 0 && suggestions[selectedSuggestionIndex]) {
+                const suggestion = suggestions[selectedSuggestionIndex];
+                const text = suggestion.querySelector('span').textContent;
+                menuSearch.value = text;
+                currentSearchTerm = text;
+                addToRecentSearches(text);
+                searchSuggestions.style.display = 'none';
+                performSearch();
+            } else {
+                performSearch();
+            }
+        } else if (e.key === 'Escape') {
+            searchSuggestions.style.display = 'none';
+            selectedSuggestionIndex = -1;
+        }
+    });
+    
+    clearSearchBtn.addEventListener('click', () => {
+        menuSearch.value = '';
+        currentSearchTerm = '';
+        clearSearchBtn.style.display = 'none';
+        searchSuggestions.style.display = 'none';
+        performSearch();
+    });
+    
+    // Filter event listeners
+    priceRangeFilter.addEventListener('change', (e) => {
+        currentFilters.priceRange = e.target.value;
+        performSearch();
+    });
+    
+    prepTimeFilter.addEventListener('change', (e) => {
+        currentFilters.prepTime = e.target.value;
+        performSearch();
+    });
+    
+    dietaryFilter.addEventListener('change', (e) => {
+        currentFilters.dietary = e.target.value;
+        performSearch();
+    });
+    
+    sortByFilter.addEventListener('change', (e) => {
+        currentFilters.sortBy = e.target.value;
+        performSearch();
+    });
+    
+    clearFiltersBtn.addEventListener('click', clearAllFilters);
+    
+    // Category filter buttons
+    filterButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+            // Remove active class from all buttons
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            
+            // Add active class to clicked button
+            e.target.classList.add('active');
+            
+            // Update category filter
+            const category = e.target.getAttribute('data-category');
+            currentFilters.category = category;
+            
+            performSearch();
+        });
+    });
+    
+    // Click outside to close search suggestions
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.search-section')) {
+            searchSuggestions.style.display = 'none';
+            selectedSuggestionIndex = -1;
+        }
+    });
+    
+    function updateSelectedSuggestion(suggestions) {
+        suggestions.forEach((suggestion, index) => {
+            if (index === selectedSuggestionIndex) {
+                suggestion.classList.add('selected');
+            } else {
+                suggestion.classList.remove('selected');
+            }
+        });
     }
 
     // Add notification styles dynamically
@@ -1249,5 +1519,403 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             }
         });
+    }
+
+    // Search and Filter Functions
+    function performSearch() {
+        const searchTerm = currentSearchTerm.toLowerCase().trim();
+        const filters = currentFilters;
+        
+        // Show loading state
+        menuContainer.innerHTML = '<div class="search-loading"><i class="fas fa-spinner"></i><p>Searching...</p></div>';
+        
+        // Simulate search delay for better UX
+        setTimeout(() => {
+            let filteredItems = [...menuItems];
+            
+            // Apply search filter
+            if (searchTerm) {
+                filteredItems = filteredItems.filter(item => 
+                    item.name.toLowerCase().includes(searchTerm) ||
+                    item.description.toLowerCase().includes(searchTerm) ||
+                    item.category.toLowerCase().includes(searchTerm)
+                );
+            }
+            
+            // Apply category filter
+            if (filters.category && filters.category !== 'all') {
+                filteredItems = filteredItems.filter(item => item.category === filters.category);
+            }
+            
+            // Apply price range filter
+            if (filters.priceRange) {
+                const [min, max] = filters.priceRange.split('-').map(Number);
+                filteredItems = filteredItems.filter(item => {
+                    if (max) {
+                        return item.price >= min && item.price < max;
+                    } else {
+                        return item.price >= min;
+                    }
+                });
+            }
+            
+            // Apply prep time filter
+            if (filters.prepTime) {
+                const [min, max] = filters.prepTime.split('-').map(Number);
+                filteredItems = filteredItems.filter(item => {
+                    const prepTime = parseInt(item.prepTime.match(/\d+/)[0]);
+                    if (max) {
+                        return prepTime >= min && prepTime <= max;
+                    } else {
+                        return prepTime >= min;
+                    }
+                });
+            }
+            
+            // Apply dietary filter
+            if (filters.dietary) {
+                filteredItems = filteredItems.filter(item => {
+                    switch (filters.dietary) {
+                        case 'vegetarian':
+                            return item.name.toLowerCase().includes('veggie') || 
+                                   item.name.toLowerCase().includes('salad') ||
+                                   item.category === 'salad';
+                        case 'vegan':
+                            return item.name.toLowerCase().includes('vegan') ||
+                                   item.name.toLowerCase().includes('plant-based');
+                        case 'gluten-free':
+                            return item.name.toLowerCase().includes('gluten-free') ||
+                                   item.category === 'salad';
+                        case 'low-calorie':
+                            return item.calories < 500;
+                        default:
+                            return true;
+                    }
+                });
+            }
+            
+            // Apply sorting
+            filteredItems.sort((a, b) => {
+                switch (filters.sortBy) {
+                    case 'price-low':
+                        return a.price - b.price;
+                    case 'price-high':
+                        return b.price - a.price;
+                    case 'rating':
+                        return b.rating - a.rating;
+                    case 'popular':
+                        return (b.popular ? 1 : 0) - (a.popular ? 1 : 0);
+                    case 'name':
+                    default:
+                        return a.name.localeCompare(b.name);
+                }
+            });
+            
+            // Display results
+            displaySearchResults(filteredItems);
+        }, 300);
+    }
+    
+    function displaySearchResults(items) {
+        menuContainer.innerHTML = '';
+        
+        if (items.length === 0) {
+            menuContainer.innerHTML = `
+                <div class="no-results">
+                    <i class="fas fa-search"></i>
+                    <h3>No items found</h3>
+                    <p>Try adjusting your search terms or filters</p>
+                    <div class="suggestions">
+                        <button class="suggestion-btn" onclick="clearAllFilters()">Clear Filters</button>
+                        <button class="suggestion-btn" onclick="showAllItems()">Show All Items</button>
+                    </div>
+                </div>
+            `;
+        } else {
+            items.forEach(item => {
+                const isFavorite = user.favorites.includes(item.id);
+                const menuItemElement = document.createElement('div');
+                menuItemElement.classList.add('menu-item');
+                menuItemElement.innerHTML = `
+                    <button class="favorite-btn ${isFavorite ? 'active' : ''}" data-id="${item.id}">
+                        <i class="fas fa-heart"></i>
+                    </button>
+                    <img src="${item.image}" alt="${item.name}" class="menu-item-img" onerror="this.src='https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80'">
+                    <div class="menu-item-content">
+                        <h3 class="menu-item-title">${item.name}</h3>
+                        <div class="rating">
+                            ${generateStarRating(item.rating)}
+                            <span>(${item.rating})</span>
+                        </div>
+                        <p class="menu-item-desc">${item.description}</p>
+                        <span class="menu-item-price">$${item.price.toFixed(2)}</span>
+                        <button class="add-to-cart" data-id="${item.id}">Add to Cart</button>
+                    </div>
+                `;
+                menuContainer.appendChild(menuItemElement);
+            });
+        }
+        
+        // Add event listeners
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', addToCart);
+        });
+
+        document.querySelectorAll('.favorite-btn').forEach(button => {
+            button.addEventListener('click', toggleFavorite);
+        });
+        
+        // Update results count
+        updateResultsCount(items.length);
+        updateActiveFilters();
+    }
+    
+    function updateResultsCount(count) {
+        const totalItems = menuItems.length;
+        if (currentSearchTerm || hasActiveFilters()) {
+            resultsCount.textContent = `Showing ${count} of ${totalItems} items`;
+        } else {
+            resultsCount.textContent = `Showing all ${totalItems} items`;
+        }
+    }
+    
+    function hasActiveFilters() {
+        return currentFilters.priceRange || 
+               currentFilters.prepTime || 
+               currentFilters.dietary || 
+               currentFilters.sortBy !== 'name';
+    }
+    
+    function updateActiveFilters() {
+        const activeFiltersContainer = document.getElementById('active-filters');
+        activeFiltersContainer.innerHTML = '';
+        
+        const filters = [];
+        
+        if (currentFilters.priceRange) {
+            const priceText = priceRangeFilter.options[priceRangeFilter.selectedIndex].text;
+            filters.push(createFilterTag('price', priceText));
+        }
+        
+        if (currentFilters.prepTime) {
+            const prepText = prepTimeFilter.options[prepTimeFilter.selectedIndex].text;
+            filters.push(createFilterTag('prep', prepText));
+        }
+        
+        if (currentFilters.dietary) {
+            const dietaryText = dietaryFilter.options[dietaryFilter.selectedIndex].text;
+            filters.push(createFilterTag('dietary', dietaryText));
+        }
+        
+        if (currentFilters.sortBy !== 'name') {
+            const sortText = sortByFilter.options[sortByFilter.selectedIndex].text;
+            filters.push(createFilterTag('sort', sortText));
+        }
+        
+        filters.forEach(filter => activeFiltersContainer.appendChild(filter));
+    }
+    
+    function createFilterTag(type, text) {
+        const tag = document.createElement('span');
+        tag.className = 'active-filter-tag';
+        tag.innerHTML = `
+            ${text}
+            <button class="remove-filter" onclick="removeFilter('${type}')">
+                <i class="fas fa-times"></i>
+            </button>
+        `;
+        return tag;
+    }
+    
+    function removeFilter(type) {
+        switch (type) {
+            case 'price':
+                priceRangeFilter.value = '';
+                currentFilters.priceRange = '';
+                break;
+            case 'prep':
+                prepTimeFilter.value = '';
+                currentFilters.prepTime = '';
+                break;
+            case 'dietary':
+                dietaryFilter.value = '';
+                currentFilters.dietary = '';
+                break;
+            case 'sort':
+                sortByFilter.value = 'name';
+                currentFilters.sortBy = 'name';
+                break;
+        }
+        performSearch();
+    }
+    
+    function generateSearchSuggestions(searchTerm) {
+        if (!searchTerm.trim()) {
+            searchSuggestions.style.display = 'none';
+            return;
+        }
+        
+        const suggestions = [];
+        const term = searchTerm.toLowerCase();
+        
+        // Search in menu items
+        menuItems.forEach(item => {
+            if (item.name.toLowerCase().includes(term) ||
+                item.description.toLowerCase().includes(term) ||
+                item.category.toLowerCase().includes(term)) {
+                suggestions.push({
+                    text: item.name,
+                    type: 'item',
+                    icon: 'fas fa-utensils'
+                });
+            }
+        });
+        
+        // Add category suggestions
+        const categories = ['pizza', 'burger', 'pasta', 'salad', 'appetizer', 'drink', 'dessert'];
+        categories.forEach(category => {
+            if (category.includes(term)) {
+                suggestions.push({
+                    text: category.charAt(0).toUpperCase() + category.slice(1),
+                    type: 'category',
+                    icon: 'fas fa-tag'
+                });
+            }
+        });
+        
+        // Add recent search suggestions
+        recentSearchHistory.forEach(search => {
+            if (search.toLowerCase().includes(term) && !suggestions.find(s => s.text === search)) {
+                suggestions.push({
+                    text: search,
+                    type: 'recent',
+                    icon: 'fas fa-history'
+                });
+            }
+        });
+        
+        // Limit suggestions
+        const limitedSuggestions = suggestions.slice(0, 8);
+        
+        if (limitedSuggestions.length > 0) {
+            displaySearchSuggestions(limitedSuggestions);
+        } else {
+            searchSuggestions.style.display = 'none';
+        }
+    }
+    
+    function displaySearchSuggestions(suggestions) {
+        searchSuggestions.innerHTML = '';
+        
+        suggestions.forEach((suggestion, index) => {
+            const item = document.createElement('div');
+            item.className = 'search-suggestion-item';
+            item.innerHTML = `
+                <i class="${suggestion.icon} search-suggestion-icon"></i>
+                <span>${suggestion.text}</span>
+            `;
+            
+            item.addEventListener('click', () => {
+                menuSearch.value = suggestion.text;
+                currentSearchTerm = suggestion.text;
+                addToRecentSearches(suggestion.text);
+                searchSuggestions.style.display = 'none';
+                performSearch();
+            });
+            
+            searchSuggestions.appendChild(item);
+        });
+        
+        searchSuggestions.style.display = 'block';
+    }
+    
+    function addToRecentSearches(searchTerm) {
+        if (!searchTerm.trim()) return;
+        
+        // Remove if already exists
+        recentSearchHistory = recentSearchHistory.filter(term => term !== searchTerm);
+        
+        // Add to beginning
+        recentSearchHistory.unshift(searchTerm);
+        
+        // Keep only last 10 searches
+        recentSearchHistory = recentSearchHistory.slice(0, 10);
+        
+        // Save to localStorage
+        localStorage.setItem('recentSearches', JSON.stringify(recentSearchHistory));
+        
+        // Update display
+        displayRecentSearches();
+    }
+    
+    function displayRecentSearches() {
+        if (recentSearchHistory.length === 0) {
+            recentSearches.style.display = 'none';
+            return;
+        }
+        
+        recentSearchTags.innerHTML = '';
+        
+        recentSearchHistory.forEach(search => {
+            const tag = document.createElement('span');
+            tag.className = 'recent-search-tag';
+            tag.innerHTML = `
+                ${search}
+                <button class="remove-tag" onclick="removeRecentSearch('${search}')">
+                    <i class="fas fa-times"></i>
+                </button>
+            `;
+            
+            tag.addEventListener('click', (e) => {
+                if (!e.target.closest('.remove-tag')) {
+                    menuSearch.value = search;
+                    currentSearchTerm = search;
+                    performSearch();
+                }
+            });
+            
+            recentSearchTags.appendChild(tag);
+        });
+        
+        recentSearches.style.display = 'block';
+    }
+    
+    function removeRecentSearch(search) {
+        recentSearchHistory = recentSearchHistory.filter(term => term !== search);
+        localStorage.setItem('recentSearches', JSON.stringify(recentSearchHistory));
+        displayRecentSearches();
+    }
+    
+    function clearAllFilters() {
+        currentSearchTerm = '';
+        currentFilters = {
+            category: 'all',
+            priceRange: '',
+            prepTime: '',
+            dietary: '',
+            sortBy: 'name'
+        };
+        
+        // Reset form elements
+        menuSearch.value = '';
+        priceRangeFilter.value = '';
+        prepTimeFilter.value = '';
+        dietaryFilter.value = '';
+        sortByFilter.value = 'name';
+        
+        // Reset category buttons
+        filterButtons.forEach(btn => btn.classList.remove('active'));
+        document.querySelector('[data-category="all"]').classList.add('active');
+        
+        // Clear search suggestions
+        searchSuggestions.style.display = 'none';
+        clearSearchBtn.style.display = 'none';
+        
+        // Perform search to show all items
+        performSearch();
+    }
+    
+    function showAllItems() {
+        clearAllFilters();
     }
 });

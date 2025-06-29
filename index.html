@@ -52,6 +52,85 @@
 
         <section id="menu" class="section-with-header">
             <h2><i class="fas fa-utensils"></i> Our Menu</h2>
+            
+            <!-- Search and Filter System -->
+            <div class="search-filter-container">
+                <!-- Search Bar -->
+                <div class="search-section">
+                    <div class="search-bar-container">
+                        <i class="fas fa-search search-icon"></i>
+                        <input type="text" id="menu-search" placeholder="Search for dishes, ingredients, or descriptions..." autocomplete="off">
+                        <button id="clear-search" class="clear-search-btn" style="display: none;">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div id="search-suggestions" class="search-suggestions"></div>
+                </div>
+                
+                <!-- Advanced Filters -->
+                <div class="advanced-filters">
+                    <div class="filter-group">
+                        <label for="price-range">Price Range:</label>
+                        <select id="price-range">
+                            <option value="">All Prices</option>
+                            <option value="0-5">Under $5</option>
+                            <option value="5-10">$5 - $10</option>
+                            <option value="10-15">$10 - $15</option>
+                            <option value="15+">$15+</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="prep-time">Prep Time:</label>
+                        <select id="prep-time">
+                            <option value="">Any Time</option>
+                            <option value="0-10">Under 10 min</option>
+                            <option value="10-20">10-20 min</option>
+                            <option value="20-30">20-30 min</option>
+                            <option value="30+">30+ min</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="dietary-filter">Dietary:</label>
+                        <select id="dietary-filter">
+                            <option value="">All Options</option>
+                            <option value="vegetarian">Vegetarian</option>
+                            <option value="vegan">Vegan</option>
+                            <option value="gluten-free">Gluten-Free</option>
+                            <option value="low-calorie">Low Calorie</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="sort-by">Sort By:</label>
+                        <select id="sort-by">
+                            <option value="name">Name A-Z</option>
+                            <option value="price-low">Price: Low to High</option>
+                            <option value="price-high">Price: High to Low</option>
+                            <option value="rating">Rating</option>
+                            <option value="popular">Popular</option>
+                        </select>
+                    </div>
+                    
+                    <button id="clear-filters" class="clear-filters-btn">
+                        <i class="fas fa-times"></i> Clear All Filters
+                    </button>
+                </div>
+                
+                <!-- Recent Searches -->
+                <div class="recent-searches" id="recent-searches" style="display: none;">
+                    <h4><i class="fas fa-history"></i> Recent Searches</h4>
+                    <div class="recent-search-tags" id="recent-search-tags"></div>
+                </div>
+            </div>
+            
+            <!-- Results Summary -->
+            <div class="results-summary" id="results-summary">
+                <span id="results-count">Showing all items</span>
+                <span id="active-filters" class="active-filters"></span>
+            </div>
+            
             <div class="menu-filters">
                 <button class="filter-btn active" data-category="all">All</button>
                 <button class="filter-btn" data-category="pizza">Pizza</button>
