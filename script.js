@@ -144,7 +144,19 @@ document.addEventListener('DOMContentLoaded', function() {
             prepTime: '10 min',
             calories: 320,
             popular: true
-        }
+        },
+        {
+            id: 13,
+            name: 'Fries',
+            description: 'Thin strips of potato that are deep-fried until golden and crispy',
+            price: 9.99,
+            category: 'appetizer',
+            image: 'https://imgs.search.brave.com/wV5vYrV9fJGZkD9BOys_V1MXFkpnwqSqEPMJqgAyVBg/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/Zm9vZGllc2ZlZWQu/Y29tL3dwLWNvbnRl/bnQvdXBsb2Fkcy8y/MDIzLzAzL2ZyZW5j/aC1mcmllcy1kZXRh/aWwuanBn',
+            rating: 4.3,
+            prepTime: '10-15 min',
+            calories: 360,
+            popular: true
+        },
     ];
 
     // Special offers data
@@ -390,7 +402,7 @@ document.addEventListener('DOMContentLoaded', function() {
         } else if (offerId === 2) {
             // Weekend Special
             const cheeseburger = menuItems.find(item => item.id === 4);
-            const fries = menuItems.find(item => item.id === 12); // Using garlic bread as fries for demo
+            const fries = menuItems.find(item => item.id === 13); // Using garlic bread as fries for demo
             const icedTea = menuItems.find(item => item.id === 8);
             
             addOfferItemToCart(cheeseburger, 1);
