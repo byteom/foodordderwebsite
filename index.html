@@ -126,41 +126,47 @@
 
     <!-- Profile Modal -->
     <div id="profile-modal" class="modal">
-        <div class="modal-content">
+        <div class="modal-content profile-modal-content">
             <span class="close">&times;</span>
-            <h2>Your Profile</h2>
-            <div class="profile-info">
-                <div class="profile-avatar">
-                    <i class="fas fa-user-circle"></i>
-                    <button id="change-avatar">Change</button>
+            <h2 class="modal-title">👤 Your Profile</h2>
+
+            <div class="profile-info-enhanced">
+                <div class="profile-avatar-enhanced">
+                    <i class="fas fa-user-circle avatar-icon"></i>
+                    <button id="change-avatar" class="btn-mini">Change Avatar</button>
                 </div>
-                <div class="profile-details">
+
+                <div class="profile-details-enhanced">
                     <h3 id="profile-name">Guest User</h3>
                     <p><i class="fas fa-envelope"></i> <span id="profile-email">guest@example.com</span></p>
                     <p><i class="fas fa-phone"></i> <span id="profile-phone">Not provided</span></p>
                 </div>
             </div>
-            <div class="profile-stats">
-                <div class="stat-item">
+
+            <div class="profile-stats-enhanced">
+                <div class="stat-box">
                     <div class="stat-value" id="total-orders">0</div>
                     <div class="stat-label">Total Orders</div>
                 </div>
-                <div class="stat-item">
+                <div class="stat-box">
                     <div class="stat-value" id="favorite-items">0</div>
                     <div class="stat-label">Favorites</div>
                 </div>
-                <div class="stat-item">
-                    <div class="stat-value" id="member-since">Today</div>
+                <div class="stat-box">
+                    <div class="stat-value" id="member-since">29/6/2025</div>
                     <div class="stat-label">Member Since</div>
                 </div>
             </div>
-            <h3>Your Favorites</h3>
+
+            <h3 class="favorites-title">❤️ Your Favorites</h3>
             <div class="favorites-container" id="favorites-container">
-                <!-- Favorite items will be loaded here -->
+                <p>You have no favorite items yet.</p>
             </div>
-            <button id="logout-btn" class="btn btn-outline">Sign Out</button>
+
+            <button id="logout-btn" class="btn logout-btn">Sign Out</button>
         </div>
     </div>
+
 
     <!-- Location Modal -->
     <div id="location-modal" class="modal">
