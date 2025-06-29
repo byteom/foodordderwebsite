@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 1,
             name: 'Margherita Pizza',
             description: 'Classic pizza with tomato sauce, mozzarella, and basil',
-            price: 12.99,
+            price: 299,
             category: 'pizza',
             image: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
             rating: 4.5,
@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 2,
             name: 'Pepperoni Pizza',
             description: 'Pizza with tomato sauce, mozzarella, and pepperoni',
-            price: 14.99,
+            price: 349,
             category: 'pizza',
             image: 'https://images.unsplash.com/photo-1588315029754-2dd089d39a1a?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
             rating: 4.7,
@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 3,
             name: 'Veggie Burger',
             description: 'Plant-based burger with lettuce, tomato, and special sauce',
-            price: 9.99,
+            price: 179,
             category: 'burger',
             image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
             rating: 4.2,
@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 4,
             name: 'Cheeseburger',
             description: 'Classic beef burger with cheese, lettuce, and tomato',
-            price: 11.99,
+            price: 199,
             category: 'burger',
             image: 'https://images.unsplash.com/photo-1561758033-d89a9ad46330?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
             rating: 4.4,
@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 5,
             name: 'Spaghetti Carbonara',
             description: 'Pasta with eggs, cheese, pancetta, and black pepper',
-            price: 13.99,
+            price: 279,
             category: 'pasta',
             image: 'https://images.unsplash.com/photo-1555949258-eb67b1ef0ceb?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
             rating: 4.6,
@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 6,
             name: 'Caesar Salad',
             description: 'Romaine lettuce with croutons, parmesan, and Caesar dressing',
-            price: 8.99,
+            price: 149,
             category: 'salad',
             image: 'https://images.unsplash.com/photo-1546793665-c74683f339c1?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
             rating: 4.0,
@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 7,
             name: 'Greek Salad',
             description: 'Salad with tomatoes, cucumber, olives, and feta cheese',
-            price: 9.99,
+            price: 169,
             category: 'salad',
             image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
             rating: 4.3,
@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 8,
             name: 'Iced Tea',
             description: 'Refreshing iced tea with lemon',
-            price: 2.99,
+            price: 59,
             category: 'drink',
             image: 'https://images.unsplash.com/photo-1560343090-f0409e92791a?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
             rating: 3.8,
@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 9,
             name: 'Lemonade',
             description: 'Homemade lemonade with fresh lemons',
-            price: 3.49,
+            price: 69,
             category: 'drink',
             image: 'https://images.unsplash.com/photo-1508253730651-e5ace80a7025?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
             rating: 4.1,
@@ -113,7 +113,7 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 10,
             name: 'Chocolate Lava Cake',
             description: 'Warm chocolate cake with a molten center, served with vanilla ice cream',
-            price: 6.99,
+            price: 129,
             category: 'dessert',
             image: 'https://images.unsplash.com/photo-1495147466023-ac5c588e2e94?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
             rating: 4.8,
@@ -125,7 +125,7 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 11,
             name: 'Tiramisu',
             description: 'Classic Italian dessert with layers of coffee-soaked ladyfingers and mascarpone cream',
-            price: 7.49,
+            price: 149,
             category: 'dessert',
             image: 'https://images.unsplash.com/photo-1535920527002-b35e9672ebf1?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
             rating: 4.7,
@@ -137,13 +137,85 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 12,
             name: 'Garlic Bread',
             description: 'Toasted bread with garlic butter and herbs',
-            price: 4.99,
+            price: 99,
             category: 'appetizer',
             image: 'https://images.unsplash.com/photo-1586449480558-33ae22f7e3fa?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
             rating: 4.2,
             prepTime: '10 min',
             calories: 320,
             popular: true
+        },
+        {
+            id: 13,
+            name: 'Veggie Supreme Pizza',
+            description: 'Pizza topped with bell peppers, mushrooms, onions, and olives',
+            price: 369,
+            category: 'pizza',
+            image: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
+            rating: 4.4,
+            prepTime: '20-25 min',
+            calories: 850,
+            popular: false
+        },
+        {
+            id: 14,
+            name: 'Vegan Burger',
+            description: 'Plant-based burger with lettuce, tomato, and vegan cheese',
+            price: 189,
+            category: 'burger',
+            image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
+            rating: 4.1,
+            prepTime: '15-20 min',
+            calories: 380,
+            popular: false
+        },
+        {
+            id: 15,
+            name: 'Gluten-Free Pasta',
+            description: 'Pasta made with rice flour, served with tomato sauce',
+            price: 299,
+            category: 'pasta',
+            image: 'https://images.unsplash.com/photo-1555949258-eb67b1ef0ceb?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
+            rating: 4.0,
+            prepTime: '18-22 min',
+            calories: 420,
+            popular: false
+        },
+        {
+            id: 16,
+            name: 'Low-Calorie Chicken Salad',
+            description: 'Grilled chicken breast with mixed greens and light dressing',
+            price: 189,
+            category: 'salad',
+            image: 'https://images.unsplash.com/photo-1546793665-c74683f339c1?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
+            rating: 4.3,
+            prepTime: '12-15 min',
+            calories: 280,
+            popular: true
+        },
+        {
+            id: 17,
+            name: 'Fresh Fruit Smoothie',
+            description: 'Blend of strawberries, bananas, and yogurt',
+            price: 99,
+            category: 'drink',
+            image: 'https://images.unsplash.com/photo-1508253730651-e5ace80a7025?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
+            rating: 4.5,
+            prepTime: '8 min',
+            calories: 180,
+            popular: true
+        },
+        {
+            id: 18,
+            name: 'Cheesecake',
+            description: 'New York style cheesecake with berry compote',
+            price: 139,
+            category: 'dessert',
+            image: 'https://images.unsplash.com/photo-1535920527002-b35e9672ebf1?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
+            rating: 4.6,
+            prepTime: '5 min',
+            calories: 520,
+            popular: false
         }
     ];
 
@@ -153,8 +225,8 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 1,
             title: 'Family Pizza Deal',
             description: '2 large pizzas, garlic bread, and 1.5L drink',
-            originalPrice: 42.97,
-            discountedPrice: 34.99,
+            originalPrice: 999, // realistic INR price
+            discountedPrice: 799, // discounted INR price
             image: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
             validUntil: '2023-12-31'
         },
@@ -162,8 +234,8 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 2,
             title: 'Weekend Special',
             description: 'Burger, fries, and drink for a special price',
-            originalPrice: 14.97,
-            discountedPrice: 11.99,
+            originalPrice: 399,
+            discountedPrice: 299,
             image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
             validUntil: '2023-12-31'
         },
@@ -189,6 +261,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const orderTotal = document.getElementById('order-total');
     const closeModal = document.querySelector('.close');
     const cartLink = document.querySelector('a[href="#cart"]');
+    const profileLink = document.querySelector('a[href="#profile"]');
     const filterButtons = document.querySelectorAll('.filter-btn');
     const deliveryForm = document.getElementById('delivery-form');
     const orderConfirmation = document.getElementById('order-confirmation');
@@ -197,7 +270,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const deliveryTimeSpan = document.getElementById('delivery-time');
     const previousOrdersContainer = document.getElementById('previous-orders-container');
     const specialOffersContainer = document.getElementById('special-offers-container');
-    const profileLink = document.querySelector('a[href="#profile"]');
     const profileModal = document.getElementById('profile-modal');
     const profileClose = profileModal.querySelector('.close');
     const logoutBtn = document.getElementById('logout-btn');
@@ -207,6 +279,59 @@ document.addEventListener('DOMContentLoaded', function() {
     const locationClose = locationModal.querySelector('.close');
     const confirmLocationBtn = document.getElementById('confirm-location');
     const deliveryAddressInput = document.getElementById('delivery-address');
+
+    // Search and Filter Elements
+    const menuSearch = document.getElementById('menu-search');
+    const clearSearchBtn = document.getElementById('clear-search');
+    const searchSuggestions = document.getElementById('search-suggestions');
+    const priceRangeFilter = document.getElementById('price-range');
+    const prepTimeFilter = document.getElementById('prep-time');
+    const dietaryFilter = document.getElementById('dietary-filter');
+    const sortByFilter = document.getElementById('sort-by');
+    const clearFiltersBtn = document.getElementById('clear-filters');
+    const recentSearches = document.getElementById('recent-searches');
+    const recentSearchTags = document.getElementById('recent-search-tags');
+    const resultsCount = document.getElementById('results-count');
+    const activeFilters = document.getElementById('active-filters');
+    
+    // Search and Filter State
+    let currentSearchTerm = '';
+    let currentFilters = {
+        category: 'all',
+        priceRange: '',
+        prepTime: '',
+        dietary: '',
+        sortBy: 'name'
+    };
+    let recentSearchHistory = JSON.parse(localStorage.getItem('recentSearches')) || [];
+    let searchTimeout;
+    let selectedSuggestionIndex = -1;
+
+    // Form validation elements
+    const formInputs = {
+        name: document.getElementById('name'),
+        email: document.getElementById('email'),
+        phone: document.getElementById('phone'),
+        address: document.getElementById('address'),
+        instructions: document.getElementById('instructions')
+    };
+
+    const formErrors = {
+        name: document.getElementById('name-error'),
+        email: document.getElementById('email-error'),
+        phone: document.getElementById('phone-error'),
+        address: document.getElementById('address-error'),
+        instructions: document.getElementById('instructions-error')
+    };
+
+    const submitOrderBtn = document.getElementById('submit-order-btn');
+
+    // Navigation links for smooth scrolling
+    const navLinks = document.querySelectorAll('nav a[href^="#"]:not([href="#cart"]):not([href="#profile"])');
+
+    // Dark mode toggle
+    const darkModeToggle = document.getElementById('dark-mode-toggle');
+    const darkModeIcon = darkModeToggle.querySelector('i');
 
     // Initialize cart, user data, and location from local storage
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -223,48 +348,162 @@ document.addEventListener('DOMContentLoaded', function() {
         coordinates: [31.3260, 75.5762] // Coordinates for Jalandhar, Punjab, India
     };
     
+    // Initialize dark mode from local storage
+    let isDarkMode = localStorage.getItem('darkMode') === 'true';
+    
     // Initialize maps
     let map, locationMap;
 
+    // Advanced UI Elements
+    const themeMenuBtn = document.getElementById('theme-menu-btn');
+    const themeOptions = document.getElementById('theme-options');
+    const themeOptionElements = document.querySelectorAll('.theme-option');
+    const pullRefreshIndicator = document.getElementById('pull-refresh-indicator');
+    
+    // Skeleton loading elements
+    const skeletonOffers = document.getElementById('skeleton-offers');
+    const skeletonMenu = document.getElementById('skeleton-menu');
+    const skeletonRecommended = document.getElementById('skeleton-recommended');
+    const skeletonOrders = document.getElementById('skeleton-orders');
+    
+    // Theme and UI State
+    let currentTheme = localStorage.getItem('theme') || 'default';
+    let isRefreshing = false;
+    let pullStartY = 0;
+    let pullDistance = 0;
+    const PULL_THRESHOLD = 80;
+
+    // INR currency formatter
+    const inrFormat = new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' });
+
+    function createImageWithFallback(src, alt) {
+        const wrapper = document.createElement('div');
+        wrapper.className = 'img-wrapper';
+        const img = document.createElement('img');
+        img.src = src;
+        img.alt = alt;
+        img.className = 'menu-item-img';
+        // Loading spinner
+        const spinner = document.createElement('div');
+        spinner.className = 'img-loading-spinner';
+        spinner.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+        wrapper.appendChild(spinner);
+        wrapper.appendChild(img);
+        // On load
+        img.onload = () => {
+            spinner.style.display = 'none';
+        };
+        // On error
+        img.onerror = () => {
+            spinner.style.display = 'none';
+            img.src = 'https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80';
+            img.classList.add('img-fallback');
+            // Optionally, show a fallback message
+            if (!wrapper.querySelector('.img-fallback-msg')) {
+                const msg = document.createElement('div');
+                msg.className = 'img-fallback-msg';
+                msg.textContent = 'Image unavailable';
+                wrapper.appendChild(msg);
+            }
+        };
+        return wrapper;
+    }
+
+    // Utility function to safely set text and HTML
+    function setElementText(el, text) {
+        el.textContent = text;
+    }
+    function setElementHTML(el, html) {
+        el.innerHTML = html;
+    }
+
     // Display menu items
     function displayMenuItems(category = 'all') {
-        menuContainer.innerHTML = '';
-        
-        const filteredItems = category === 'all' 
-            ? menuItems 
-            : menuItems.filter(item => item.category === category);
-        
-        filteredItems.forEach(item => {
-            const isFavorite = user.favorites.includes(item.id);
-            const menuItemElement = document.createElement('div');
-            menuItemElement.classList.add('menu-item');
-            menuItemElement.innerHTML = `
-                <button class="favorite-btn ${isFavorite ? 'active' : ''}" data-id="${item.id}">
-                    <i class="fas fa-heart"></i>
-                </button>
-                <img src="${item.image}" alt="${item.name}" class="menu-item-img">
-                <div class="menu-item-content">
-                    <h3 class="menu-item-title">${item.name}</h3>
-                    <div class="rating">
-                        ${generateStarRating(item.rating)}
-                        <span>(${item.rating})</span>
-                    </div>
-                    <p class="menu-item-desc">${item.description}</p>
-                    <span class="menu-item-price">$${item.price.toFixed(2)}</span>
-                    <button class="add-to-cart" data-id="${item.id}">Add to Cart</button>
-                </div>
-            `;
-            menuContainer.appendChild(menuItemElement);
-        });
-
-        // Add event listeners
-        document.querySelectorAll('.add-to-cart').forEach(button => {
-            button.addEventListener('click', addToCart);
-        });
-
-        document.querySelectorAll('.favorite-btn').forEach(button => {
-            button.addEventListener('click', toggleFavorite);
-        });
+        showSectionSkeleton('menu');
+        setTimeout(() => {
+            menuContainer.innerHTML = '';
+            const filteredItems = category === 'all' 
+                ? menuItems 
+                : menuItems.filter(item => item.category === category);
+            filteredItems.forEach(item => {
+                const isFavorite = user.favorites.includes(item.id);
+                const ingredients = item.ingredients ? item.ingredients.join(', ') : 'See description';
+                const menuItemElement = document.createElement('div');
+                menuItemElement.classList.add('menu-item');
+                // Build structure with createElement
+                const inner = document.createElement('div');
+                inner.className = 'menu-item-inner';
+                // Front
+                const front = document.createElement('div');
+                front.className = 'menu-item-front';
+                const favBtn = document.createElement('button');
+                favBtn.className = 'favorite-btn' + (isFavorite ? ' active' : '');
+                favBtn.setAttribute('data-id', item.id);
+                favBtn.innerHTML = '<i class="fas fa-heart"></i>';
+                front.appendChild(favBtn);
+                front.appendChild(createImageWithFallback(item.image, item.name));
+                const content = document.createElement('div');
+                content.className = 'menu-item-content';
+                const title = document.createElement('h3');
+                title.className = 'menu-item-title';
+                setElementText(title, item.name);
+                content.appendChild(title);
+                const ratingDiv = document.createElement('div');
+                ratingDiv.className = 'rating';
+                setElementHTML(ratingDiv, generateStarRating(item.rating) + `<span>(${item.rating})</span>`);
+                content.appendChild(ratingDiv);
+                const price = document.createElement('span');
+                price.className = 'menu-item-price';
+                setElementText(price, inrFormat.format(item.price));
+                content.appendChild(price);
+                front.appendChild(content);
+                // Back
+                const back = document.createElement('div');
+                back.className = 'menu-item-back';
+                const backTitle = document.createElement('h3');
+                setElementText(backTitle, item.name);
+                back.appendChild(backTitle);
+                const desc = document.createElement('div');
+                desc.className = 'desc';
+                setElementText(desc, item.description);
+                back.appendChild(desc);
+                const infoRow = document.createElement('div');
+                infoRow.className = 'info-row';
+                setElementHTML(infoRow, `<i class="fas fa-clock"></i> ${item.prepTime} <i class="fas fa-fire"></i> ${item.calories} kcal`);
+                back.appendChild(infoRow);
+                const ingr = document.createElement('div');
+                ingr.className = 'ingredients';
+                ingr.innerHTML = `<strong>Ingredients:</strong> ${ingredients}`;
+                back.appendChild(ingr);
+                const backActions = document.createElement('div');
+                backActions.className = 'back-actions';
+                const addToCartBtn = document.createElement('button');
+                addToCartBtn.className = 'add-to-cart';
+                addToCartBtn.setAttribute('data-id', item.id);
+                setElementText(addToCartBtn, 'Add to Cart');
+                const favBtnBack = favBtn.cloneNode(true);
+                backActions.appendChild(addToCartBtn);
+                backActions.appendChild(favBtnBack);
+                back.appendChild(backActions);
+                inner.appendChild(front);
+                inner.appendChild(back);
+                menuItemElement.appendChild(inner);
+                // Touch support: tap to flip
+                menuItemElement.addEventListener('touchstart', function(e) {
+                    this.classList.toggle('flipped');
+                });
+                menuContainer.appendChild(menuItemElement);
+            });
+            document.querySelectorAll('.add-to-cart').forEach(button => {
+                button.addEventListener('click', addToCart);
+            });
+            document.querySelectorAll('.favorite-btn').forEach(button => {
+                button.addEventListener('click', toggleFavorite);
+            });
+            const menuItemsEls = document.querySelectorAll('.menu-item');
+            addStaggeredAnimation(menuItemsEls, 50);
+            hideSectionSkeleton('menu');
+        }, 300);
     }
 
     // Generate star rating HTML
@@ -291,82 +530,114 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Display recommended items
     function displayRecommendedItems() {
-        forYouContainer.innerHTML = '';
-        
-        // Simple recommendation logic (in a real app, this would be more sophisticated)
-        const recommendedItems = menuItems
-            .filter(item => item.popular || user.favorites.includes(item.id))
-            .sort(() => 0.5 - Math.random())
-            .slice(0, 4);
-        
-        if (recommendedItems.length === 0) {
-            recommendedItems.push(...menuItems.filter(item => item.popular).slice(0, 4));
-        }
-        
-        recommendedItems.forEach(item => {
-            const isFavorite = user.favorites.includes(item.id);
-            const menuItemElement = document.createElement('div');
-            menuItemElement.classList.add('menu-item');
-            menuItemElement.innerHTML = `
-                <button class="favorite-btn ${isFavorite ? 'active' : ''}" data-id="${item.id}">
-                    <i class="fas fa-heart"></i>
-                </button>
-                <img src="${item.image}" alt="${item.name}" class="menu-item-img">
-                <div class="menu-item-content">
-                    <h3 class="menu-item-title">${item.name}</h3>
-                    <div class="rating">
-                        ${generateStarRating(item.rating)}
-                        <span>(${item.rating})</span>
+        showSectionSkeleton('recommended');
+        setTimeout(() => {
+            forYouContainer.innerHTML = '';
+            const currentCategory = currentFilters.category || 'all';
+            let availableItems = [...menuItems];
+            if (currentCategory !== 'all') {
+                availableItems = availableItems.filter(item => item.category === currentCategory);
+            }
+            let recommendedItems = availableItems
+                .filter(item => item.popular || user.favorites.includes(item.id))
+                .sort(() => 0.5 - Math.random())
+                .slice(0, 4);
+            if (recommendedItems.length === 0 && availableItems.length > 0) {
+                recommendedItems = availableItems
+                    .sort(() => 0.5 - Math.random())
+                    .slice(0, Math.min(4, availableItems.length));
+            }
+            if (recommendedItems.length === 0) {
+                recommendedItems = menuItems
+                    .filter(item => item.popular)
+                    .sort(() => 0.5 - Math.random())
+                    .slice(0, 4);
+            }
+            if (recommendedItems.length === 0) {
+                forYouContainer.innerHTML = `
+                    <div class="no-recommendations">
+                        <i class="fas fa-heart-broken"></i>
+                        <h3>No recommendations available</h3>
+                        <p>Try adding some items to your favorites or browse our menu</p>
                     </div>
-                    <p class="menu-item-desc">${item.description}</p>
-                    <span class="menu-item-price">$${item.price.toFixed(2)}</span>
-                    <button class="add-to-cart" data-id="${item.id}">Add to Cart</button>
-                </div>
-            `;
-            forYouContainer.appendChild(menuItemElement);
-        });
-
-        // Add event listeners
-        document.querySelectorAll('.add-to-cart').forEach(button => {
-            button.addEventListener('click', addToCart);
-        });
-
-        document.querySelectorAll('.favorite-btn').forEach(button => {
-            button.addEventListener('click', toggleFavorite);
-        });
+                `;
+                hideSectionSkeleton('recommended');
+                return;
+            }
+            recommendedItems.forEach(item => {
+                const isFavorite = user.favorites.includes(item.id);
+                const menuItemElement = document.createElement('div');
+                menuItemElement.classList.add('menu-item');
+                menuItemElement.innerHTML = `
+                    <button class="favorite-btn ${isFavorite ? 'active' : ''}" data-id="${item.id}">
+                        <i class="fas fa-heart"></i>
+                    </button>
+                    <div class="img-wrapper"></div>
+                    <div class="menu-item-content">
+                        <h3 class="menu-item-title">${item.name}</h3>
+                        <div class="rating">
+                            ${generateStarRating(item.rating)}
+                            <span>(${item.rating})</span>
+                        </div>
+                        <p class="menu-item-desc">${item.description}</p>
+                        <span class="menu-item-price">${inrFormat.format(item.price)}</span>
+                        <button class="add-to-cart" data-id="${item.id}">Add to Cart</button>
+                    </div>
+                `;
+                // Insert image with fallback
+                const imgWrapper = createImageWithFallback(item.image, item.name);
+                menuItemElement.querySelector('.img-wrapper').replaceWith(imgWrapper);
+                forYouContainer.appendChild(menuItemElement);
+            });
+            document.querySelectorAll('#for-you-items .add-to-cart').forEach(button => {
+                button.addEventListener('click', addToCart);
+            });
+            document.querySelectorAll('#for-you-items .favorite-btn').forEach(button => {
+                button.addEventListener('click', toggleFavorite);
+            });
+            const recommendedElements = document.querySelectorAll('#for-you-items .menu-item');
+            addStaggeredAnimation(recommendedElements, 100);
+            hideSectionSkeleton('recommended');
+        }, 200);
     }
 
     // Display special offers
     function displaySpecialOffers() {
-        specialOffersContainer.innerHTML = '';
-        
-        specialOffers.forEach(offer => {
-            const offerElement = document.createElement('div');
-            offerElement.classList.add('offer-card');
-            offerElement.innerHTML = `
-                <div class="offer-badge">Special Offer</div>
-                <img src="${offer.image}" alt="${offer.title}" class="offer-image">
-                <div class="offer-content">
-                    <h3 class="offer-title">${offer.title}</h3>
-                    <p class="offer-description">${offer.description}</p>
-                    <div class="offer-price">
-                        ${offer.originalPrice > 0 ? `
-                            <span class="original">$${offer.originalPrice.toFixed(2)}</span>
-                            <span class="discounted">$${offer.discountedPrice.toFixed(2)}</span>
-                        ` : `
-                            <span class="discounted">${offer.discount} Off</span>
-                        `}
+        showSectionSkeleton('offers');
+        setTimeout(() => {
+            specialOffersContainer.innerHTML = '';
+            specialOffers.forEach(offer => {
+                const offerElement = document.createElement('div');
+                offerElement.classList.add('offer-card');
+                offerElement.innerHTML = `
+                    <div class="offer-badge">Special Offer</div>
+                    <div class="img-wrapper"></div>
+                    <div class="offer-content">
+                        <h3 class="offer-title">${offer.title}</h3>
+                        <p class="offer-description">${offer.description}</p>
+                        <div class="offer-price">
+                            ${offer.originalPrice > 0 ? `
+                                <span class="original">${inrFormat.format(offer.originalPrice)}</span>
+                                <span class="discounted">${inrFormat.format(offer.discountedPrice)}</span>
+                            ` : `
+                                <span class="discounted">${offer.discount} Off</span>
+                            `}
+                        </div>
+                        <button class="btn" style="width: 100%; margin-top: 10px;" data-offer-id="${offer.id}">Add to Cart</button>
                     </div>
-                    <button class="btn" style="width: 100%; margin-top: 10px;" data-offer-id="${offer.id}">Add to Cart</button>
-                </div>
-            `;
-            specialOffersContainer.appendChild(offerElement);
-        });
-
-        // Add event listeners to offer buttons
-        document.querySelectorAll('[data-offer-id]').forEach(button => {
-            button.addEventListener('click', addOfferToCart);
-        });
+                `;
+                // Insert image with fallback
+                const imgWrapper = createImageWithFallback(offer.image, offer.title);
+                offerElement.querySelector('.img-wrapper').replaceWith(imgWrapper);
+                specialOffersContainer.appendChild(offerElement);
+            });
+            document.querySelectorAll('[data-offer-id]').forEach(button => {
+                button.addEventListener('click', addOfferToCart);
+            });
+            const offerCards = document.querySelectorAll('.offer-card');
+            addStaggeredAnimation(offerCards, 150);
+            hideSectionSkeleton('offers');
+        }, 400);
     }
 
     // Add special offer to cart
@@ -423,35 +694,27 @@ document.addEventListener('DOMContentLoaded', function() {
     // Display previous orders
     function displayPreviousOrders() {
         previousOrdersContainer.innerHTML = '';
-        
         const orders = JSON.parse(localStorage.getItem('orders')) || [];
-        
         if (orders.length === 0) {
             previousOrdersContainer.innerHTML = '<p>You have no previous orders.</p>';
             return;
         }
-        
-        // Sort orders by date (newest first)
         orders.sort((a, b) => new Date(b.date) - new Date(a.date));
-        
         orders.forEach(order => {
             const orderElement = document.createElement('div');
             orderElement.classList.add('order-card');
-            
             let itemsHtml = '';
             order.items.forEach(item => {
                 itemsHtml += `
                     <div class="order-item">
                         <div class="order-item-name">${item.name}</div>
                         <div class="order-item-quantity">x${item.quantity}</div>
-                        <div class="order-item-price">$${(item.price * item.quantity).toFixed(2)}</div>
+                        <div class="order-item-price">${inrFormat.format(item.price * item.quantity)}</div>
                     </div>
                 `;
             });
-            
             const orderDate = new Date(order.date);
             const statusClass = `status-${order.status.toLowerCase()}`;
-            
             orderElement.innerHTML = `
                 <div class="order-header">
                     <div>
@@ -465,17 +728,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
                 <div class="order-total">
                     <span>Total</span>
-                    <span>$${order.total.toFixed(2)}</span>
+                    <span>${inrFormat.format(order.total)}</span>
                 </div>
                 <button class="reorder-btn" data-order-id="${order.id}">Reorder</button>
             `;
-            
             previousOrdersContainer.appendChild(orderElement);
-        });
-
-        // Add event listeners to reorder buttons
-        document.querySelectorAll('.reorder-btn').forEach(button => {
-            button.addEventListener('click', reorderItems);
         });
     }
 
@@ -554,69 +811,51 @@ document.addEventListener('DOMContentLoaded', function() {
     function updateCart() {
         localStorage.setItem('cart', JSON.stringify(cart));
         cartCount.textContent = cart.reduce((total, item) => total + item.quantity, 0);
-        
         if (cartModal.style.display === 'block') {
             displayCartItems();
         }
-        
-        // Update order total in form button
+        // Update order total in form button (keep inrFormat)
         const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-        orderTotal.textContent = total.toFixed(2);
+        orderTotal.textContent = inrFormat.format(total).replace(/^\u20B9\s?/, '');
     }
 
     // Display cart items in modal
     function displayCartItems() {
         cartItemsContainer.innerHTML = '';
-        
-        if (cart.length === 0) {
-            cartItemsContainer.innerHTML = '<p>Your cart is empty.</p>';
-            cartTotal.textContent = '0.00';
-            orderTotal.textContent = '0.00';
-            return;
-        }
-        
-        let total = 0;
-        
         cart.forEach(item => {
-            const itemTotal = item.price * item.quantity;
-            total += itemTotal;
-            
-            const cartItemElement = document.createElement('div');
-            cartItemElement.classList.add('cart-item');
-            cartItemElement.innerHTML = `
-                <div class="cart-item-info">
-                    <img src="${item.image}" alt="${item.name}" class="cart-item-img">
-                    <div class="cart-item-details">
-                        <div class="cart-item-name">${item.name}</div>
-                        <div class="cart-item-desc">${item.description}</div>
+            const cartItem = document.createElement('div');
+            cartItem.className = 'cart-item';
+            cartItem.innerHTML = `
+                <img src="${item.image}" alt="${item.name}" class="cart-item-img" onerror="this.src='https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80'">
+                <div class="cart-item-details">
+                    <h4>${item.name}</h4>
+                    <div class="cart-item-qty">
+                        <button class="decrease-qty" data-id="${item.id}">-</button>
+                        <span>${item.quantity}</span>
+                        <button class="increase-qty" data-id="${item.id}">+</button>
                     </div>
+                    <span class="cart-item-price">${inrFormat.format(item.price)}</span>
                 </div>
-                <div class="cart-item-price">$${item.price.toFixed(2)}</div>
-                <div class="cart-item-quantity">
-                    <button class="quantity-btn minus" data-id="${item.id}">-</button>
-                    <span class="quantity">${item.quantity}</span>
-                    <button class="quantity-btn plus" data-id="${item.id}">+</button>
-                    <button class="remove-item" data-id="${item.id}">&times;</button>
-                </div>
+                <button class="remove-item" data-id="${item.id}"><i class="fas fa-trash"></i></button>
             `;
-            cartItemsContainer.appendChild(cartItemElement);
+            cartItemsContainer.appendChild(cartItem);
         });
-        
-        cartTotal.textContent = total.toFixed(2);
-        orderTotal.textContent = total.toFixed(2);
-        
-        // Add event listeners to quantity buttons
-        document.querySelectorAll('.minus').forEach(button => {
-            button.addEventListener('click', decreaseQuantity);
+        // Add event listeners for quantity and remove buttons
+        cartItemsContainer.querySelectorAll('.decrease-qty').forEach(btn => {
+            btn.addEventListener('click', decreaseQuantity);
         });
-        
-        document.querySelectorAll('.plus').forEach(button => {
-            button.addEventListener('click', increaseQuantity);
+        cartItemsContainer.querySelectorAll('.increase-qty').forEach(btn => {
+            btn.addEventListener('click', increaseQuantity);
         });
-        
-        document.querySelectorAll('.remove-item').forEach(button => {
-            button.addEventListener('click', removeItem);
+        cartItemsContainer.querySelectorAll('.remove-item').forEach(btn => {
+            btn.addEventListener('click', removeItem);
         });
+        // Update cart total below items
+        const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        const cartTotalEl = document.getElementById('cart-total');
+        if (cartTotalEl) {
+            cartTotalEl.textContent = inrFormat.format(total).replace(/^\u20B9\s?/, ''); // Remove extra ₹ if present
+        }
     }
 
     // Decrease item quantity
@@ -667,13 +906,46 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 3000);
     }
 
-    // Filter menu items
+    // Dark mode toggle function
+    function toggleDarkMode() {
+        isDarkMode = !isDarkMode;
+        
+        if (isDarkMode) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            darkModeIcon.className = 'fas fa-sun';
+            localStorage.setItem('darkMode', 'true');
+        } else {
+            document.documentElement.setAttribute('data-theme', 'light');
+            darkModeIcon.className = 'fas fa-moon';
+            localStorage.setItem('darkMode', 'false');
+        }
+    }
+
+    // Initialize dark mode on page load
+    function initDarkMode() {
+        if (isDarkMode) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            darkModeIcon.className = 'fas fa-sun';
+        } else {
+            document.documentElement.setAttribute('data-theme', 'light');
+            darkModeIcon.className = 'fas fa-moon';
+        }
+    }
+
+    // Category filter buttons functionality
     filterButtons.forEach(button => {
-        button.addEventListener('click', () => {
+        button.addEventListener('click', (e) => {
+            // Remove active class from all buttons
             filterButtons.forEach(btn => btn.classList.remove('active'));
+            // Add active class to clicked button
             button.classList.add('active');
+            // Get category and filter menu
             const category = button.getAttribute('data-category');
             displayMenuItems(category);
+            // Optionally, update recommendations as well
+            if (typeof displayRecommendedItems === 'function') {
+                displayRecommendedItems();
+            }
         });
     });
 
@@ -702,6 +974,51 @@ document.addEventListener('DOMContentLoaded', function() {
         profileModal.style.display = 'none';
     });
 
+    // Click outside to close profile modal
+    window.addEventListener('click', (e) => {
+        if (e.target === profileModal) {
+            profileModal.style.display = 'none';
+        }
+    });
+
+    // Escape key to close profile modal
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && profileModal.style.display === 'block') {
+            profileModal.style.display = 'none';
+        }
+    });
+
+    // Change avatar functionality
+    const changeAvatarBtn = document.getElementById('change-avatar');
+    changeAvatarBtn.addEventListener('click', () => {
+        // Create a file input for image upload
+        const fileInput = document.createElement('input');
+        fileInput.type = 'file';
+        fileInput.accept = 'image/*';
+        fileInput.style.display = 'none';
+        
+        fileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    // Update the avatar with the selected image
+                    const avatarContainer = document.querySelector('.avatar-container');
+                    avatarContainer.innerHTML = `<img src="${e.target.result}" alt="Profile Avatar" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">`;
+                    
+                    // Save to user data
+                    user.avatar = e.target.result;
+                    localStorage.setItem('user', JSON.stringify(user));
+                    
+                    showNotification('Profile photo updated successfully!');
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+        
+        fileInput.click();
+    });
+
     // Logout
     logoutBtn.addEventListener('click', () => {
         user = {
@@ -726,14 +1043,28 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('profile-email').textContent = user.email;
         document.getElementById('profile-phone').textContent = user.phone || 'Not provided';
         
+        // Update avatar display
+        const avatarContainer = document.querySelector('.avatar-container');
+        if (user.avatar) {
+            avatarContainer.innerHTML = `<img src="${user.avatar}" alt="Profile Avatar" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">`;
+        } else {
+            avatarContainer.innerHTML = '<i class="fas fa-user-circle"></i>';
+        }
+        
         const orders = JSON.parse(localStorage.getItem('orders')) || [];
         const userOrders = orders.filter(order => order.customer && order.customer.name === user.name);
         document.getElementById('total-orders').textContent = userOrders.length;
         
         document.getElementById('favorite-items').textContent = user.favorites.length;
         
+        // Fix date formatting
         const memberSince = new Date(user.memberSince);
-        document.getElementById('member-since').textContent = memberSince.toLocaleDateString();
+        const options = { 
+            year: 'numeric', 
+            month: 'short', 
+            day: 'numeric' 
+        };
+        document.getElementById('member-since').textContent = memberSince.toLocaleDateString('en-US', options);
     }
 
     // Display favorite items
@@ -752,7 +1083,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const favoriteElement = document.createElement('div');
                 favoriteElement.classList.add('favorite-item');
                 favoriteElement.innerHTML = `
-                    <img src="${item.image}" alt="${item.name}">
+                    <img src="${item.image}" alt="${item.name}" onerror="this.src='https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80'">
                     <div class="favorite-item-name">${item.name}</div>
                 `;
                 favoritesContainer.appendChild(favoriteElement);
@@ -843,56 +1174,86 @@ document.addEventListener('DOMContentLoaded', function() {
         e.preventDefault();
         
         if (cart.length === 0) {
-            alert('Your cart is empty. Please add items before placing an order.');
+            showNotification('Your cart is empty. Please add items before placing an order.');
             return;
         }
+
+        // Validate form before submission
+        if (!validateForm()) {
+            showValidationSummary();
+            return;
+        }
+
+        // Show loading state
+        submitOrderBtn.disabled = true;
+        submitOrderBtn.classList.add('loading');
+        submitOrderBtn.innerHTML = '<span>Processing Order...</span>';
         
-        const name = document.getElementById('name').value;
-        const address = document.getElementById('address').value;
-        const phone = document.getElementById('phone').value;
-        const instructions = document.getElementById('instructions').value;
+        // Get form data
+        const name = formInputs.name.value.trim();
+        const email = formInputs.email.value.trim();
+        const phone = formInputs.phone.value.trim();
+        const address = formInputs.address.value.trim();
+        const instructions = formInputs.instructions.value.trim();
         
         // Update user info if changed
         if (name && name !== user.name) {
             user.name = name;
+            if (email) user.email = email;
             if (phone) user.phone = phone;
             localStorage.setItem('user', JSON.stringify(user));
             updateProfileStats();
         }
         
-        // Save order to local storage
-        const order = {
-            id: Date.now(),
-            date: new Date().toISOString(),
-            items: [...cart],
-            total: parseFloat(cartTotal.textContent),
-            customer: { name, address, phone, instructions },
-            status: 'pending',
-            location: deliveryLocation
-        };
-        
-        let orders = JSON.parse(localStorage.getItem('orders')) || [];
-        orders.push(order);
-        localStorage.setItem('orders', JSON.stringify(orders));
-        
-        // Clear cart
-        cart = [];
-        updateCart();
-        deliveryForm.reset();
-        
-        // Show confirmation
-        orderIdSpan.textContent = order.id;
-        
-        // Calculate estimated delivery time (30-45 minutes from now)
-        const now = new Date();
-        const deliveryTime = new Date(now.getTime() + (30 + Math.random() * 15) * 60000);
-        deliveryTimeSpan.textContent = deliveryTime.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-        
-        cartModal.style.display = 'none';
-        orderConfirmation.style.display = 'block';
-        
-        // Update previous orders display
-        displayPreviousOrders();
+        // Simulate order processing delay
+        setTimeout(() => {
+            // Save order to local storage
+            const order = {
+                id: Date.now(),
+                date: new Date().toISOString(),
+                items: [...cart],
+                total: parseFloat(cartTotal.textContent),
+                customer: { name, email, phone, address, instructions },
+                status: 'pending',
+                location: deliveryLocation
+            };
+            
+            let orders = JSON.parse(localStorage.getItem('orders')) || [];
+            orders.push(order);
+            localStorage.setItem('orders', JSON.stringify(orders));
+            
+            // Clear cart
+            cart = [];
+            updateCart();
+            deliveryForm.reset();
+            
+            // Reset form validation states
+            Object.keys(formInputs).forEach(fieldName => {
+                formInputs[fieldName].classList.remove('valid', 'invalid');
+                formErrors[fieldName].classList.remove('show');
+            });
+            
+            // Show confirmation
+            orderIdSpan.textContent = order.id;
+            
+            // Calculate estimated delivery time (30-45 minutes from now)
+            const now = new Date();
+            const deliveryTime = new Date(now.getTime() + (30 + Math.random() * 15) * 60000);
+            deliveryTimeSpan.textContent = deliveryTime.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+            
+            // Reset button state
+            submitOrderBtn.disabled = false;
+            submitOrderBtn.classList.remove('loading');
+            submitOrderBtn.innerHTML = '<i class="fas fa-check"></i><span>Place Order ($<span id="order-total">0.00</span>)</span>';
+            
+            cartModal.style.display = 'none';
+            orderConfirmation.style.display = 'block';
+            
+            // Update previous orders display
+            displayPreviousOrders();
+            
+            showNotification('Order placed successfully!');
+        }, 2000); // 2 second delay to simulate processing
     });
 
     // Close confirmation modal
@@ -905,9 +1266,6 @@ document.addEventListener('DOMContentLoaded', function() {
         if (e.target === cartModal) {
             cartModal.style.display = 'none';
         }
-        if (e.target === profileModal) {
-            profileModal.style.display = 'none';
-        }
         if (e.target === locationModal) {
             locationModal.style.display = 'none';
         }
@@ -916,14 +1274,200 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    // Smooth scrolling for navigation links
+    navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const targetId = link.getAttribute('href').substring(1);
+            const targetSection = document.getElementById(targetId);
+            
+            if (targetSection) {
+                // Remove active class from all nav links
+                navLinks.forEach(navLink => navLink.classList.remove('active'));
+                // Add active class to clicked link
+                link.classList.add('active');
+                
+                // Smooth scroll to target section
+                targetSection.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+
+    // Update active nav link based on scroll position
+    window.addEventListener('scroll', () => {
+        const sections = document.querySelectorAll('section[id]');
+        const scrollPos = window.scrollY + 100; // Offset for header height
+        
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.offsetHeight;
+            const sectionId = section.getAttribute('id');
+            
+            if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${sectionId}`) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+        });
+    });
+
     // Initialize the page
-    displayMenuItems();
-    displayRecommendedItems();
-    displaySpecialOffers();
-    displayPreviousOrders();
+    showSkeletonLoading(); // Show skeleton loading initially
+    
+    // Initialize advanced UI features
+    initTheme();
+    initPullToRefresh();
+    
+    // Load content with skeleton loading
+    setTimeout(() => {
+        displayMenuItems();
+        displayRecommendedItems();
+        displaySpecialOffers();
+        displayPreviousOrders();
+        hideSkeletonLoading(); // Hide skeleton loading after content loads
+    }, 1000);
+    
     updateCart();
     initLocation();
     updateProfileStats();
+    setupFormValidation();
+    displayRecentSearches();
+
+    // Set Home link as active by default
+    const homeLink = document.querySelector('nav a[href="#home"]');
+    if (homeLink) {
+        homeLink.classList.add('active');
+    }
+
+    // Search and Filter Event Listeners
+    menuSearch.addEventListener('input', (e) => {
+        currentSearchTerm = e.target.value;
+        
+        if (currentSearchTerm.trim()) {
+            clearSearchBtn.style.display = 'block';
+            
+            // Clear previous timeout
+            if (searchTimeout) {
+                clearTimeout(searchTimeout);
+            }
+            
+            // Debounce search suggestions
+            searchTimeout = setTimeout(() => {
+                generateSearchSuggestions(currentSearchTerm);
+            }, 300);
+        } else {
+            clearSearchBtn.style.display = 'none';
+            searchSuggestions.style.display = 'none';
+        }
+        
+        performSearch();
+    });
+    
+    menuSearch.addEventListener('keydown', (e) => {
+        const suggestions = searchSuggestions.querySelectorAll('.search-suggestion-item');
+        
+        if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            selectedSuggestionIndex = Math.min(selectedSuggestionIndex + 1, suggestions.length - 1);
+            updateSelectedSuggestion(suggestions);
+        } else if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            selectedSuggestionIndex = Math.max(selectedSuggestionIndex - 1, -1);
+            updateSelectedSuggestion(suggestions);
+        } else if (e.key === 'Enter') {
+            e.preventDefault();
+            if (selectedSuggestionIndex >= 0 && suggestions[selectedSuggestionIndex]) {
+                const suggestion = suggestions[selectedSuggestionIndex];
+                const text = suggestion.querySelector('span').textContent;
+                menuSearch.value = text;
+                currentSearchTerm = text;
+                addToRecentSearches(text);
+                searchSuggestions.style.display = 'none';
+                performSearch();
+            } else {
+                performSearch();
+            }
+        } else if (e.key === 'Escape') {
+            searchSuggestions.style.display = 'none';
+            selectedSuggestionIndex = -1;
+        }
+    });
+    
+    clearSearchBtn.addEventListener('click', () => {
+        menuSearch.value = '';
+        currentSearchTerm = '';
+        clearSearchBtn.style.display = 'none';
+        searchSuggestions.style.display = 'none';
+        performSearch();
+    });
+    
+    // Filter event listeners
+    priceRangeFilter.addEventListener('change', (e) => {
+        currentFilters.priceRange = e.target.value;
+        performSearch();
+    });
+    
+    prepTimeFilter.addEventListener('change', (e) => {
+        currentFilters.prepTime = e.target.value;
+        performSearch();
+    });
+    
+    dietaryFilter.addEventListener('change', (e) => {
+        currentFilters.dietary = e.target.value;
+        performSearch();
+    });
+    
+    sortByFilter.addEventListener('change', (e) => {
+        currentFilters.sortBy = e.target.value;
+        performSearch();
+    });
+    
+    clearFiltersBtn.addEventListener('click', clearAllFilters);
+    
+    // Category filter buttons
+    filterButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+            // Remove active class from all buttons
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            
+            // Add active class to clicked button
+            e.target.classList.add('active');
+            
+            // Update category filter
+            const category = e.target.getAttribute('data-category');
+            currentFilters.category = category;
+            
+            // Perform search for main menu
+            performSearch();
+            
+            // Update "For You" section with category-specific recommendations
+            displayRecommendedItems();
+        });
+    });
+    
+    // Click outside to close search suggestions
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.search-section')) {
+            searchSuggestions.style.display = 'none';
+            selectedSuggestionIndex = -1;
+        }
+    });
+    
+    function updateSelectedSuggestion(suggestions) {
+        suggestions.forEach((suggestion, index) => {
+            if (index === selectedSuggestionIndex) {
+                suggestion.classList.add('selected');
+            } else {
+                suggestion.classList.remove('selected');
+            }
+        });
+    }
 
     // Add notification styles dynamically
     const style = document.createElement('style');
@@ -946,4 +1490,965 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     `;
     document.head.appendChild(style);
+
+    // Initialize dark mode on page load
+    initDarkMode();
+
+    // Dark mode toggle event listener
+    darkModeToggle.addEventListener('click', toggleDarkMode);
+
+    // Form Validation Functions
+    const validationRules = {
+        name: {
+            required: true,
+            minLength: 2,
+            maxLength: 50,
+            pattern: /^[A-Za-z\s]+$/,
+            message: 'Name must be 2-50 characters and contain only letters and spaces'
+        },
+        email: {
+            required: true,
+            pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+            message: 'Please enter a valid email address'
+        },
+        phone: {
+            required: true,
+            pattern: /^[\+]?[0-9\s\-\(\)]{10,15}$/,
+            message: 'Please enter a valid phone number (10-15 digits)'
+        },
+        address: {
+            required: true,
+            minLength: 10,
+            maxLength: 200,
+            message: 'Address must be 10-200 characters long'
+        },
+        instructions: {
+            required: false,
+            maxLength: 100,
+            message: 'Instructions must be less than 100 characters'
+        }
+    };
+
+    // Validate individual field
+    function validateField(fieldName, value) {
+        const rules = validationRules[fieldName];
+        const input = formInputs[fieldName];
+        const errorElement = formErrors[fieldName];
+
+        // Clear previous validation states
+        input.classList.remove('valid', 'invalid');
+        errorElement.classList.remove('show');
+        errorElement.textContent = '';
+
+        // Check if field is empty and required
+        if (rules.required && (!value || value.trim() === '')) {
+            input.classList.add('invalid');
+            errorElement.textContent = `${fieldName.charAt(0).toUpperCase() + fieldName.slice(1)} is required`;
+            errorElement.classList.add('show');
+            return false;
+        }
+
+        // Skip validation for empty optional fields
+        if (!rules.required && (!value || value.trim() === '')) {
+            return true;
+        }
+
+        // Check minimum length
+        if (rules.minLength && value.length < rules.minLength) {
+            input.classList.add('invalid');
+            errorElement.textContent = rules.message;
+            errorElement.classList.add('show');
+            return false;
+        }
+
+        // Check maximum length
+        if (rules.maxLength && value.length > rules.maxLength) {
+            input.classList.add('invalid');
+            errorElement.textContent = rules.message;
+            errorElement.classList.add('show');
+            return false;
+        }
+
+        // Check pattern
+        if (rules.pattern && !rules.pattern.test(value)) {
+            input.classList.add('invalid');
+            errorElement.textContent = rules.message;
+            errorElement.classList.add('show');
+            return false;
+        }
+
+        // Field is valid
+        input.classList.add('valid');
+        return true;
+    }
+
+    // Validate entire form
+    function validateForm() {
+        let isValid = true;
+        
+        Object.keys(formInputs).forEach(fieldName => {
+            const value = formInputs[fieldName].value.trim();
+            if (!validateField(fieldName, value)) {
+                isValid = false;
+            }
+        });
+
+        return isValid;
+    }
+
+    // Show form validation summary
+    function showValidationSummary() {
+        const invalidFields = Object.keys(formInputs).filter(fieldName => {
+            return !validateField(fieldName, formInputs[fieldName].value.trim());
+        });
+
+        if (invalidFields.length > 0) {
+            showNotification(`Please fix ${invalidFields.length} error(s) in the form`);
+            // Focus on first invalid field
+            const firstInvalidField = formInputs[invalidFields[0]];
+            firstInvalidField.focus();
+            return false;
+        }
+
+        return true;
+    }
+
+    // Setup form validation
+    function setupFormValidation() {
+        Object.keys(formInputs).forEach(fieldName => {
+            const input = formInputs[fieldName];
+            
+            // Add event listeners for real-time validation
+            input.addEventListener('blur', () => {
+                validateField(fieldName, input.value.trim());
+            });
+
+            input.addEventListener('input', () => {
+                // Clear validation state on input
+                input.classList.remove('valid', 'invalid');
+                formErrors[fieldName].classList.remove('show');
+            });
+
+            // Special handling for phone number formatting
+            if (fieldName === 'phone') {
+                input.addEventListener('input', (e) => {
+                    let value = e.target.value.replace(/\D/g, ''); // Remove non-digits
+                    
+                    // Format phone number as user types
+                    if (value.length > 0) {
+                        if (value.length <= 3) {
+                            value = `(${value}`;
+                        } else if (value.length <= 6) {
+                            value = `(${value.slice(0, 3)}) ${value.slice(3)}`;
+                        } else {
+                            value = `(${value.slice(0, 3)}) ${value.slice(3, 6)}-${value.slice(6, 10)}`;
+                        }
+                    }
+                    
+                    e.target.value = value;
+                });
+            }
+        });
+    }
+
+    // Search and Filter Functions
+    function performSearch() {
+        const searchTerm = currentSearchTerm.toLowerCase().trim();
+        const filters = currentFilters;
+        
+        // Show loading state
+        menuContainer.innerHTML = '<div class="search-loading"><i class="fas fa-spinner"></i><p>Searching...</p></div>';
+        
+        // Simulate search delay for better UX
+        setTimeout(() => {
+            let filteredItems = [...menuItems];
+            
+            // Apply search filter
+            if (searchTerm) {
+                filteredItems = filteredItems.filter(item => 
+                    item.name.toLowerCase().includes(searchTerm) ||
+                    item.description.toLowerCase().includes(searchTerm) ||
+                    item.category.toLowerCase().includes(searchTerm)
+                );
+            }
+            
+            // Apply category filter
+            if (filters.category && filters.category !== 'all') {
+                filteredItems = filteredItems.filter(item => item.category === filters.category);
+            }
+            
+            // Apply price range filter
+            if (filters.priceRange) {
+                const [min, max] = filters.priceRange.split('-').map(Number);
+                filteredItems = filteredItems.filter(item => {
+                    if (max) {
+                        return item.price >= min && item.price < max;
+                    } else {
+                        return item.price >= min;
+                    }
+                });
+            }
+            
+            // Apply prep time filter
+            if (filters.prepTime) {
+                const [min, max] = filters.prepTime.split('-').map(Number);
+                filteredItems = filteredItems.filter(item => {
+                    const prepTime = parseInt(item.prepTime.match(/\d+/)[0]);
+                    if (max) {
+                        return prepTime >= min && prepTime <= max;
+                    } else {
+                        return prepTime >= min;
+                    }
+                });
+            }
+            
+            // Apply dietary filter
+            if (filters.dietary) {
+                filteredItems = filteredItems.filter(item => {
+                    switch (filters.dietary) {
+                        case 'vegetarian':
+                            return item.name.toLowerCase().includes('veggie') || 
+                                   item.name.toLowerCase().includes('salad') ||
+                                   item.category === 'salad';
+                        case 'vegan':
+                            return item.name.toLowerCase().includes('vegan') ||
+                                   item.name.toLowerCase().includes('plant-based');
+                        case 'gluten-free':
+                            return item.name.toLowerCase().includes('gluten-free') ||
+                                   item.category === 'salad';
+                        case 'low-calorie':
+                            return item.calories < 500;
+                        default:
+                            return true;
+                    }
+                });
+            }
+            
+            // Apply sorting
+            filteredItems.sort((a, b) => {
+                switch (filters.sortBy) {
+                    case 'price-low':
+                        return a.price - b.price;
+                    case 'price-high':
+                        return b.price - a.price;
+                    case 'rating':
+                        return b.rating - a.rating;
+                    case 'popular':
+                        return (b.popular ? 1 : 0) - (a.popular ? 1 : 0);
+                    case 'name':
+                    default:
+                        return a.name.localeCompare(b.name);
+                }
+            });
+            
+            // Display results
+            displaySearchResults(filteredItems);
+        }, 300);
+    }
+    
+    function displaySearchResults(items) {
+        menuContainer.innerHTML = '';
+        
+        if (items.length === 0) {
+            menuContainer.innerHTML = `
+                <div class="no-results">
+                    <i class="fas fa-search"></i>
+                    <h3>No items found</h3>
+                    <p>Try adjusting your search terms or filters</p>
+                    <div class="suggestions">
+                        <button class="suggestion-btn" onclick="clearAllFilters()">Clear Filters</button>
+                        <button class="suggestion-btn" onclick="showAllItems()">Show All Items</button>
+                    </div>
+                </div>
+            `;
+        } else {
+            items.forEach(item => {
+                const isFavorite = user.favorites.includes(item.id);
+                const menuItemElement = document.createElement('div');
+                menuItemElement.classList.add('menu-item');
+                menuItemElement.innerHTML = `
+                    <button class="favorite-btn ${isFavorite ? 'active' : ''}" data-id="${item.id}">
+                        <i class="fas fa-heart"></i>
+                    </button>
+                    <img src="${item.image}" alt="${item.name}" class="menu-item-img" onerror="this.src='https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80'">
+                    <div class="menu-item-content">
+                        <h3 class="menu-item-title">${item.name}</h3>
+                        <div class="rating">
+                            ${generateStarRating(item.rating)}
+                            <span>(${item.rating})</span>
+                        </div>
+                        <p class="menu-item-desc">${item.description}</p>
+                        <span class="menu-item-price">${inrFormat.format(item.price)}</span>
+                        <button class="add-to-cart" data-id="${item.id}">Add to Cart</button>
+                    </div>
+                `;
+                menuContainer.appendChild(menuItemElement);
+            });
+        }
+        
+        // Add event listeners
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', addToCart);
+        });
+
+        document.querySelectorAll('.favorite-btn').forEach(button => {
+            button.addEventListener('click', toggleFavorite);
+        });
+        
+        // Update results count
+        updateResultsCount(items.length);
+        updateActiveFilters();
+    }
+    
+    function updateResultsCount(count) {
+        const totalItems = menuItems.length;
+        if (currentSearchTerm || hasActiveFilters()) {
+            resultsCount.textContent = `Showing ${count} of ${totalItems} items`;
+        } else {
+            resultsCount.textContent = `Showing all ${totalItems} items`;
+        }
+    }
+    
+    function hasActiveFilters() {
+        return currentFilters.priceRange || 
+               currentFilters.prepTime || 
+               currentFilters.dietary || 
+               currentFilters.sortBy !== 'name';
+    }
+    
+    function updateActiveFilters() {
+        const activeFiltersContainer = document.getElementById('active-filters');
+        activeFiltersContainer.innerHTML = '';
+        
+        const filters = [];
+        
+        if (currentFilters.priceRange) {
+            const priceText = priceRangeFilter.options[priceRangeFilter.selectedIndex].text;
+            filters.push(createFilterTag('price', priceText));
+        }
+        
+        if (currentFilters.prepTime) {
+            const prepText = prepTimeFilter.options[prepTimeFilter.selectedIndex].text;
+            filters.push(createFilterTag('prep', prepText));
+        }
+        
+        if (currentFilters.dietary) {
+            const dietaryText = dietaryFilter.options[dietaryFilter.selectedIndex].text;
+            filters.push(createFilterTag('dietary', dietaryText));
+        }
+        
+        if (currentFilters.sortBy !== 'name') {
+            const sortText = sortByFilter.options[sortByFilter.selectedIndex].text;
+            filters.push(createFilterTag('sort', sortText));
+        }
+        
+        filters.forEach(filter => activeFiltersContainer.appendChild(filter));
+    }
+    
+    function createFilterTag(type, text) {
+        const tag = document.createElement('span');
+        tag.className = 'active-filter-tag';
+        tag.innerHTML = `
+            ${text}
+            <button class="remove-filter" onclick="removeFilter('${type}')">
+                <i class="fas fa-times"></i>
+            </button>
+        `;
+        return tag;
+    }
+    
+    function removeFilter(type) {
+        switch (type) {
+            case 'price':
+                priceRangeFilter.value = '';
+                currentFilters.priceRange = '';
+                break;
+            case 'prep':
+                prepTimeFilter.value = '';
+                currentFilters.prepTime = '';
+                break;
+            case 'dietary':
+                dietaryFilter.value = '';
+                currentFilters.dietary = '';
+                break;
+            case 'sort':
+                sortByFilter.value = 'name';
+                currentFilters.sortBy = 'name';
+                break;
+        }
+        performSearch();
+    }
+    
+    function generateSearchSuggestions(searchTerm) {
+        if (!searchTerm.trim()) {
+            searchSuggestions.style.display = 'none';
+            return;
+        }
+        
+        const suggestions = [];
+        const term = searchTerm.toLowerCase();
+        
+        // Search in menu items
+        menuItems.forEach(item => {
+            if (item.name.toLowerCase().includes(term) ||
+                item.description.toLowerCase().includes(term) ||
+                item.category.toLowerCase().includes(term)) {
+                suggestions.push({
+                    text: item.name,
+                    type: 'item',
+                    icon: 'fas fa-utensils'
+                });
+            }
+        });
+        
+        // Add category suggestions
+        const categories = ['pizza', 'burger', 'pasta', 'salad', 'appetizer', 'drink', 'dessert'];
+        categories.forEach(category => {
+            if (category.includes(term)) {
+                suggestions.push({
+                    text: category.charAt(0).toUpperCase() + category.slice(1),
+                    type: 'category',
+                    icon: 'fas fa-tag'
+                });
+            }
+        });
+        
+        // Add recent search suggestions
+        recentSearchHistory.forEach(search => {
+            if (search.toLowerCase().includes(term) && !suggestions.find(s => s.text === search)) {
+                suggestions.push({
+                    text: search,
+                    type: 'recent',
+                    icon: 'fas fa-history'
+                });
+            }
+        });
+        
+        // Limit suggestions
+        const limitedSuggestions = suggestions.slice(0, 8);
+        
+        if (limitedSuggestions.length > 0) {
+            displaySearchSuggestions(limitedSuggestions);
+        } else {
+            searchSuggestions.style.display = 'none';
+        }
+    }
+    
+    function displaySearchSuggestions(suggestions) {
+        searchSuggestions.innerHTML = '';
+        
+        suggestions.forEach((suggestion, index) => {
+            const item = document.createElement('div');
+            item.className = 'search-suggestion-item';
+            item.innerHTML = `
+                <i class="${suggestion.icon} search-suggestion-icon"></i>
+                <span>${suggestion.text}</span>
+            `;
+            
+            item.addEventListener('click', () => {
+                menuSearch.value = suggestion.text;
+                currentSearchTerm = suggestion.text;
+                addToRecentSearches(suggestion.text);
+                searchSuggestions.style.display = 'none';
+                performSearch();
+            });
+            
+            searchSuggestions.appendChild(item);
+        });
+        
+        searchSuggestions.style.display = 'block';
+    }
+    
+    function addToRecentSearches(searchTerm) {
+        if (!searchTerm.trim()) return;
+        
+        // Remove if already exists
+        recentSearchHistory = recentSearchHistory.filter(term => term !== searchTerm);
+        
+        // Add to beginning
+        recentSearchHistory.unshift(searchTerm);
+        
+        // Keep only last 10 searches
+        recentSearchHistory = recentSearchHistory.slice(0, 10);
+        
+        // Save to localStorage
+        localStorage.setItem('recentSearches', JSON.stringify(recentSearchHistory));
+        
+        // Update display
+        displayRecentSearches();
+    }
+    
+    function displayRecentSearches() {
+        if (recentSearchHistory.length === 0) {
+            recentSearches.style.display = 'none';
+            return;
+        }
+        
+        recentSearchTags.innerHTML = '';
+        
+        recentSearchHistory.forEach(search => {
+            const tag = document.createElement('span');
+            tag.className = 'recent-search-tag';
+            tag.innerHTML = `
+                ${search}
+                <button class="remove-tag" onclick="removeRecentSearch('${search}')">
+                    <i class="fas fa-times"></i>
+                </button>
+            `;
+            
+            tag.addEventListener('click', (e) => {
+                if (!e.target.closest('.remove-tag')) {
+                    menuSearch.value = search;
+                    currentSearchTerm = search;
+                    performSearch();
+                }
+            });
+            
+            recentSearchTags.appendChild(tag);
+        });
+        
+        recentSearches.style.display = 'block';
+    }
+    
+    function removeRecentSearch(search) {
+        recentSearchHistory = recentSearchHistory.filter(term => term !== search);
+        localStorage.setItem('recentSearches', JSON.stringify(recentSearchHistory));
+        displayRecentSearches();
+    }
+    
+    function clearAllFilters() {
+        currentSearchTerm = '';
+        currentFilters = {
+            category: 'all',
+            priceRange: '',
+            prepTime: '',
+            dietary: '',
+            sortBy: 'name'
+        };
+        
+        // Reset form elements
+        menuSearch.value = '';
+        priceRangeFilter.value = '';
+        prepTimeFilter.value = '';
+        dietaryFilter.value = '';
+        sortByFilter.value = 'name';
+        
+        // Reset category buttons
+        filterButtons.forEach(btn => btn.classList.remove('active'));
+        document.querySelector('[data-category="all"]').classList.add('active');
+        
+        // Clear search suggestions
+        searchSuggestions.style.display = 'none';
+        clearSearchBtn.style.display = 'none';
+        
+        // Perform search to show all items
+        performSearch();
+        
+        // Update "For You" section with all recommendations
+        displayRecommendedItems();
+    }
+    
+    function showAllItems() {
+        clearAllFilters();
+    }
+
+    // Theme Management Functions
+    function initTheme() {
+        // Apply saved theme
+        applyTheme(currentTheme);
+        
+        // Update theme option UI
+        updateThemeOptionUI();
+        
+        // Add theme menu event listeners
+        themeMenuBtn.addEventListener('click', toggleThemeMenu);
+        
+        // Add theme option event listeners
+        themeOptionElements.forEach(option => {
+            option.addEventListener('click', () => {
+                const theme = option.getAttribute('data-theme');
+                changeTheme(theme);
+            });
+        });
+        
+        // Close theme menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.theme-selector')) {
+                themeOptions.classList.remove('show');
+            }
+        });
+    }
+    
+    function toggleThemeMenu() {
+        themeOptions.classList.toggle('show');
+    }
+    
+    function changeTheme(theme) {
+        currentTheme = theme;
+        applyTheme(theme);
+        updateThemeOptionUI();
+        localStorage.setItem('theme', theme);
+        themeOptions.classList.remove('show');
+        
+        // Show theme change notification
+        showNotification(`Theme changed to ${theme.charAt(0).toUpperCase() + theme.slice(1)}`);
+    }
+    
+    function applyTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        
+        // Update theme-specific elements
+        const themePreview = document.querySelector(`[data-theme="${theme}"] .theme-preview`);
+        if (themePreview) {
+            themePreview.style.borderColor = getComputedStyle(document.documentElement).getPropertyValue('--primary-color');
+        }
+    }
+    
+    function updateThemeOptionUI() {
+        themeOptionElements.forEach(option => {
+            option.classList.remove('active');
+            if (option.getAttribute('data-theme') === currentTheme) {
+                option.classList.add('active');
+            }
+        });
+    }
+
+    // Skeleton Loading Functions
+    function showSkeletonLoading() {
+        skeletonOffers.style.display = 'grid';
+        skeletonMenu.style.display = 'grid';
+        skeletonRecommended.style.display = 'grid';
+        skeletonOrders.style.display = 'grid';
+    }
+    
+    function hideSkeletonLoading() {
+        skeletonOffers.style.display = 'none';
+        skeletonMenu.style.display = 'none';
+        skeletonRecommended.style.display = 'none';
+        skeletonOrders.style.display = 'none';
+    }
+    
+    function showSectionSkeleton(section) {
+        switch(section) {
+            case 'offers':
+                skeletonOffers.style.display = 'grid';
+                break;
+            case 'menu':
+                skeletonMenu.style.display = 'grid';
+                break;
+            case 'recommended':
+                skeletonRecommended.style.display = 'grid';
+                break;
+            case 'orders':
+                skeletonOrders.style.display = 'grid';
+                break;
+        }
+    }
+    
+    function hideSectionSkeleton(section) {
+        switch(section) {
+            case 'offers':
+                skeletonOffers.style.display = 'none';
+                break;
+            case 'menu':
+                skeletonMenu.style.display = 'none';
+                break;
+            case 'recommended':
+                skeletonRecommended.style.display = 'none';
+                break;
+            case 'orders':
+                skeletonOrders.style.display = 'none';
+                break;
+        }
+    }
+
+    // Pull to Refresh Functions
+    function initPullToRefresh() {
+        let startY = 0;
+        let currentY = 0;
+        let isPulling = false;
+        
+        // Touch events for mobile
+        document.addEventListener('touchstart', (e) => {
+            if (window.scrollY === 0) {
+                startY = e.touches[0].clientY;
+                isPulling = true;
+            }
+        });
+        
+        document.addEventListener('touchmove', (e) => {
+            if (!isPulling) return;
+            
+            currentY = e.touches[0].clientY;
+            const pullDistance = currentY - startY;
+            
+            if (pullDistance > 0 && window.scrollY === 0) {
+                e.preventDefault();
+                updatePullIndicator(pullDistance);
+            }
+        });
+        
+        document.addEventListener('touchend', () => {
+            if (!isPulling) return;
+            
+            const pullDistance = currentY - startY;
+            if (pullDistance > PULL_THRESHOLD) {
+                triggerRefresh();
+            } else {
+                resetPullIndicator();
+            }
+            
+            isPulling = false;
+        });
+        
+        // Mouse events for desktop
+        document.addEventListener('mousedown', (e) => {
+            if (window.scrollY === 0 && e.clientY < 100) {
+                startY = e.clientY;
+                isPulling = true;
+            }
+        });
+        
+        document.addEventListener('mousemove', (e) => {
+            if (!isPulling) return;
+            
+            currentY = e.clientY;
+            const pullDistance = currentY - startY;
+            
+            if (pullDistance > 0 && window.scrollY === 0) {
+                updatePullIndicator(pullDistance);
+            }
+        });
+        
+        document.addEventListener('mouseup', () => {
+            if (!isPulling) return;
+            
+            const pullDistance = currentY - startY;
+            if (pullDistance > PULL_THRESHOLD) {
+                triggerRefresh();
+            } else {
+                resetPullIndicator();
+            }
+            
+            isPulling = false;
+        });
+    }
+    
+    function updatePullIndicator(distance) {
+        const progress = Math.min(distance / PULL_THRESHOLD, 1);
+        pullRefreshIndicator.style.transform = `translateY(${Math.min(distance * 0.5, 60)}px)`;
+        
+        if (progress >= 1) {
+            pullRefreshIndicator.classList.add('show');
+            pullRefreshIndicator.querySelector('span').textContent = 'Release to refresh';
+            pullRefreshIndicator.querySelector('i').className = 'fas fa-arrow-up';
+        } else {
+            pullRefreshIndicator.classList.remove('show');
+            pullRefreshIndicator.querySelector('span').textContent = 'Pull to refresh';
+            pullRefreshIndicator.querySelector('i').className = 'fas fa-arrow-down';
+        }
+    }
+    
+    function resetPullIndicator() {
+        pullRefreshIndicator.style.transform = 'translateY(-100%)';
+        pullRefreshIndicator.classList.remove('show');
+        pullRefreshIndicator.querySelector('span').textContent = 'Pull to refresh';
+        pullRefreshIndicator.querySelector('i').className = 'fas fa-arrow-down';
+    }
+    
+    function triggerRefresh() {
+        if (isRefreshing) return;
+        
+        isRefreshing = true;
+        pullRefreshIndicator.classList.add('refreshing');
+        pullRefreshIndicator.querySelector('span').textContent = 'Refreshing...';
+        pullRefreshIndicator.querySelector('i').className = 'fas fa-spinner fa-spin';
+        
+        // Simulate refresh delay
+        setTimeout(() => {
+            refreshContent();
+            isRefreshing = false;
+            resetPullIndicator();
+            showNotification('Content refreshed!');
+        }, 1500);
+    }
+    
+    function refreshContent() {
+        // Refresh all content sections
+        showSkeletonLoading();
+        
+        setTimeout(() => {
+            displayMenuItems();
+            displayRecommendedItems();
+            displaySpecialOffers();
+            displayPreviousOrders();
+            hideSkeletonLoading();
+        }, 800);
+    }
+
+    // Enhanced Animation Functions
+    function addStaggeredAnimation(elements, delay = 100) {
+        elements.forEach((element, index) => {
+            element.style.animationDelay = `${index * delay}ms`;
+            element.style.animationFillMode = 'both';
+        });
+    }
+    
+    function animateElement(element, animation, duration = 600) {
+        element.style.animation = `${animation} ${duration}ms ease-out`;
+        element.style.animationFillMode = 'both';
+        
+        setTimeout(() => {
+            element.style.animation = '';
+        }, duration);
+    }
+    
+    function addLoadingState(element) {
+        element.classList.add('loading');
+        element.style.position = 'relative';
+    }
+    
+    function removeLoadingState(element) {
+        element.classList.remove('loading');
+    }
+
+    // Enhanced Notification System
+    function showEnhancedNotification(message, type = 'info', duration = 3000) {
+        const notification = document.createElement('div');
+        notification.className = `enhanced-notification ${type}`;
+        notification.innerHTML = `
+            <div class="notification-content">
+                <i class="fas ${getNotificationIcon(type)}"></i>
+                <span>${message}</span>
+                <button class="notification-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        `;
+        
+        // Add styles
+        notification.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--card-bg);
+            border: 2px solid var(--border-color);
+            border-left: 4px solid var(--${type}-color);
+            border-radius: 8px;
+            padding: 15px 20px;
+            box-shadow: var(--shadow);
+            z-index: 10000;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            max-width: 300px;
+        `;
+        
+        document.body.appendChild(notification);
+        
+        // Animate in
+        setTimeout(() => {
+            notification.style.transform = 'translateX(0)';
+        }, 100);
+        
+        // Close button functionality
+        const closeBtn = notification.querySelector('.notification-close');
+        closeBtn.addEventListener('click', () => {
+            closeNotification(notification);
+        });
+        
+        // Auto close
+        setTimeout(() => {
+            closeNotification(notification);
+        }, duration);
+    }
+    
+    function closeNotification(notification) {
+        notification.style.transform = 'translateX(100%)';
+        setTimeout(() => {
+            if (notification.parentNode) {
+                notification.parentNode.removeChild(notification);
+            }
+        }, 300);
+    }
+    
+    function getNotificationIcon(type) {
+        switch(type) {
+            case 'success': return 'fa-check-circle';
+            case 'error': return 'fa-exclamation-circle';
+            case 'warning': return 'fa-exclamation-triangle';
+            case 'info': 
+            default: return 'fa-info-circle';
+        }
+    }
+
+    // Enhanced showNotification function
+    const originalShowNotification = showNotification;
+    showNotification = function(message, type = 'info') {
+        showEnhancedNotification(message, type);
+    };
+
+    // Accessibility: Trap focus in modals and support keyboard navigation
+    function trapFocus(modal) {
+        const focusableSelectors = 'a[href], button, textarea, input, select, [tabindex]:not([tabindex="-1"])';
+        const focusableEls = modal.querySelectorAll(focusableSelectors);
+        if (!focusableEls.length) return;
+        const firstEl = focusableEls[0];
+        const lastEl = focusableEls[focusableEls.length - 1];
+        modal.addEventListener('keydown', function(e) {
+            if (e.key === 'Tab') {
+                if (e.shiftKey) {
+                    if (document.activeElement === firstEl) {
+                        e.preventDefault();
+                        lastEl.focus();
+                    }
+                } else {
+                    if (document.activeElement === lastEl) {
+                        e.preventDefault();
+                        firstEl.focus();
+                    }
+                }
+            }
+            if (e.key === 'Escape') {
+                modal.style.display = 'none';
+            }
+        });
+    }
+    // Apply trapFocus to all modals when opened
+    [cartModal, profileModal, locationModal, orderConfirmation].forEach(modal => {
+        modal.addEventListener('show', () => trapFocus(modal));
+    });
+    // Make close buttons keyboard accessible
+    [...document.querySelectorAll('.modal .close')].forEach(btn => {
+        btn.addEventListener('keydown', e => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                btn.click();
+            }
+        });
+    });
+
+    // Sync cart item prices with latest menu data
+    function syncCartPrices() {
+        let updated = false;
+        cart.forEach(item => {
+            const menuItem = menuItems.find(m => m.id === item.id);
+            if (menuItem && item.price !== menuItem.price) {
+                item.price = menuItem.price;
+                updated = true;
+            }
+        });
+        if (updated) {
+            localStorage.setItem('cart', JSON.stringify(cart));
+            if (cartModal.style.display === 'block') displayCartItems();
+        }
+    }
+    // Call on page load
+    syncCartPrices();
+    // Also call before placing order
+    if (deliveryForm) {
+        deliveryForm.addEventListener('submit', function(e) {
+            syncCartPrices();
+            // ... existing code ...
+        });
+    }
 });
